@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
+    <!--parametros de uso-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
+    <!--formulario de login-->
     <h1>Login</h1>
     <form method="post">
+
+        {% csrf_token %}
+        <!--caixa de email-->
         <label for="email">E-mail:</label>
         <input 
         type="email"
@@ -16,8 +21,10 @@
         placeholder="Digite seu email..."
         >
 
+        <!--quebra de linha, por enquanto vai ter depois quando implementarmos o css iremos retirar-->
         <br><br>
-
+        
+        <!--caixa de senha-->
         <label for="senha">Senha:</label>
         <input 
         type="password"
@@ -27,7 +34,7 @@
         >
 
         <br><br>
-
+        <!--botão de submit para enviar-->
         <button type="submit">Entrar</button>
     </form>
     
