@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Dispositivo(models.Model):
     # Nome dado ao dispositivo
@@ -29,6 +29,23 @@ class Dispositivo(models.Model):
         null=True,
         blank=True
     )
+
+    # Porcentagem atual da bateria do ESP32
+    # Armazena apenas números interios de 0 a 100
+    bateria = models.PositiveIntegerField(
+        default = 100,
+        validators= [
+            MinValueValidator(0),
+            MaxValueValidator(100)
+        ]
+    )
+
+    # Indica se o ESP32 está conectado a rede 
+    # True = conectado | false = desconectado
+    rede_conectada = models.BooleanField(
+        default = False
+    )
+
 
     def __str__(self):
         # Mostra o nome do dispositivo
@@ -73,20 +90,27 @@ class Registro(models.Model):
     # Temperatura do ambiente em graus Celsius
     # Exemplo: 28.5
     temperatura = models.DecimalField(
-        max_digits=4,
-        decimal_places=1
+        max_digits=5,
+        decimal_places=2
     )
 
     # Umidade do ambiente em porcentagem
     # Exemplo: 47.1
     umidade = models.DecimalField(
-        max_digits=4,
-        decimal_places=1
+        max_digits=5,
+        decimal_places=2
     )
 
-    # Quantidade de gás detectada em PPM
-    # O valor é armazenado como número inteiro
-    gas_ppm = models.IntegerField()
+    # Porcentagem de gás detectada pelo ESP32
+    # Valor inteiro de 0 a 100
+    # Exemplo: 87
+    gas_percentual = models.PositiveIntegerField(
+        default = 0,
+        validators= [
+            MinValueValidator(0),
+            MaxValueValidator(100)
+        ]
+    )
 
     # Classificação do nível de gás
     nivel_gas = models.CharField(
