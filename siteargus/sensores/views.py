@@ -1,10 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+#importa o modelo Dispositivo do aplicativo sensores 
+from .models import Dispositivo 
 
-# Exibe a lista de sensores cadastrados
+
+# Cria a função reponsavel pela pagina de lista de sensores 
 def lista_sensores(request):
-    return HttpResponse("Lista de sensores")
+    #Busca todos os dispositivos cadastrados no banco de dados 
+    dispositivos = Dispositivo.objects.all() 
+
+    return render (
+        request,
+        "sensores/lista_sensores.html",
+        {"dispositivos": dispositivos}
+    )
 
 
 # Exibe a tela para cadastrar um novo sensor

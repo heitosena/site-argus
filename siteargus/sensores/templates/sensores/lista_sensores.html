@@ -1,0 +1,92 @@
+<!-- Define o padrão HTML5. -->
+<!DOCTYPE html>
+
+<!-- Inicia a página em português. -->
+<html lang="pt-br">
+
+<head>
+
+    <!-- Permite caracteres especiais. -->
+    <meta charset="UTF-8">
+
+    <!-- Define o título da aba. -->
+    <title>Sensores - A.R.G.U.S.</title>
+
+</head>
+
+<body>
+
+    <!-- Mostra o título da página. -->
+    <h1>Sensores cadastrados</h1>
+
+    <!-- Verifica se existem sensores. -->
+    {% if dispositivos %}
+
+        <!-- Inicia a lista de sensores. -->
+        <ul>
+
+            <!-- Percorre os sensores. -->
+            {% for dispositivo in dispositivos %}
+
+                <!-- Mostra um sensor. -->
+                <li>
+
+                    <!-- Mostra o nome. -->
+                    <strong>{{ dispositivo.nome }}</strong>
+
+                    <!-- Pula uma linha. -->
+                    <br>
+
+                    <!-- Mostra o modelo. -->
+                    Modelo: {{ dispositivo.modelo }}
+
+                    <!-- Pula uma linha. -->
+                    <br>
+
+                    <!-- Mostra o status. -->
+                    Status: {{ dispositivo.status }}
+
+                    <!-- Pula uma linha. -->
+                    <br>
+
+                    <!-- Mostra a bateria. -->
+                    Bateria: {{ dispositivo.bateria }}%
+
+                    <!-- Pula uma linha. -->
+                    <br>
+
+                    <!-- Mostra o estado da rede. -->
+                    Rede conectada:
+
+                    <!-- Verifica a conexão. -->
+                    {% if dispositivo.rede_conectada %}
+
+                        <!-- Mostra quando está conectado. -->
+                        Sim
+
+                    {% else %}
+
+                        <!-- Mostra quando está desconectado. -->
+                        Não
+
+                    {% endif %}
+
+                </li>
+
+                <!-- Cria espaço entre sensores. -->
+                <br>
+
+            {% endfor %}
+
+        </ul>
+
+    {% else %}
+
+        <!-- Mensagem para lista vazia. -->
+        <p>Nenhum sensor cadastrado.</p>
+
+    {% endif %}
+
+</body>
+
+</html>
