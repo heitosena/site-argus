@@ -91,14 +91,14 @@ class Registro(models.Model):
     # Exemplo: 28.5
     temperatura = models.DecimalField(
         max_digits=5,
-        decimal_places=2
+        decimal_places=1
     )
 
     # Umidade do ambiente em porcentagem
     # Exemplo: 47.1
     umidade = models.DecimalField(
         max_digits=5,
-        decimal_places=2
+        decimal_places=1
     )
 
     # Porcentagem de gás detectada pelo ESP32
