@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
-#importa o modelo Dispositivo do aplicativo sensores 
-from .models import Dispositivo 
+from .models import Dispositivo    #importa o modelo Dispositivo do aplicativo sensores 
 
 
 # Cria a função reponsavel pela pagina de lista de sensores 
