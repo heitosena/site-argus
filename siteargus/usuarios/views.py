@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password # Função do django para criptografar as senhas
 
 # Create your views here.
 def login_views(request):
