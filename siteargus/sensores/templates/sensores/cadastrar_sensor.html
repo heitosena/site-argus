@@ -1,0 +1,74 @@
+<!-- Define o padrão HTML5. -->
+<!DOCTYPE html>
+
+<!-- Inicia a página em português. -->
+<html lang="pt-br">
+
+<head>
+
+    <!-- Permite caracteres especiais. -->
+    <meta charset="UTF-8">
+
+    <!-- Define o título da aba. -->
+    <title>Cadastro de Dipositivos - A.R.G.U.S.</title>
+
+</head>
+
+<body>
+
+    <!-- Título da página. -->
+    <h1>Cadastro de Dispositivo</h1>
+
+    <!-- Formulário responsável pelo cadastro. -->
+    <form method="post">
+
+        <!-- Protege o formulário contra ataques CSRF. -->
+        {% csrf_token %}
+
+        <!-- Campo para o nome do sensor. -->
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <br><br>
+
+        <!-- Campo para o modelo do sensor. -->
+        <label for="modelo">Modelo</label>
+        <input type="text" id="modelo" name="modelo" value="ESP32 - Sensor de Gás" required>
+
+        <br><br>
+
+        <!-- Campo para escolher o status. -->
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+            <option value="Manutenção">Manutenção</option>
+
+        </select>
+
+        <br><br>
+
+        <!-- Campo para informar a bateria. -->
+        <label for="bateria">Bateria (%):</label>
+        <input type="number" id="bateria" name="bateria"
+               min="0" max="100" value="100" required>
+
+        <br><br>
+
+        <!-- Caixa para informar se o sensor está conectado à rede. -->
+        <label for="rede_conectada">
+            <input type="checkbox" id="rede_conectada" name="rede_conectada">
+            Rede conectada
+        </label>
+
+        <br><br>
+
+        <!-- Botão que envia o formulário. -->
+        <button type="submit">Cadastrar sensor</button>
+
+    </form>
+
+</body>
+
+</html>
