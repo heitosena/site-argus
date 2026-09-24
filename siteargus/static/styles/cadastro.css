@@ -24,7 +24,7 @@ body {
 
 .formulario label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
     font-weight: bold;
     color: #e8f0f5;
 }
@@ -33,6 +33,7 @@ body {
     width: 100%;
     padding: 10px;
     border: 1px solid #1a2d40;
+    margin-bottom: 20px;
     border-radius: 5px;
 }
 
