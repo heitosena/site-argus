@@ -1,43 +1,45 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <!--parametros de uso-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <!--Modo de relacionar o html com o css para estilizar-->
+    <link rel="stylesheet" href="{% static 'styles/login.css'%}">
+
 </head>
-<body>
-    <!--formulario de login-->
-    <h1>Login</h1>
-    <form method="post">
+<div class="containerLogin">
 
-        {% csrf_token %}
-        <!--caixa de email-->
-        <label for="email">E-mail:</label>
-        <input 
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Digite seu email..."
-        >
+    <body>
+        <div class="tituloLogin">
+            <!--formulario de login-->
+            <h1>Login</h1>
+        </div>
+        <div class="formularioLogin">
+            <form method="post">
 
-        <!--quebra de linha, por enquanto vai ter depois quando implementarmos o css iremos retirar-->
-        <br><br>
-        
-        <!--caixa de senha-->
-        <label for="senha">Senha:</label>
-        <input 
-        type="password"
-        id="senha"
-        name="senha"
-        placeholder="Digite sua senha..."
-        >
+                {% csrf_token %}
+                <!--caixa de email-->
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="lacerda@email.com">
 
-        <br><br>
-        <!--botão de submit para enviar-->
-        <button type="submit">Entrar</button>
-    </form>
-    
+                <!--caixa de senha-->
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="senha123">
+                <div class="botao_entrar">
+                    <!--botão de submit para enviar-->
+                    <button type="submit">Entrar</button>
+                </div>
+            </form>
+        </div>
 
-</body>
+
+    </body>
+</div>
+
 </html>

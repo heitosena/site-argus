@@ -9,27 +9,27 @@ body {
     min-height: 100vh;
 }
 
-.containerCad {
+.containerLogin {
     background-color: #0d1520;
     width: 400px;
     padding: 30px;
     border-radius: 10px;
 }
 
-.tituloCad {
+.tituloLogin {
     text-align: center;
     margin-bottom: 25px;
     color:#e8f0f5
 }
 
-.formularioCad label {
+.formularioLogin label {
     display: block;
     margin-bottom: 20px;
     font-weight: bold;
     color: #e8f0f5;
 }
 
-.formularioCad input {
+.formularioLogin input {
     width: 100%;
     padding: 10px;
     border: 1px solid #1a2d40;
@@ -37,11 +37,11 @@ body {
     border-radius: 5px;
 }
 
-.botao_cadastrar {
+.botao_entrar {
     text-align: center;
 }
 
-.botao_cadastrar button {
+.botao_entrar button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
