@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # Importa o modelo Dispositivo do aplicativo sensores
-from .models import Dispositivo
+from .models import Dispositivo, Registro
 
 
 # Exibe a lista de sensores cadastrados
@@ -54,6 +54,14 @@ def cadastrar_sensor(request):
     )
 
 
-# Exibe as leituras dos sensores
+# Exibe as leituras dos dispositivos.
 def lista_leituras(request):
-    return HttpResponse("Lista de leituras")
+    # Busca todas as leituras e seus dispositivos relacionados.
+    registros = Registro.objects.select_related('dispositivo').all()
+
+    # Envia as leituras para a página HTML.
+    return render(
+        request,
+        'sensores/lista_leituras.html',
+        {'registros': registros}
+    )

@@ -1,0 +1,84 @@
+{% load static %}
+<!-- Define o padrão HTML5. -->
+<!DOCTYPE html>
+
+<!-- Inicia a página em português. -->
+<html lang="pt-br">
+
+<head>
+    <!-- Permite caracteres especiais. -->
+    <meta charset="UTF-8">
+
+    <!-- Adapta a página a diferentes tamanhos de tela. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Carrega o arquivo CSS da página de leituras. -->
+    <link rel="stylesheet" href="{% static 'sensores/css/lista_leituras.css' %}">
+
+    <!-- Define o título da aba. -->
+    <title>Leituras - A.R.G.U.S.</title>
+</head>
+
+<body>
+
+    <!-- Título principal da página. -->
+    <h1>Leituras dos dispositivos</h1>
+
+    <!-- Botão para atualizar as leituras. -->
+<button type="button" id="atualizar-leituras">
+    Atualizar leituras
+</button>
+    <!-- Verifica se existem leituras cadastradas. -->
+    {% if registros %}
+
+        <!-- Cria a tabela de leituras. -->
+        <table border="1">
+
+            <!-- Define os títulos das colunas. -->
+            <thead>
+                <tr>
+                    <th>Dispositivo</th>
+                    <th>Data e hora</th>
+                    <th>Temperatura</th>
+                    <th>Umidade</th>
+                    <th>Gás</th>
+                    <th>Nível de gás</th>
+                    <th>Vazamento</th>
+                </tr>
+            </thead>
+
+            <!-- Exibe as leituras cadastradas. -->
+            <tbody>
+                {% for registro in registros %}
+                    <tr>
+                        <td>{{ registro.dispositivo.nome }}</td>
+                        <td>{{ registro.data_hora }}</td>
+                        <td>{{ registro.temperatura }} °C</td>
+                        <td>{{ registro.umidade }}%</td>
+                        <td>{{ registro.gas_percentual }}%</td>
+                        <td>{{ registro.nivel_gas }}</td>
+
+                        <!-- Mostra se foi detectado vazamento. -->
+                        <td>
+                            {% if registro.vazamento %}
+                                Sim
+                            {% else %}
+                                Não
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <!-- Mensagem exibida quando não existem leituras. -->
+        <p>Nenhuma leitura cadastrada.</p>
+
+    {% endif %}
+    <!-- Carrega o JavaScript da página de leituras. -->
+    <script src="{% static 'sensores/js/lista_leituras.js' %}"></script>
+
+</body>
+</html>

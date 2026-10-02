@@ -1,0 +1,92 @@
+/* Define o estilo geral da página. */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    margin: 0;
+    padding: 30px;
+}
+
+/* Estiliza o título principal. */
+h1 {
+    text-align: center;
+    color: #1e3a5f;
+    margin-bottom: 30px;
+}
+
+/* Organiza a tabela de leituras. */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Estiliza os títulos das colunas. */
+th {
+    background-color: #1e3a5f;
+    color: white;
+    padding: 14px;
+    text-align: left;
+}
+
+/* Estiliza as células da tabela. */
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Destaca as linhas ao passar o mouse. */
+tbody tr:hover {
+    background-color: #eaf1f8;
+}
+
+/* Centraliza a mensagem quando não há leituras. */
+p {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+/* Adapta a tabela a telas menores. */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th,
+    td {
+        padding: 8px;
+    }
+
+    /* Estiliza o botão de atualizar leituras. */
+#atualizar-leituras {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    background-color: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Altera a cor quando o mouse passa sobre o botão. */
+#atualizar-leituras:hover {
+    background-color: #2d5988;
+    transform: translateY(-2px);
+}
+
+/* Indica visualmente quando o botão é pressionado. */
+#atualizar-leituras:active {
+    transform: translateY(0);
+}
+}
