@@ -1,6 +1,6 @@
 console.log("Hello, World!!")
 
-const formularioLogin =document.getElementById("formCad")
+const formularioCadastro =document.getElementById("formCad")
 
 const nome = document.getElementById("nome");
 const email = document.getElementById("email");
@@ -9,8 +9,8 @@ const confsenha = document.getElementById("confSenha");
 const telefone = document.getElementById("telefone");
 
 formCad.addEventListener("submit", function(event) {
-
-    if (nome.value.lenght < 7){
+    event.preventDefault();
+    if (nome.value.length < 7){
         console.log("Digite seu nome completo");
         return;
     }
