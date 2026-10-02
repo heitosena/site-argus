@@ -12,10 +12,12 @@
     <!--Modo de relacionar o html com o css para estilizar-->
     <link rel="stylesheet" href="{% static 'styles/login.css'%}">
 
-</head>
-<div class="containerLogin">
 
-    <body>
+</head>
+
+
+<body>
+    <div class="containerLogin">
         <div class="tituloLogin">
             <!--formulario de login-->
             <h1>Login</h1>
@@ -38,8 +40,13 @@
             </form>
         </div>
 
+    </div>
 
-    </body>
-</div>
+    <!--Relacionando com JavaScript-->
+    <script src="{% static 'js/Login.js' %}"></script>
+    
+</body>
+
+
 
 </html>
