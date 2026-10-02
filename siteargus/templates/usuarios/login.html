@@ -23,7 +23,7 @@
             <h1>Login</h1>
         </div>
         <div class="formularioLogin">
-            <form method="post">
+            <form method="post" id="formLogin">
 
                 {% csrf_token %}
                 <!--caixa de email-->
@@ -44,7 +44,7 @@
 
     <!--Relacionando com JavaScript-->
     <script src="{% static 'js/Login.js' %}"></script>
-    
+
 </body>
 
 
