@@ -89,4 +89,29 @@ p {
 #atualizar-leituras:active {
     transform: translateY(0);
 }
+
+/* Organiza o painel principal de monitoramento. */
+.painel-leituras {
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    padding: 25px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Estiliza o título do painel. */
+.painel-leituras h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #1e3a5f;
+}
+
+/* Estiliza o texto explicativo do painel. */
+.painel-leituras p {
+    margin: 0;
+    text-align: left;
+    font-size: 16px;
+    color: #666;
+}
 }
