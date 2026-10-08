@@ -57,7 +57,8 @@ def cadastrar_sensor(request):
 # Exibe as leituras dos dispositivos.
 def lista_leituras(request):
     # Busca todas as leituras e seus dispositivos relacionados.
-    registros = Registro.objects.select_related('dispositivo').all()
+   # Busca as leituras da mais recente para a mais antiga.
+    registros = Registro.objects.select_related('dispositivo').order_by('-data_hora')
 
     # Envia as leituras para a página HTML.
     return render(

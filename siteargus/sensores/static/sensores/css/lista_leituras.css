@@ -63,7 +63,7 @@ p {
     td {
         padding: 8px;
     }
-
+}
     /* Estiliza o botão de atualizar leituras. */
 #atualizar-leituras {
     display: block;
@@ -114,4 +114,37 @@ p {
     font-size: 16px;
     color: #666;
 }
+
+/* Organiza os cartões de monitoramento em uma grade. */
+.cartoes-leituras {
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
+
+/* Estiliza cada cartão individualmente. */
+.cartao-leitura {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Estiliza o título dentro de cada cartão. */
+.cartao-leitura h3 {
+    margin: 0 0 10px 0;
+    color: #1e3a5f;
+}
+
+/* Estiliza a descrição dentro de cada cartão. */
+.cartao-leitura p {
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
