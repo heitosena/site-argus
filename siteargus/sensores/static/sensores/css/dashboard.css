@@ -1,0 +1,213 @@
+
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS
+   ========================================= */
+
+/* Padroniza o tamanho dos elementos. */
+* {
+    box-sizing: border-box;
+}
+
+/* Aparência geral da página. */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f3f6fa;
+    color: #243247;
+}
+
+/* =========================================
+   2. CABEÇALHO DO A.R.G.U.S.
+   ========================================= */
+
+.cabecalho-dashboard {
+    background: linear-gradient(120deg, #10264a, #1d4ed8);
+    color: #ffffff;
+    padding: 28px 40px;
+    border-bottom: 4px solid #36a3a5;
+    box-shadow: 0 4px 14px rgba(23, 43, 77, 0.15);
+}
+
+.cabecalho-dashboard h1 {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.cabecalho-dashboard p {
+    margin: 8px 0 0;
+    color: #dbeafe;
+    font-size: 15px;
+}
+
+/* =========================================
+   3. CONTEÚDO PRINCIPAL
+   ========================================= */
+
+.conteudo-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.conteudo-dashboard h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #172b4d;
+}
+
+.conteudo-dashboard > p {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* =========================================
+   4. ÁREA DOS MEDIDORES
+   ========================================= */
+
+.medidores-dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid #dce4ee;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(23, 43, 77, 0.06);
+}
+
+/* =========================================
+   5. CARTÕES INDIVIDUAIS
+   ========================================= */
+
+.cartao-medidor {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 28px 16px 24px;
+    background-color: #ffffff;
+    border: 1px solid #dce4ee;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(23, 43, 77, 0.05);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+/* Faixa azul visível no topo de cada cartão. */
+.cartao-medidor::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(
+        90deg,
+        #1d4ed8 0%,
+        #3b82f6 55%,
+        #36a3a5 100%
+    );
+    z-index: 2;
+}
+
+/* Efeito ao passar o mouse. */
+.cartao-medidor:hover {
+    transform: translateY(-4px);
+    border-color: #93c5fd;
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.13);
+}
+
+/* Título de cada medidor. */
+.cartao-medidor h3 {
+    margin: 0 0 20px;
+    color: #1d4ed8;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* =========================================
+   6. MEDIDORES CIRCULARES
+   ========================================= */
+
+.medidor-circular {
+    --progresso: 0deg;
+    --cor-medidor: #2563eb;
+
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+
+    /* Mantém o preenchimento animado controlado pelo JavaScript. */
+    background:
+        radial-gradient(
+            closest-side,
+            #f3f6fa 84%,
+            transparent 86%
+        ),
+        conic-gradient(
+            var(--cor-medidor) var(--progresso),
+            #dce4ee 0deg
+        );
+
+    box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.07);
+    transition: box-shadow 0.2s ease;
+}
+
+/* Número central do medidor. */
+.valor-medidor {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1d4ed8;
+}
+
+/* Unidade de medida abaixo do círculo. */
+.cartao-medidor p {
+    margin: 14px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* =========================================
+   7. ADAPTAÇÃO PARA TELAS MENORES
+   ========================================= */
+
+/* Tablets e telas médias. */
+@media (max-width: 900px) {
+    .medidores-dashboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        padding: 16px;
+    }
+}
+
+/* Celulares. */
+@media (max-width: 480px) {
+    .cabecalho-dashboard {
+        padding: 24px 20px;
+    }
+
+    .conteudo-dashboard {
+        padding: 24px 16px;
+    }
+
+    .medidores-dashboard {
+        grid-template-columns: 1fr;
+        padding: 12px;
+    }
+
+    .cartao-medidor {
+        padding: 28px 12px 24px;
+    }
+}

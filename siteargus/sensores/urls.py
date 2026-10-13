@@ -10,6 +10,9 @@ urlpatterns = [
     # Tela para cadastrar um sensor
     path('cadastrar/', views.cadastrar_sensor, name='cadastrar_sensor'),
 
+    # Tela de Dashboard
+    path('dashboard/', views.dashboard, name='dashboard'),
+
     # Lista as leituras dos sensores
     path('leituras/', views.lista_leituras, name='lista_leituras'),
 ]

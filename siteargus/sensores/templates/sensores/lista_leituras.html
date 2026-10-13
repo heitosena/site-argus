@@ -38,29 +38,81 @@
 <!-- Cartões com resumo das últimas informações. -->
 <section class="cartoes-leituras">
 
-    <!-- Cartão de temperatura. -->
-    <div class="cartao-leitura">
-        <h3>Temperatura</h3>
-        <p>Monitoramento da temperatura do ambiente.</p>
-    </div>
+   <!-- Cartão que mostra a temperatura mais recente. -->
+<div class="cartao-leitura">
+    <h3>Temperatura</h3>
 
-    <!-- Cartão de umidade. -->
-    <div class="cartao-leitura">
-        <h3>Umidade</h3>
-        <p>Monitoramento da umidade do ambiente.</p>
-    </div>
+    <!-- Verifica se existe alguma leitura registrada. -->
+    {% if ultima_leitura %}
 
-    <!-- Cartão de gás. -->
-    <div class="cartao-leitura">
-        <h3>Gás</h3>
-        <p>Monitoramento do nível de gás.</p>
-    </div>
+        <!-- Mostra a temperatura da leitura mais recente. -->
+        <p>{{ ultima_leitura.temperatura }} °C</p>
 
-    <!-- Cartão de vazamento. -->
-    <div class="cartao-leitura">
-        <h3>Vazamento</h3>
-        <p>Verificação de possíveis vazamentos.</p>
-    </div>
+    {% else %}
+
+        <!-- Mensagem exibida quando não há leituras. -->
+        <p>Nenhuma leitura disponível.</p>
+
+    {% endif %}
+</div>
+
+   <!-- Cartão que mostra a umidade mais recente. -->
+<div class="cartao-leitura">
+    <h3>Umidade</h3>
+
+    <!-- Verifica se existe alguma leitura registrada. -->
+    {% if ultima_leitura %}
+
+        <!-- Mostra a umidade da leitura mais recente. -->
+        <p>{{ ultima_leitura.umidade }}%</p>
+
+    {% else %}
+
+        <!-- Mensagem exibida quando não há leituras. -->
+        <p>Nenhuma leitura disponível.</p>
+
+    {% endif %}
+</div>
+
+    <!-- Cartão que mostra o nível de gás mais recente. -->
+<div class="cartao-leitura">
+    <h3>Gás</h3>
+
+    <!-- Verifica se existe alguma leitura registrada. -->
+    {% if ultima_leitura %}
+
+        <!-- Mostra o nível de gás registrado. -->
+        <p>{{ ultima_leitura.nivel_gas }}</p>
+
+    {% else %}
+
+        <!-- Mensagem exibida quando não há leituras. -->
+        <p>Nenhuma leitura disponível.</p>
+
+    {% endif %}
+</div>
+
+    <!-- Cartão que mostra o estado do vazamento mais recente. -->
+<div class="cartao-leitura">
+    <h3>Vazamento</h3>
+
+    <!-- Verifica se existe alguma leitura registrada. -->
+    {% if ultima_leitura %}
+
+        <!-- Verifica se foi detectado um vazamento. -->
+        {% if ultima_leitura.vazamento %}
+            <p>Vazamento detectado</p>
+        {% else %}
+            <p>Nenhum vazamento detectado</p>
+        {% endif %}
+
+    {% else %}
+
+        <!-- Mensagem exibida quando não há leituras. -->
+        <p>Nenhuma leitura disponível.</p>
+
+    {% endif %}
+</div>
 
 </section>
 

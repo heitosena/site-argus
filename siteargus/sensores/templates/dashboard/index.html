@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | A.R.G.U.S.</title>
+
+    <!-- Carrega os estilos visuais da Dashboard. -->
+    <link rel="stylesheet" href="{% static 'sensores/css/dashboard.css' %}">
+</head>
+<body>
+
+    <!-- Cabeçalho principal do sistema A.R.G.U.S. -->
+    <header class="cabecalho-dashboard">
+        <h1>A.R.G.U.S.</h1>
+        <p>Painel de monitoramento</p>
+    </header>
+
+    <!-- Conteúdo principal da Dashboard. -->
+    <main class="conteudo-dashboard">
+
+        <!-- Apresentação do painel. -->
+        <h2>Visão geral</h2>
+        <p>Bem-vindo ao painel de monitoramento dos dispositivos.</p>
+
+        <!-- Área com os quatro medidores da Dashboard. -->
+<section class="medidores-dashboard">
+
+    <!-- Medidor de temperatura. -->
+    <article class="cartao-medidor">
+        <h3>Temperatura</h3>
+        <div class="medidor-circular" id="medidor-temperatura">
+            <span class="valor-medidor">0</span>
+        </div>
+        <p>°C</p>
+    </article>
+
+    <!-- Medidor de umidade. -->
+    <article class="cartao-medidor">
+        <h3>Umidade</h3>
+        <div class="medidor-circular" id="medidor-umidade">
+            <span class="valor-medidor">0</span>
+        </div>
+        <p>%</p>
+    </article>
+
+    <!-- Medidor de gás. -->
+    <article class="cartao-medidor">
+    <h3>Nível de gás</h3>
+    <div class="medidor-circular" id="medidor-gas">
+        <span class="valor-medidor">0</span>
+    </div>
+    <p>%</p>
+    </article>
+
+    <!-- Medidor de bateria. -->
+    <article class="cartao-medidor">
+        <h3>Bateria</h3>
+        <div class="medidor-circular" id="medidor-bateria">
+            <span class="valor-medidor">0</span>
+        </div>
+        <p>%</p>
+    </article>
+
+</section>
+
+    </main>
+    
+ <!-- Carrega as animações dos medidores da Dashboard. -->
+    <script src="{% static 'sensores/js/dashboard.js' %}"></script>
+</body>
+</html>

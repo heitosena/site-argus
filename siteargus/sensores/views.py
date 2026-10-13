@@ -56,13 +56,26 @@ def cadastrar_sensor(request):
 
 # Exibe as leituras dos dispositivos.
 def lista_leituras(request):
-    # Busca todas as leituras e seus dispositivos relacionados.
-   # Busca as leituras da mais recente para a mais antiga.
+    # Busca todas as leituras, da mais recente para a mais antiga.
     registros = Registro.objects.select_related('dispositivo').order_by('-data_hora')
 
-    # Envia as leituras para a página HTML.
+    # Busca a leitura mais recente, caso exista alguma.
+    ultima_leitura = registros.first()
+
+    # Envia o histórico e a leitura mais recente para a página HTML.
     return render(
         request,
         'sensores/lista_leituras.html',
-        {'registros': registros}
-    )
+        {
+            'registros': registros,
+            'ultima_leitura': ultima_leitura
+        }
+       
+)   
+  
+  
+# Exibe a página principal da Dashboard do A.R.G.U.S.
+def dashboard(request):
+    # Abre o template HTML da Dashboard.
+    return render(request, "dashboard/index.html")
+
