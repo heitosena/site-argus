@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'siteargus.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_ARGUS / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ARGUS',
+        'USER': 'root',
+        'PASSWORD': 'colocar ainda a senha do mysql', #colocar a senha do mysql preciso fazer o env
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 

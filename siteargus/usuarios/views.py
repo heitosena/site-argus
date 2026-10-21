@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password # Função do django para criptografar as senhas
+from  .models import Usuario
 
 # Create your views here.
 def login_views(request):
@@ -14,8 +15,14 @@ def cadastro_views(request):
         email = request.POST.get("email")
         telefone = request.POST.get("telefone")
         senha = request.POST.get("senha")
+        senhaHash = make_password(senha)    
 
-        senha = make_password(senha)
+        Usuario.objects.create(
+            nome=nome,
+            email=email,
+            telefone=telefone,
+            senha=senhaHash
+        )
 
         print(nome)
         print(email)

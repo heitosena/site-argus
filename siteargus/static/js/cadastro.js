@@ -1,5 +1,3 @@
-console.log("Hello, World!!");
-
 const formularioCadastro = document.getElementById("formCad");
 
 const nome = document.getElementById("nome");
