@@ -1,11 +1,497 @@
+
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>ARGUS | Início</title>
+
+    <!-- Conexão com o CSS da Home -->
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
 </head>
+
 <body>
-    <h1>Bem-Vindo</h1>
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalhoHome" id="inicio">
+
+        <div class="containerHome">
+
+            <a href="#inicio" class="logoHome">
+                <img src="{% static 'images/logo-argus.png' %}"
+                     alt="Logo do ARGUS">
+            </a>
+
+            <nav class="menuHome" aria-label="Menu principal">
+
+                <a href="#inicio" class="linkMenuHome">
+                    Início
+                </a>
+
+                <a href="#sobre" class="linkMenuHome">
+                    Sobre o projeto
+                </a>
+
+                <a href="#comoFunciona" class="linkMenuHome">
+                    Como funciona
+                </a>
+
+                <a href="{% url 'login' %}" class="botaoEntrarHome">
+                    Entrar
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- APRESENTAÇÃO PRINCIPAL -->
+        <section class="apresentacaoHome" id="sobre">
+
+            <div class="containerHome">
+
+                <!-- Textos da apresentação -->
+                <div class="conteudoHome">
+
+                    <span class="subtituloHome">
+                        SEGURANÇA RESIDENCIAL INTELIGENTE
+                    </span>
+
+                    <h1 class="tituloHome">
+                        A.R.G.U.S.
+                    </h1>
+
+                    <h2 class="chamadaHome">
+                        Sua segurança começa com o
+                        monitoramento inteligente.
+                    </h2>
+
+                    <p class="textoHome">
+                        O ARGUS é um projeto de monitoramento ambiental
+                        que busca auxiliar na identificação de possíveis
+                        vazamentos de gás por meio de sensores conectados
+                        a uma plataforma web.
+                    </p>
+
+                    <div class="acoesHome">
+
+                        <a href="#funcionalidades" class="botaoHome">
+                            Conheça o projeto
+                            <span aria-hidden="true">↗</span>
+                        </a>
+
+                    </div>
+
+                    <span class="legendaHome">
+                        Projeto acadêmico · Trabalho de Conclusão de Curso
+                    </span>
+
+                </div>
+
+
+                <!-- ILUSTRAÇÃO DO SISTEMA -->
+                <div class="ilustracaoHome">
+
+                    <div class="cabecalhoIlustracao">
+
+                        <span>ARQUITETURA DO SISTEMA</span>
+
+                        <span>ESP32 / IoT</span>
+
+                    </div>
+
+
+                    <div class="diagramaHome">
+
+                        <!-- Sensores -->
+                        <div class="grupoSensoresHome">
+
+                            <div class="sensorHome">
+
+                                <span class="iconeSensorHome"
+                                      aria-hidden="true">
+                                    ≋
+                                </span>
+
+                                <h3>Sensor de gás</h3>
+
+                            </div>
+
+
+                            <div class="sensorHome">
+
+                                <span class="iconeSensorHome"
+                                      aria-hidden="true">
+                                    ♨
+                                </span>
+
+                                <h3>Temperatura e umidade</h3>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Conexão entre sensores e ESP32 -->
+                        <div class="conexaoHome" aria-hidden="true">
+                            →
+                        </div>
+
+
+                        <!-- ESP32 -->
+                        <div class="dispositivoHome">
+
+                            <span class="iconeDispositivoHome"
+                                  aria-hidden="true">
+                                ▦
+                            </span>
+
+                            <h3>ESP32</h3>
+
+                            <p>Processamento dos dados</p>
+
+                        </div>
+
+
+                        <!-- Conexão com a plataforma -->
+                        <div class="conexaoHome" aria-hidden="true">
+                            →
+                        </div>
+
+
+                        <!-- Plataforma web -->
+                        <div class="plataformaHome">
+
+                            <span class="iconePlataformaHome"
+                                  aria-hidden="true">
+                                ▤
+                            </span>
+
+                            <h3>Plataforma web</h3>
+
+                            <p>Visualização das informações</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="rodapeIlustracao">
+
+                        <span>
+                            Representação conceitual do projeto
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FUNCIONALIDADES -->
+        <section class="funcionalidadesHome" id="funcionalidades">
+
+            <div class="containerHome">
+
+                <div class="tituloSecaoHome">
+
+                    <span class="subtituloHome">
+                        01 · FUNCIONALIDADES
+                    </span>
+
+                    <h2 class="tituloFuncionalidadesHome">
+                        Monitorar para compreender.
+                    </h2>
+
+                    <p class="textoSecaoHome">
+                        Tecnologia e informação para apoiar
+                        o monitoramento da segurança residencial.
+                    </p>
+
+                </div>
+
+
+                <!-- Cartões de funcionalidades -->
+                <div class="listaFuncionalidadesHome">
+
+
+                    <!-- Detecção de gases -->
+                    <article class="cardFuncionalidade">
+
+                        <div class="iconeFuncionalidade"
+                             aria-hidden="true">
+                            ≋
+                        </div>
+
+                        <h3>Detecção de gases</h3>
+
+                        <p>
+                            Utilização de sensores para identificar
+                            a presença de gases e auxiliar na percepção
+                            de possíveis vazamentos.
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- Monitoramento ambiental -->
+                    <article class="cardFuncionalidade">
+
+                        <div class="iconeFuncionalidade"
+                             aria-hidden="true">
+                            ♨
+                        </div>
+
+                        <h3>Monitoramento ambiental</h3>
+
+                        <p>
+                            Coleta de informações de temperatura
+                            e umidade para acompanhar as condições
+                            do ambiente monitorado.
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- Alertas -->
+                    <article class="cardFuncionalidade">
+
+                        <div class="iconeFuncionalidade"
+                             aria-hidden="true">
+                            !
+                        </div>
+
+                        <h3>Alertas de atenção</h3>
+
+                        <p>
+                            Proposta de indicação de situações
+                            que exigem atenção a partir das
+                            informações coletadas.
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- COMO FUNCIONA -->
+        <section class="comoFuncionaHome" id="comoFunciona">
+
+            <div class="containerHome">
+
+                <div class="tituloSecaoHome">
+
+                    <span class="subtituloHome">
+                        02 · COMO FUNCIONA
+                    </span>
+
+                    <h2 class="tituloComoFuncionaHome">
+                        Do ambiente à informação.
+                    </h2>
+
+                    <p class="textoSecaoHome">
+                        Entenda as etapas que compõem
+                        a arquitetura proposta pelo ARGUS.
+                    </p>
+
+                </div>
+
+
+
+                <!-- Etapas do sistema -->
+                <div class="etapasHome">
+
+
+                    <!-- Etapa 1 -->
+                    <article class="etapaHome">
+
+                        <span class="numeroEtapaHome">
+                            01
+                        </span>
+
+                        <div class="iconeEtapaHome"
+                             aria-hidden="true">
+                            ◉
+                        </div>
+
+                        <span class="nomeEtapaHome">
+                            SENSORES
+                        </span>
+
+                        <h3>Coleta de informações</h3>
+
+                        <p>
+                            Os sensores obtêm informações sobre
+                            as condições do ambiente.
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- Etapa 2 -->
+                    <article class="etapaHome">
+
+                        <span class="numeroEtapaHome">
+                            02
+                        </span>
+
+                        <div class="iconeEtapaHome"
+                             aria-hidden="true">
+                            ▦
+                        </div>
+
+                        <span class="nomeEtapaHome">
+                            ESP32
+                        </span>
+
+                        <h3>Processamento</h3>
+
+                        <p>
+                            O ESP32 é responsável pelo processamento
+                            e pela comunicação dos dados previstos
+                            na arquitetura.
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- Etapa 3 -->
+                    <article class="etapaHome">
+
+                        <span class="numeroEtapaHome">
+                            03
+                        </span>
+
+                        <div class="iconeEtapaHome"
+                             aria-hidden="true">
+                            ▤
+                        </div>
+
+                        <span class="nomeEtapaHome">
+                            PLATAFORMA WEB
+                        </span>
+
+                        <h3>Apresentação dos dados</h3>
+
+                        <p>
+                            A plataforma web foi planejada para
+                            organizar e apresentar as informações
+                            ao usuário.
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+
+                <p class="avisoConceitualHome">
+                    As etapas representam a arquitetura proposta.
+                    A disponibilidade das funções depende da
+                    implementação e da integração dos componentes.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- RODAPÉ -->
+    <footer class="rodapeHome">
+
+        <div class="containerHome">
+
+            <div class="conteudoRodapeHome">
+
+
+                <!-- Informações do projeto -->
+                <div class="descricaoRodapeHome">
+
+                    <a href="#inicio" class="logoRodapeHome">
+                        A.R.G.U.S.
+                    </a>
+
+                    <h2>
+                        Analisador Recursivo de Gás
+                        com Unidade de Segurança
+                    </h2>
+
+                    <p>
+                        Projeto acadêmico voltado à concepção
+                        de um sistema de monitoramento ambiental
+                        e apoio à segurança residencial.
+                    </p>
+
+                </div>
+
+
+
+                <!-- Informações acadêmicas -->
+                <div class="informacoesAcademicasHome">
+
+                    <span class="subtituloHome">
+                        PROJETO ACADÊMICO · TCC
+                    </span>
+
+                    <h3>Desenvolvimento do projeto</h3>
+
+                    <p>
+                        Instituição: preencher com o nome da escola.
+                    </p>
+
+                    <p>
+                        Integrantes: preencher com os nomes do grupo.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Parte inferior do rodapé -->
+            <div class="finalRodapeHome">
+
+                <p>
+                    A.R.G.U.S. · Tecnologia com propósito.
+                </p>
+
+                <a href="#inicio" class="voltarTopoHome">
+                    Voltar ao início ↑
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
 </body>
-</html> 
+
+</html>
