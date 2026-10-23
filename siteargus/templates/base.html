@@ -1,0 +1,66 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block titulo %}ARGUS{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'styles/base.css' %}">
+    {% block estilos %}{% endblock %}
+</head>
+
+<body>
+    <!-- CABEÇALHO COMPARTILHADO -->
+    <header class="cabecalhoBase" id="inicio">
+        <div class="containerBase">
+
+            <a href="{% url 'home' %}" class="logoBase">
+                <img src="{% static 'images/logo-argus.png' %}"
+                     alt="Logo do ARGUS">
+            </a>
+
+            <nav class="menuBase" aria-label="Menu principal">
+                <a href="{% url 'home' %}" class="linkMenuBase">
+                    Início
+                </a>
+
+                <a href="{% url 'sobre' %}" class="linkMenuBase">
+                    Sobre o projeto
+                </a>
+
+                <a href="{% url 'contato' %}" class="linkMenuBase">
+                    Contato
+                </a>
+
+                <a href="{% url 'login' %}" class="botaoEntrarBase">
+                    Entrar
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- CONTEÚDO ESPECÍFICO DE CADA PÁGINA -->
+    <main class="conteudoBase">
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+
+    <!-- RODAPÉ COMPARTILHADO -->
+    <footer class="rodapeBase">
+        <div class="containerBase">
+            <p>
+                A.R.G.U.S. · Tecnologia com propósito.
+            </p>
+            <p>
+                Projeto acadêmico · Trabalho de Conclusão de Curso
+            </p>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
