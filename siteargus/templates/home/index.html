@@ -32,8 +32,13 @@
                     Início
                 </a>
 
-                <a href="#sobre" class="linkMenuHome">
+                <a href="{% url 'sobre' %}" class="linkMenuHome">
                     Sobre o projeto
+                </a>
+
+                <a href="{% url 'contato' %}">
+                    Entre em contato
+
                 </a>
 
                 <a href="#comoFunciona" class="linkMenuHome">
@@ -54,153 +59,13 @@
     <main>
 
         <!-- APRESENTAÇÃO PRINCIPAL -->
-        <section class="apresentacaoHome" id="sobre">
-
-            <div class="containerHome">
-
-                <!-- Textos da apresentação -->
-                <div class="conteudoHome">
-
-                    <span class="subtituloHome">
-                        SEGURANÇA RESIDENCIAL INTELIGENTE
-                    </span>
-
-                    <h1 class="tituloHome">
-                        A.R.G.U.S.
-                    </h1>
-
-                    <h2 class="chamadaHome">
-                        Sua segurança começa com o
-                        monitoramento inteligente.
-                    </h2>
-
-                    <p class="textoHome">
-                        O ARGUS é um projeto de monitoramento ambiental
-                        que busca auxiliar na identificação de possíveis
-                        vazamentos de gás por meio de sensores conectados
-                        a uma plataforma web.
-                    </p>
-
-                    <div class="acoesHome">
-
-                        <a href="#funcionalidades" class="botaoHome">
-                            Conheça o projeto
-                            <span aria-hidden="true">↗</span>
-                        </a>
-
-                    </div>
-
-                    <span class="legendaHome">
-                        Projeto acadêmico · Trabalho de Conclusão de Curso
-                    </span>
-
-                </div>
-
-
-                <!-- ILUSTRAÇÃO DO SISTEMA -->
-                <div class="ilustracaoHome">
-
-                    <div class="cabecalhoIlustracao">
-
-                        <span>ARQUITETURA DO SISTEMA</span>
-
-                        <span>ESP32 / IoT</span>
-
-                    </div>
-
-
-                    <div class="diagramaHome">
-
-                        <!-- Sensores -->
-                        <div class="grupoSensoresHome">
-
-                            <div class="sensorHome">
-
-                                <span class="iconeSensorHome"
-                                      aria-hidden="true">
-                                    ≋
-                                </span>
-
-                                <h3>Sensor de gás</h3>
-
-                            </div>
-
-
-                            <div class="sensorHome">
-
-                                <span class="iconeSensorHome"
-                                      aria-hidden="true">
-                                    ♨
-                                </span>
-
-                                <h3>Temperatura e umidade</h3>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Conexão entre sensores e ESP32 -->
-                        <div class="conexaoHome" aria-hidden="true">
-                            →
-                        </div>
-
-
-                        <!-- ESP32 -->
-                        <div class="dispositivoHome">
-
-                            <span class="iconeDispositivoHome"
-                                  aria-hidden="true">
-                                ▦
-                            </span>
-
-                            <h3>ESP32</h3>
-
-                            <p>Processamento dos dados</p>
-
-                        </div>
-
-
-                        <!-- Conexão com a plataforma -->
-                        <div class="conexaoHome" aria-hidden="true">
-                            →
-                        </div>
-
-
-                        <!-- Plataforma web -->
-                        <div class="plataformaHome">
-
-                            <span class="iconePlataformaHome"
-                                  aria-hidden="true">
-                                ▤
-                            </span>
-
-                            <h3>Plataforma web</h3>
-
-                            <p>Visualização das informações</p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="rodapeIlustracao">
-
-                        <span>
-                            Representação conceitual do projeto
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
+        
 
 
 
+     
         <!-- FUNCIONALIDADES -->
+     
         <section class="funcionalidadesHome" id="funcionalidades">
 
             <div class="containerHome">
