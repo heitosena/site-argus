@@ -47,6 +47,9 @@ class Dispositivo(models.Model):
     )
 
 
+    class Meta:
+        db_table = 'dispositivos'
+
     def __str__(self):
         # Mostra o nome do dispositivo
         return self.nome
