@@ -81,6 +81,9 @@ class Localizacao(models.Model):
         related_name='localizacao'
     )
 
+    class Meta:
+        db_table = 'localização'
+
     def __str__(self):
         # Mostra a descrição da localização
         return self.descricao
@@ -129,6 +132,9 @@ class Registro(models.Model):
     # Indica se foi detectado vazamento
     vazamento = models.BooleanField()
 
+    
+
+
     # Dispositivo responsável por enviar este registro
     # Um dispositivo pode possuir vários registros
     dispositivo = models.ForeignKey(
@@ -136,6 +142,11 @@ class Registro(models.Model):
         on_delete=models.CASCADE,
         related_name='registros'
     )
+
+    # Define o nome da tabela no banco de dados
+    class Meta:
+        db_table = 'registros'
+
 
     def __str__(self):
         # Identifica o registro pelo dispositivo e pela data

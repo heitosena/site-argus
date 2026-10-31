@@ -3,17 +3,24 @@
    1. CONFIGURAÇÕES GERAIS
    ========================================= */
 
-/* Padroniza o tamanho dos elementos. */
+:root {
+    --cor-fundo: #080e17;
+    --cor-superficie: #0d1520;
+    --cor-borda: #1a2d40;
+    --cor-texto: #e8f0f5;
+    --cor-texto-secundario: #5a7a90;
+    --cor-destaque: #0ea5c8;
+}
+
 * {
     box-sizing: border-box;
 }
 
-/* Aparência geral da página. */
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f3f6fa;
-    color: #243247;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
 }
 
 /* =========================================
@@ -21,11 +28,11 @@ body {
    ========================================= */
 
 .cabecalho-dashboard {
-    background: linear-gradient(120deg, #10264a, #1d4ed8);
-    color: #ffffff;
+    background: var(--cor-superficie);
+    color: var(--cor-texto);
     padding: 28px 40px;
-    border-bottom: 4px solid #36a3a5;
-    box-shadow: 0 4px 14px rgba(23, 43, 77, 0.15);
+    border-bottom: 3px solid var(--cor-destaque);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
 .cabecalho-dashboard h1 {
@@ -36,7 +43,7 @@ body {
 
 .cabecalho-dashboard p {
     margin: 8px 0 0;
-    color: #dbeafe;
+    color: var(--cor-texto-secundario);
     font-size: 15px;
 }
 
@@ -53,11 +60,11 @@ body {
 .conteudo-dashboard h2 {
     margin-top: 0;
     font-size: 24px;
-    color: #172b4d;
+    color: var(--cor-texto);
 }
 
 .conteudo-dashboard > p {
-    color: #64748b;
+    color: var(--cor-texto-secundario);
     line-height: 1.6;
 }
 
@@ -71,10 +78,10 @@ body {
     gap: 24px;
     margin-top: 24px;
     padding: 24px;
-    background-color: #ffffff;
-    border: 1px solid #dce4ee;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(23, 43, 77, 0.06);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* =========================================
@@ -90,45 +97,40 @@ body {
     justify-content: center;
     min-width: 0;
     padding: 28px 16px 24px;
-    background-color: #ffffff;
-    border: 1px solid #dce4ee;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
     border-radius: 16px;
     text-align: center;
-    box-shadow: 0 3px 10px rgba(23, 43, 77, 0.05);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease,
         border-color 0.2s ease;
 }
 
-/* Faixa azul visível no topo de cada cartão. */
+/* Faixa ciano no topo de cada cartão. */
 .cartao-medidor::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 6px;
-    background: linear-gradient(
-        90deg,
-        #1d4ed8 0%,
-        #3b82f6 55%,
-        #36a3a5 100%
-    );
+    height: 4px;
+    background: var(--cor-destaque);
     z-index: 2;
 }
 
 /* Efeito ao passar o mouse. */
 .cartao-medidor:hover {
     transform: translateY(-4px);
-    border-color: #93c5fd;
-    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.13);
+    border-color: var(--cor-destaque);
+    box-shadow: 0 8px 22px rgba(14, 165, 200, 0.12);
 }
 
 /* Título de cada medidor. */
 .cartao-medidor h3 {
     margin: 0 0 20px;
-    color: #1d4ed8;
+    color: var(--cor-texto);
     font-size: 16px;
     font-weight: 700;
 }
@@ -139,7 +141,7 @@ body {
 
 .medidor-circular {
     --progresso: 0deg;
-    --cor-medidor: #2563eb;
+    --cor-medidor: var(--cor-destaque);
 
     width: 140px;
     height: 140px;
@@ -149,19 +151,19 @@ body {
     flex-shrink: 0;
     border-radius: 50%;
 
-    /* Mantém o preenchimento animado controlado pelo JavaScript. */
+    /* Centro escuro e progresso animado pelo JavaScript. */
     background:
         radial-gradient(
             closest-side,
-            #f3f6fa 84%,
+            var(--cor-superficie) 84%,
             transparent 86%
         ),
         conic-gradient(
             var(--cor-medidor) var(--progresso),
-            #dce4ee 0deg
+            var(--cor-borda) 0deg
         );
 
-    box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.07);
+    box-shadow: 0 0 18px rgba(14, 165, 200, 0.08);
     transition: box-shadow 0.2s ease;
 }
 
@@ -169,13 +171,13 @@ body {
 .valor-medidor {
     font-size: 32px;
     font-weight: bold;
-    color: #1d4ed8;
+    color: var(--cor-destaque);
 }
 
 /* Unidade de medida abaixo do círculo. */
 .cartao-medidor p {
     margin: 14px 0 0;
-    color: #64748b;
+    color: var(--cor-texto-secundario);
     font-size: 14px;
 }
 

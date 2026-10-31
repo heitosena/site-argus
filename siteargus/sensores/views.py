@@ -76,6 +76,12 @@ def lista_leituras(request):
   
 # Exibe a página principal da Dashboard do A.R.G.U.S.
 def dashboard(request):
-    # Abre o template HTML da Dashboard.
-    return render(request, "dashboard/index.html")
+    # Busca a última leitura registrada (da mais recente para a mais antiga)
+    ultima_leitura = Registro.objects.select_related('dispositivo').order_by('-data_hora').first()
 
+    context = {
+        'ultima_leitura': ultima_leitura,
+    }
+
+    # Abre o template HTML da Dashboard enviando os dados reais.
+    return render(request, "dashboard.html", context)

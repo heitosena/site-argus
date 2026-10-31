@@ -43,10 +43,43 @@ function animarMedidor(id, valorFinal, valorMaximo, unidade = "") {
     requestAnimationFrame(atualizar);
 }
 
-/* Executa uma animação de teste ao abrir a Dashboard. */
+
+/* Executa os medidores usando os valores enviados pelo Django. */
 document.addEventListener("DOMContentLoaded", function () {
-    animarMedidor("medidor-temperatura", 28, 50);
-    animarMedidor("medidor-umidade", 60, 100);
-    animarMedidor("medidor-gas", 35, 100, "%");
-    animarMedidor("medidor-bateria", 85, 100, "%");
+
+    // Busca cada medidor da página.
+    const temperatura = document.getElementById("medidor-temperatura");
+    const umidade = document.getElementById("medidor-umidade");
+    const gas = document.getElementById("medidor-gas");
+    const bateria = document.getElementById("medidor-bateria");
+
+    // Anima o medidor de temperatura com o valor do banco.
+    animarMedidor(
+        "medidor-temperatura",
+        parseFloat(temperatura.dataset.valor) || 0,
+        50
+    );
+
+    // Anima o medidor de umidade com o valor do banco.
+    animarMedidor(
+        "medidor-umidade",
+        parseFloat(umidade.dataset.valor) || 0,
+        100
+    );
+
+    // Anima o medidor de gás com o valor do banco.
+    animarMedidor(
+        "medidor-gas",
+        parseFloat(gas.dataset.valor) || 0,
+        100,
+        "%"
+    );
+
+    // Anima o medidor da bateria com o valor do dispositivo.
+    animarMedidor(
+        "medidor-bateria",
+        parseFloat(bateria.dataset.valor) || 0,
+        100,
+        "%"
+    );
 });
