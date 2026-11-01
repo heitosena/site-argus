@@ -72,12 +72,62 @@ def lista_leituras(request):
         }
        
 )   
-  
-  
+# Salva as leituras selecionadas pelo usuário.
+def salvar_leituras(request):
+    # Executa a ação somente quando recebe dados via POST.
+    if request.method == 'POST':
+
+        # Recebe os IDs das leituras selecionadas.
+        ids = request.POST.getlist('registros')
+
+        # Marca as leituras selecionadas como salvas.
+        Registro.objects.filter(id__in=ids).update(salvo=True)
+
+    # Volta para a página de leituras.
+    return redirect('lista_leituras')
+
+# Exclui as leituras selecionadas pelo usuário.
+def excluir_leituras(request):
+    # Executa a ação somente quando recebe dados via POST.
+    if request.method == 'POST':
+        # Recebe os IDs das leituras selecionadas.
+        ids = request.POST.getlist('registros')
+
+        # Exclui as leituras selecionadas.
+        Registro.objects.filter(id__in=ids).delete()
+
+    # Volta para a lista de leituras.
+    return redirect('lista_leituras')
+
+
+# Exibe apenas as leituras que foram salvas pelo usuário.
+def ver_leituras_salvas(request):
+    # Busca somente os registros marcados como salvos.
+    registros = Registro.objects.filter(
+        salvo=True
+    ).select_related('dispositivo').order_by('-data_hora')
+
+    # Busca a leitura salva mais recente.
+    ultima_leitura = registros.first()
+
+    # Exibe a mesma página de leituras, mas apenas com os registros salvos.
+    return render(
+        request,
+        'sensores/lista_leituras.html',
+        {
+            'registros': registros,
+            'ultima_leitura': ultima_leitura,
+            'mostrando_salvas': True,
+        }
+    )
+
+
 # Exibe a página principal da Dashboard do A.R.G.U.S.
 def dashboard(request):
-    # Busca a última leitura registrada (da mais recente para a mais antiga)
-    ultima_leitura = Registro.objects.select_related('dispositivo').order_by('-data_hora').first()
+    # Busca a última leitura registrada.
+    ultima_leitura = Registro.objects.select_related(
+        'dispositivo'
+    ).order_by('-data_hora').first()
 
     context = {
         'ultima_leitura': ultima_leitura,

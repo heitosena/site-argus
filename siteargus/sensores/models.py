@@ -132,7 +132,10 @@ class Registro(models.Model):
     # Indica se foi detectado vazamento
     vazamento = models.BooleanField()
 
-    
+    # Indica se o usuário decidiu salvar este registro
+    salvo = models.BooleanField(
+        default=False
+    )
 
 
     # Dispositivo responsável por enviar este registro
