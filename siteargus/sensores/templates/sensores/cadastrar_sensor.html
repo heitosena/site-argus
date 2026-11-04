@@ -1,3 +1,4 @@
+
 <!-- Define o padrão HTML5. -->
 <!DOCTYPE html>
 
@@ -6,15 +7,28 @@
 
 <head>
 
-    <!-- Permite caracteres especiais. -->
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Define o título da aba. -->
-    <title>Cadastro de Dipositivos - A.R.G.U.S.</title>
+    {% load static %}
+
+    <!-- Conexão com o CSS. -->
+    <link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=2">
+
+    <title>Cadastro de Dispositivos - A.R.G.U.S.</title>
 
 </head>
 
 <body>
+
+    <!-- Mensagem de sucesso do Django. -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensagem-sucesso">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <!-- Título da página. -->
     <h1>Cadastro de Dispositivo</h1>
@@ -68,6 +82,9 @@
         <button type="submit">Cadastrar dispositivo</button>
 
     </form>
+
+
+    <script src="{% static 'sensores/js/cadastrar_sensor.js' %}?v=4"></script>
 
 </body>
 

@@ -1,92 +1,118 @@
-<!-- Define o padrão HTML5. -->
-<!DOCTYPE html>
+{% load static %}
 
-<!-- Inicia a página em português. -->
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-
-    <!-- Permite caracteres especiais. -->
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Define o título da aba. -->
     <title>Dispositivos - A.R.G.U.S.</title>
 
+    <link rel="stylesheet" href="{% static 'sensores/css/lista_sensores.css' %}?v=1">
+
+    <script src="{% static 'sensores/js/lista_sensores.js' %}?v=1" defer></script>
 </head>
 
 <body>
 
-    <!-- Mostra o título da página. -->
-    <h1>dispositivos cadastrados</h1>
+    <main class="container">
 
-    <!-- Verifica se existem sensores. -->
-    {% if dispositivos %}
+        <header class="cabecalho">
+            <div>
+                <span class="subtitulo">SISTEMA A.R.G.U.S.</span>
+                <h1>Dispositivos</h1>
+                <p>Gerencie e acompanhe seus dispositivos cadastrados.</p>
+            </div>
 
-        <!-- Inicia a lista de sensores. -->
-        <ul>
+            <a href="{% url 'cadastrar_sensor' %}" class="botao-cadastrar">
+                + Cadastrar dispositivo
+            </a>
+        </header>
 
-            <!-- Percorre os sensores. -->
-            {% for dispositivo in dispositivos %}
+        <section class="resumo">
+            <div class="resumo-card">
+                <span>Total de dispositivos</span>
+                <strong id="total-dispositivos">{{ dispositivos|length }}</strong>
+            </div>
+        </section>
 
-                <!-- Mostra um sensor. -->
-                <li>
+        <section class="secao-dispositivos">
 
-                    <!-- Mostra o nome. -->
-                    <strong>{{ dispositivo.nome }}</strong>
+            <div class="titulo-secao">
+                <h2>Seus dispositivos</h2>
+                <span class="atualizacao">Atualização automática</span>
+            </div>
 
-                    <!-- Pula uma linha. -->
-                    <br>
+            <div class="lista-dispositivos" id="lista-dispositivos">
 
-                    <!-- Mostra o modelo. -->
-                    Modelo: {{ dispositivo.modelo }}
+                {% if dispositivos %}
 
-                    <!-- Pula uma linha. -->
-                    <br>
+                    {% for dispositivo in dispositivos %}
 
-                    <!-- Mostra o status. -->
-                    Status: {{ dispositivo.status }}
+                        <article class="dispositivo-card">
 
-                    <!-- Pula uma linha. -->
-                    <br>
+                            <div class="card-topo">
+                                <div class="icone-dispositivo">
+                                    <span>ESP</span>
+                                </div>
 
-                    <!-- Mostra a bateria. -->
-                    Bateria: {{ dispositivo.bateria }}%
+                                <span class="status
+                                    {% if dispositivo.status == 'Ativo' %}status-ativo
+                                    {% elif dispositivo.status == 'Manutenção' %}status-manutencao
+                                    {% else %}status-inativo{% endif %}">
+                                    {{ dispositivo.status }}
+                                </span>
+                            </div>
 
-                    <!-- Pula uma linha. -->
-                    <br>
+                            <div class="informacoes">
+                                <h3>{{ dispositivo.nome }}</h3>
+                                <p>{{ dispositivo.modelo }}</p>
+                            </div>
 
-                    <!-- Mostra o estado da rede. -->
-                    Rede conectada:
+                            <div class="detalhes">
 
-                    <!-- Verifica a conexão. -->
-                    {% if dispositivo.rede_conectada %}
+                                <div class="detalhe-item">
+                                    <span>Bateria</span>
+                                    <strong>{{ dispositivo.bateria }}%</strong>
+                                </div>
 
-                        <!-- Mostra quando está conectado. -->
-                        Sim
+                                <div class="detalhe-item">
+                                    <span>Conexão de rede</span>
 
-                    {% else %}
+                                    <strong class="{% if dispositivo.rede_conectada %}conectado{% else %}desconectado{% endif %}">
+                                        {% if dispositivo.rede_conectada %}
+                                            Conectado
+                                        {% else %}
+                                            Desconectado
+                                        {% endif %}
+                                    </strong>
+                                </div>
 
-                        <!-- Mostra quando está desconectado. -->
-                        Não
+                            </div>
 
-                    {% endif %}
+                            <div class="card-rodape">
+                                <span>Dispositivo cadastrado no A.R.G.U.S.</span>
+                            </div>
 
-                </li>
+                        </article>
 
-                <!-- Cria espaço entre sensores. -->
-                <br>
+                    {% endfor %}
 
-            {% endfor %}
+                {% else %}
 
-        </ul>
+                    <div class="mensagem-vazia">
+                        <h3>Nenhum dispositivo cadastrado</h3>
+                        <p>Cadastre seu primeiro dispositivo para começar.</p>
+                    </div>
 
-    {% else %}
+                {% endif %}
 
-        <!-- Mensagem para lista vazia. -->
-        <p>Nenhum dispositivo cadastrado.</p>
+            </div>
 
-    {% endif %}
+        </section>
+
+    </main>
 
 </body>
-
 </html>

@@ -5,13 +5,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # Importa o modelo Dispositivo do aplicativo sensores
-from .models import Dispositivo, Registro
+from .models import Dispositivo, Registro, LeituraSalva
+
+from django.contrib import messages
 
 
 # Exibe a lista de sensores cadastrados
 def lista_sensores(request):
-    # Busca todos os dispositivos cadastrados no banco de dados
-    dispositivos = Dispositivo.objects.all()
+    # Busca somente os dispositivos do usuário de teste
+    dispositivos = Dispositivo.objects.filter(usuario_id=1)
 
     # Envia os dispositivos para o template HTML
     return render(
@@ -21,7 +23,7 @@ def lista_sensores(request):
     )
 
 
-# Exibe e processa o cadastro de um novo sensor
+# Exibe e processa o cadastro de um novo dispositivo
 def cadastrar_sensor(request):
     # Verifica se o formulário foi enviado
     if request.method == 'POST':
@@ -35,24 +37,30 @@ def cadastrar_sensor(request):
         # Verifica se a caixa de rede conectada foi marcada
         rede_conectada = request.POST.get('rede_conectada') == 'on'
 
-        # Cria o dispositivo no banco de dados
+        # Cria o dispositivo vinculado ao usuário de teste
         Dispositivo.objects.create(
             nome=nome,
             modelo=modelo,
             status=status,
             bateria=bateria,
-            rede_conectada=rede_conectada
+            rede_conectada=rede_conectada,
+            usuario_id=1
         )
 
-        # Volta para a lista depois de salvar
-        return redirect('lista_sensores')
+        # Exibe a mensagem de sucesso
+        messages.success(
+            request,
+            f'O dispositivo "{nome}" foi cadastrado com sucesso!'
+        )
 
-    # Mostra o formulário quando a página é aberta
+        # Volta para a tela de cadastro
+        return redirect('cadastrar_sensor')
+
+    # Mostra o formulário
     return render(
         request,
         'sensores/cadastrar_sensor.html'
     )
-
 
 # Exibe as leituras dos dispositivos.
 def lista_leituras(request):
@@ -72,45 +80,61 @@ def lista_leituras(request):
         }
        
 )   
-# Salva as leituras selecionadas pelo usuário.
+# Salva cópias independentes das leituras selecionadas.
 def salvar_leituras(request):
-    # Executa a ação somente quando recebe dados via POST.
     if request.method == 'POST':
 
-        # Recebe os IDs das leituras selecionadas.
+        # Recebe os IDs selecionados pelo usuário.
         ids = request.POST.getlist('registros')
 
-        # Marca as leituras selecionadas como salvas.
-        Registro.objects.filter(id__in=ids).update(salvo=True)
+        # Busca as leituras originais.
+        registros = Registro.objects.filter(
+            id__in=ids
+        ).select_related('dispositivo')
 
-    # Volta para a página de leituras.
+        # Cria uma cópia de cada leitura na tabela de salvas.
+        for registro in registros:
+            LeituraSalva.objects.get_or_create(
+                data_hora=registro.data_hora,
+                dispositivo_nome=registro.dispositivo.nome,
+                defaults={
+                    'temperatura': registro.temperatura,
+                    'umidade': registro.umidade,
+                    'gas_percentual': registro.gas_percentual,
+                    'nivel_gas': registro.nivel_gas,
+                    'vazamento': registro.vazamento,
+                }
+            )
+
+            # Mantém a marcação antiga por compatibilidade.
+            registro.salvo = True
+            registro.save(update_fields=['salvo'])
+
     return redirect('lista_leituras')
 
-# Exclui as leituras selecionadas pelo usuário.
+
+# Exclui somente as leituras originais.
 def excluir_leituras(request):
-    # Executa a ação somente quando recebe dados via POST.
     if request.method == 'POST':
-        # Recebe os IDs das leituras selecionadas.
+
+        # Recebe os IDs selecionados.
         ids = request.POST.getlist('registros')
 
-        # Exclui as leituras selecionadas.
+        # Exclui somente da tabela registros.
         Registro.objects.filter(id__in=ids).delete()
 
-    # Volta para a lista de leituras.
     return redirect('lista_leituras')
 
 
-# Exibe apenas as leituras que foram salvas pelo usuário.
+# Exibe as cópias independentes das leituras salvas.
 def ver_leituras_salvas(request):
-    # Busca somente os registros marcados como salvos.
-    registros = Registro.objects.filter(
-        salvo=True
-    ).select_related('dispositivo').order_by('-data_hora')
+
+    # Consulta diretamente a tabela leituras_salvas.
+    registros = LeituraSalva.objects.all()
 
     # Busca a leitura salva mais recente.
     ultima_leitura = registros.first()
 
-    # Exibe a mesma página de leituras, mas apenas com os registros salvos.
     return render(
         request,
         'sensores/lista_leituras.html',

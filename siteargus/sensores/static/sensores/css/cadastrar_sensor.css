@@ -1,0 +1,132 @@
+/* Configurações gerais da página. */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background-color: #080e17;
+    color: #e8f0f5;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Título principal. */
+h1 {
+    max-width: 650px;
+    margin: 30px auto 25px auto;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: #e8f0f5;
+}
+
+/* Cartão do formulário. */
+form {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 35px;
+    background-color: #0d1520;
+    border: 1px solid #1a2d40;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Oculta as quebras de linha originais. */
+form > br {
+    display: none;
+}
+
+/* Rótulos dos campos. */
+form > label {
+    display: block;
+    margin-bottom: 9px;
+    color: #e8f0f5;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Campos de texto, número e seleção. */
+form > input,
+form > select {
+    display: block;
+    width: 100%;
+    height: 44px;
+    margin-bottom: 24px;
+    padding: 0 13px;
+    background-color: #080e17;
+    border: 1px solid #1a2d40;
+    border-radius: 8px;
+    color: #e8f0f5;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+/* Destaque ao selecionar um campo. */
+form > input:focus,
+form > select:focus {
+    border-color: #0ea5c8;
+}
+
+/* Opções do campo de status. */
+form > select {
+    cursor: pointer;
+}
+
+/* Área do checkbox. */
+form > label[for="rede_conectada"] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0 28px 0;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Checkbox. */
+#rede_conectada {
+    width: 17px;
+    height: 17px;
+    accent-color: #0ea5c8;
+    cursor: pointer;
+}
+
+/* Botão de cadastro. */
+form > button {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 20px;
+    background-color: #0ea5c8;
+    border: 1px solid #0ea5c8;
+    border-radius: 8px;
+    color: #080e17;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                transform 0.2s ease;
+}
+
+/* Efeito ao passar o mouse. */
+form > button:hover {
+    background-color: #0c91b0;
+    transform: translateY(-2px);
+}
+
+/* Adaptação para dispositivos menores. */
+@media (max-width: 600px) {
+    body {
+        padding: 20px 14px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    form {
+        padding: 24px 18px;
+    }
+}

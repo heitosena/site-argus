@@ -11,8 +11,9 @@
 
     <!-- Adapta a página a diferentes tamanhos de tela. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Carrega o arquivo CSS da página de leituras. -->
-    <link rel="stylesheet" href="{% static 'sensores/css/lista_leituras.css' %}?v=11">
+    <link rel="stylesheet" href="{% static 'sensores/css/lista_leituras.css' %}?v=19">
 
     <!-- Define o título da aba. -->
     <title>Leituras - A.R.G.U.S.</title>
@@ -23,223 +24,274 @@
     <!-- Título principal da página. -->
     <h1>Leituras dos dispositivos</h1>
 
+    <!-- Painel principal das leituras. -->
+    <section class="painel-leituras">
 
-<!-- Painel principal das leituras -->
-<section class="painel-leituras">
+        <!-- Título do painel. -->
+        <h2>Monitoramento dos dispositivos</h2>
 
-    <!-- Título do painel -->
-    <h2>Monitoramento dos dispositivos</h2>
-
-    <!-- Texto explicativo -->
-    <p>Acompanhe as últimas leituras registradas pelo sistema A.R.G.U.S.</p>
-
-</section>
-
-<!-- Cartões com resumo das últimas informações. -->
-<section class="cartoes-leituras">
-
-   <!-- Cartão que mostra a temperatura mais recente. -->
-<div class="cartao-leitura">
-    <h3>Temperatura</h3>
-
-    <!-- Verifica se existe alguma leitura registrada. -->
-    {% if ultima_leitura %}
-
-        <!-- Mostra a temperatura da leitura mais recente. -->
-        <p>{{ ultima_leitura.temperatura }} °C</p>
-
-    {% else %}
-
-        <!-- Mensagem exibida quando não há leituras. -->
-        <p>Nenhuma leitura disponível.</p>
-
-    {% endif %}
-</div>
-
-   <!-- Cartão que mostra a umidade mais recente. -->
-<div class="cartao-leitura">
-    <h3>Umidade</h3>
-
-    <!-- Verifica se existe alguma leitura registrada. -->
-    {% if ultima_leitura %}
-
-        <!-- Mostra a umidade da leitura mais recente. -->
-        <p>{{ ultima_leitura.umidade }}%</p>
-
-    {% else %}
-
-        <!-- Mensagem exibida quando não há leituras. -->
-        <p>Nenhuma leitura disponível.</p>
-
-    {% endif %}
-</div>
-
-    <!-- Cartão que mostra o nível de gás mais recente. -->
-<div class="cartao-leitura">
-    <h3>Gás</h3>
-
-    <!-- Verifica se existe alguma leitura registrada. -->
-    {% if ultima_leitura %}
-
-        <!-- Mostra o nível de gás registrado. -->
-        <p>{{ ultima_leitura.nivel_gas }}</p>
-
-    {% else %}
-
-        <!-- Mensagem exibida quando não há leituras. -->
-        <p>Nenhuma leitura disponível.</p>
-
-    {% endif %}
-</div>
-
-<!-- Cartão que mostra o estado do vazamento mais recente. -->
-<div class="cartao-leitura">
-    <h3>Vazamento</h3>
-
-   <!-- Verifica se existe alguma leitura registrada. -->
-
-{% if ultima_leitura %}
-
-<!-- Verifica se foi detectado um vazamento. -->
-{% if ultima_leitura.vazamento %}
-    <p>Vazamento detectado</p>
-{% else %}
-    <p>Nenhum vazamento detectado</p>
-{% endif %}
-
-{% else %}
-
-<!-- Mensagem exibida quando não há leituras. -->
-<p>Nenhuma leitura disponível.</p>
-
-{% endif %}
-
-</div>
-
-</section>
-
-<!-- Formulário responsável por enviar as leituras selecionadas. -->
-<form method="POST" action="/sensores/salvar-leituras/">
-    {% csrf_token %}
-
-    <!-- Área com os botões de ação das leituras. -->
-<!-- Formulário responsável por enviar as leituras selecionadas. -->
-<form method="POST" action="/sensores/salvar-leituras/">
-    {% csrf_token %}
-
-    <!-- Área com os botões de ação das leituras. -->
-    <section class="acoes-leituras">
-
-        <!-- Botão para salvar as leituras selecionadas. -->
-        <button type="submit" id="salvar-leituras">
-            💾 Salvar
-        </button>
-
-        <!-- Botão para excluir as leituras selecionadas. -->
-        <button
-            type="submit"
-            id="excluir-leituras"
-            formaction="/sensores/excluir-leituras/"
-        >
-            🗑 Excluir
-        </button>
-
-        <!-- Botão para visualizar as leituras salvas. -->
-        <button
-            type="button"
-            id="ver-salvas"
-            onclick="window.location.href='/sensores/leituras-salvas/'"
-        >
-            📋 Ver salvas
-        </button>
-
-        <!-- Botão para atualizar a lista. -->
-        <button type="button" id="atualizar-leituras">
-            🔄 Atualizar
-        </button>
+        <!-- Texto explicativo. -->
+        <p>Acompanhe as últimas leituras registradas pelo sistema A.R.G.U.S.</p>
 
     </section>
-{% if mostrando_salvas %}
-    <!-- Botão para voltar à lista completa de leituras. -->
-    <div class="acoes-voltar">
-        <button
-            type="button"
-            id="voltar-leituras"
-            onclick="window.location.href='/sensores/leituras/'"
+
+    <!-- Cartões com resumo das últimas informações. -->
+    <section class="cartoes-leituras">
+
+        <!-- Cartão de temperatura. -->
+        <div class="cartao-leitura">
+            <h3>Temperatura</h3>
+
+            {% if ultima_leitura %}
+                <p>{{ ultima_leitura.temperatura }} °C</p>
+            {% else %}
+                <p>Nenhuma leitura disponível.</p>
+            {% endif %}
+        </div>
+
+        <!-- Cartão de umidade. -->
+        <div class="cartao-leitura">
+            <h3>Umidade</h3>
+
+            {% if ultima_leitura %}
+                <p>{{ ultima_leitura.umidade }}%</p>
+            {% else %}
+                <p>Nenhuma leitura disponível.</p>
+            {% endif %}
+        </div>
+
+        <!-- Cartão de gás. -->
+        <div class="cartao-leitura">
+            <h3>Gás</h3>
+
+            {% if ultima_leitura %}
+                <p>{{ ultima_leitura.nivel_gas }}</p>
+            {% else %}
+                <p>Nenhuma leitura disponível.</p>
+            {% endif %}
+        </div>
+
+        <!-- Cartão de vazamento. -->
+        <div class="cartao-leitura">
+            <h3>Vazamento</h3>
+
+            {% if ultima_leitura %}
+                {% if ultima_leitura.vazamento %}
+                    <p>Vazamento detectado</p>
+                {% else %}
+                    <p>Nenhum vazamento detectado</p>
+                {% endif %}
+            {% else %}
+                <p>Nenhuma leitura disponível.</p>
+            {% endif %}
+        </div>
+
+    </section>
+
+    <!-- Formulário responsável pelas ações das leituras. -->
+    <form method="POST" action="/sensores/salvar-leituras/">
+        {% csrf_token %}
+
+        <!-- Identifica quando estamos na tela de leituras salvas. -->
+        {% if mostrando_salvas %}
+            <input type="hidden" name="origem_salvas" value="1">
+        {% endif %}
+
+        <!-- Área com os botões de ação. -->
+        <section class="acoes-leituras">
+
+            {% if not mostrando_salvas %}
+
+                <!-- Botão para salvar leituras selecionadas. -->
+                <button type="submit" id="salvar-leituras">
+                    💾 Salvar
+                </button>
+
+            {% endif %}
+
+            <!-- Botão para excluir leituras selecionadas. -->
+            <button
+                type="submit"
+                id="excluir-leituras"
+                formaction="/sensores/excluir-leituras/"
+            >
+                🗑 Excluir
+            </button>
+
+            {% if not mostrando_salvas %}
+
+                <!-- Botão para visualizar leituras salvas. -->
+                <button
+                    type="button"
+                    id="ver-salvas"
+                    onclick="window.location.href='/sensores/leituras-salvas/'"
+                >
+                    📋 Ver salvas
+                </button>
+
+            {% endif %}
+
+            <!-- Botão para atualizar a lista. -->
+            <button type="button" id="atualizar-leituras">
+                🔄 Atualizar
+            </button>
+
+        </section>
+
+        {% if mostrando_salvas %}
+
+            <!-- Botão para voltar à lista completa de leituras. -->
+            <div class="acoes-voltar">
+                <button
+                    type="button"
+                    id="voltar-leituras"
+                    onclick="window.location.href='/sensores/leituras/'"
+                >
+                    ← Voltar
+                </button>
+            </div>
+
+        {% endif %}
+
+        <!-- Verifica se existem leituras cadastradas. -->
+        {% if registros %}
+
+            <!-- Tabela de leituras. -->
+            <table border="1">
+
+                <thead>
+                    <tr>
+                        <th>Selecionar</th>
+                        <th>Dispositivo</th>
+                        <th>Data e hora</th>
+                        <th>Temperatura</th>
+                        <th>Umidade</th>
+                        <th>Gás</th>
+                        <th>Nível de gás</th>
+                        <th>Vazamento</th>
+                    </tr>
+                </thead>
+
+                <!-- Exibe as leituras cadastradas. -->
+                <tbody>
+
+                    {% for registro in registros %}
+
+                        <tr>
+
+                            <!-- Caixa para selecionar a leitura. -->
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    class="selecionar-leitura"
+                                    name="registros"
+                                    value="{{ registro.id }}"
+                                >
+                            </td>
+
+                            <!-- Nome do dispositivo conforme a tabela consultada. -->
+                            <td>
+                                {% if mostrando_salvas %}
+                                    {{ registro.dispositivo_nome }}
+                                {% else %}
+                                    {{ registro.dispositivo.nome }}
+                                {% endif %}
+                            </td>
+
+                            <td>{{ registro.data_hora }}</td>
+                            <td>{{ registro.temperatura }} °C</td>
+                            <td>{{ registro.umidade }}%</td>
+                            <td>{{ registro.gas_percentual }}%</td>
+                            <td>{{ registro.nivel_gas }}</td>
+
+                            <!-- Mostra se foi detectado vazamento. -->
+                            <td>
+                                {% if registro.vazamento %}
+                                    Sim
+                                {% else %}
+                                    Não
+                                {% endif %}
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        {% else %}
+
+            <!-- Mensagem exibida quando não existem leituras. -->
+            <p>Nenhuma leitura cadastrada.</p>
+
+        {% endif %}
+
+    </form>
+
+    <!-- Modal de confirmação de exclusão. -->
+    <div id="modal-exclusao" class="modal-exclusao" aria-hidden="true">
+
+        <div
+            class="conteudo-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-modal"
         >
-            ← Voltar
-        </button>
+
+            <h2 id="titulo-modal">Confirmar exclusão</h2>
+
+            <p>
+                Tem certeza de que deseja excluir as leituras selecionadas?
+                Essa ação não poderá ser desfeita.
+            </p>
+
+            <div class="botoes-modal">
+
+                <button type="button" id="cancelar-exclusao">
+                    Cancelar
+                </button>
+
+                <button type="button" id="confirmar-exclusao">
+                    Excluir
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
-{% endif %}
 
-<!-- Verifica se existem leituras cadastradas. -->
-{% if registros %}
+    <!-- Modal de aviso quando nenhuma leitura está selecionada. -->
+    <div id="modal-aviso" class="modal-exclusao" aria-hidden="true">
 
-    <!-- Cria a tabela de leituras. -->
-    <table border="1">
+        <div
+            class="conteudo-modal"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="titulo-aviso"
+        >
 
-        <thead>
-            <tr>
-                <th>Selecionar</th>
-                <th>Dispositivo</th>
-                <th>Data e hora</th>
-                <th>Temperatura</th>
-                <th>Umidade</th>
-                <th>Gás</th>
-                <th>Nível de gás</th>
-                <th>Vazamento</th>
-            </tr>
-        </thead>
+            <h2 id="titulo-aviso">Atenção!</h2>
 
-        <!-- Exibe as leituras cadastradas. -->
-        <tbody>
-            {% for registro in registros %}
-                <tr>
+            <p>
+                Você precisa selecionar pelo menos uma leitura
+                antes de continuar.
+            </p>
 
-                    <!-- Caixa para selecionar esta leitura. -->
-                    <td>
-                        <input
-                            type="checkbox"
-                            class="selecionar-leitura"
-                            name="registros"
-                            value="{{ registro.id }}"
-                        >
-                    </td>
+            <div class="botoes-modal">
+                <button type="button" id="fechar-aviso">
+                    Entendi
+                </button>
+            </div>
 
-                    <td>{{ registro.dispositivo.nome }}</td>
-                    <td>{{ registro.data_hora }}</td>
-                    <td>{{ registro.temperatura }} °C</td>
-                    <td>{{ registro.umidade }}%</td>
-                    <td>{{ registro.gas_percentual }}%</td>
-                    <td>{{ registro.nivel_gas }}</td>
+        </div>
 
-                    <!-- Mostra se foi detectado vazamento. -->
-                    <td>
-                        {% if registro.vazamento %}
-                            Sim
-                        {% else %}
-                            Não
-                        {% endif %}
-                    </td>
+    </div>
 
-                </tr>
-            {% endfor %}
-        </tbody>
-
-    </table>
-
-{% else %}
-
-    <!-- Mensagem exibida quando não existem leituras. -->
-    <p>Nenhuma leitura cadastrada.</p>
-
-{% endif %}
-
-</form>
-
-<!-- Carrega o JavaScript da página de leituras. -->
-
-<script src="{% static 'sensores/js/lista_leituras.js' %}?v=3"></script>
+    <!-- Carrega o JavaScript da página de leituras. -->
+    <script src="{% static 'sensores/js/lista_leituras.js' %}?v=6"></script>
 
 </body>
 </html>

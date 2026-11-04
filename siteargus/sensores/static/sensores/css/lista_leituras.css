@@ -169,13 +169,14 @@ p {
     background-color: #0ea5c8;
 }
 
-/* Deixa o botão de atualizar maior e um pouco mais à esquerda. */
 #atualizar-leituras {
     margin-left: auto;
     margin-right: auto;
     padding: 13px 28px;
     font-size: 16px;
     transform: translateX(-230px);
+    position: relative;
+    left: 0;
 }
 
 /* Estilo do botão Voltar. */
@@ -219,4 +220,93 @@ p {
     td {
         padding: 8px;
     }
+}
+
+/* Fundo escuro do modal. */
+.modal-exclusao {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Exibe o modal quando estiver ativo. */
+.modal-exclusao.ativo {
+    display: flex;
+}
+
+/* Caixa principal do modal. */
+.conteudo-modal {
+    width: 90%;
+    max-width: 420px;
+    padding: 28px;
+    background-color: #0d1520;
+    border: 1px solid #1a2d40;
+    border-radius: 12px;
+    text-align: center;
+    color: #e8f0f5;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+}
+
+.conteudo-modal h2 {
+    margin-bottom: 15px;
+    color: #e8f0f5;
+}
+
+.conteudo-modal p {
+    color: #5a7a90;
+    line-height: 1.6;
+}
+
+/* Organização dos botões. */
+.botoes-modal {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.botoes-modal button {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Botão cancelar. */
+#cancelar-exclusao {
+    background-color: #1a2d40;
+    color: #e8f0f5;
+}
+
+/* Botão confirmar. */
+#confirmar-exclusao {
+    background-color: #dc3545;
+    color: white;
+}
+
+.botoes-modal button:hover {
+    opacity: 0.85;
+}
+
+
+/* Botão do aviso personalizado. */
+#fechar-aviso {
+    background-color: #0ea5c8;
+    color: white;
+    padding: 11px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#fechar-aviso:hover {
+    background-color: #087f9c;
+    transform: translateY(-2px);
 }

@@ -1,9 +1,9 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
 class Dispositivo(models.Model):
     # Nome dado ao dispositivo
-    # Exemplo: "Sensor Cozinha"
     nome = models.CharField(max_length=100)
 
     # Modelo do dispositivo ESP32
@@ -23,35 +23,31 @@ class Dispositivo(models.Model):
         default='Ativo'
     )
 
-    # Data e hora da última comunicação do ESP32
-    # Pode ficar vazio enquanto o dispositivo ainda não se comunicou
+    # Data e hora da última comunicação
     ultima_comunicacao = models.DateTimeField(
         null=True,
         blank=True
     )
 
-    # Porcentagem atual da bateria do ESP32
-    # Armazena apenas números interios de 0 a 100
+    # Porcentagem da bateria
     bateria = models.PositiveIntegerField(
-        default = 100,
-        validators= [
+        default=100,
+        validators=[
             MinValueValidator(0),
             MaxValueValidator(100)
         ]
     )
 
-    # Indica se o ESP32 está conectado a rede 
-    # True = conectado | false = desconectado
-    rede_conectada = models.BooleanField(
-        default = False
-    )
+    # Indica se o ESP32 está conectado à rede
+    rede_conectada = models.BooleanField(default=False)
 
+    # Identificador do usuário responsável pelo dispositivo
+    usuario_id = models.IntegerField(default=1)
 
     class Meta:
         db_table = 'dispositivos'
 
     def __str__(self):
-        # Mostra o nome do dispositivo
         return self.nome
 
 
@@ -85,7 +81,6 @@ class Localizacao(models.Model):
         db_table = 'localização'
 
     def __str__(self):
-        # Mostra a descrição da localização
         return self.descricao
 
 
@@ -94,25 +89,21 @@ class Registro(models.Model):
     data_hora = models.DateTimeField(auto_now_add=True)
 
     # Temperatura do ambiente em graus Celsius
-    # Exemplo: 28.5
     temperatura = models.DecimalField(
         max_digits=5,
         decimal_places=1
     )
 
     # Umidade do ambiente em porcentagem
-    # Exemplo: 47.1
     umidade = models.DecimalField(
         max_digits=5,
         decimal_places=1
     )
 
     # Porcentagem de gás detectada pelo ESP32
-    # Valor inteiro de 0 a 100
-    # Exemplo: 87
     gas_percentual = models.PositiveIntegerField(
-        default = 0,
-        validators= [
+        default=0,
+        validators=[
             MinValueValidator(0),
             MaxValueValidator(100)
         ]
@@ -133,24 +124,54 @@ class Registro(models.Model):
     vazamento = models.BooleanField()
 
     # Indica se o usuário decidiu salvar este registro
-    salvo = models.BooleanField(
-        default=False
-    )
-
+    salvo = models.BooleanField(default=False)
 
     # Dispositivo responsável por enviar este registro
-    # Um dispositivo pode possuir vários registros
     dispositivo = models.ForeignKey(
         Dispositivo,
         on_delete=models.CASCADE,
         related_name='registros'
     )
 
-    # Define o nome da tabela no banco de dados
     class Meta:
         db_table = 'registros'
 
+    def __str__(self):
+        return f"{self.dispositivo.nome} - {self.data_hora}"
+
+
+class LeituraSalva(models.Model):
+    # Data e hora da leitura original
+    data_hora = models.DateTimeField()
+
+    # Dados ambientais registrados
+    temperatura = models.DecimalField(
+        max_digits=5,
+        decimal_places=1
+    )
+
+    umidade = models.DecimalField(
+        max_digits=5,
+        decimal_places=1
+    )
+
+    gas_percentual = models.PositiveIntegerField()
+
+    # Classificação do nível de gás
+    nivel_gas = models.CharField(max_length=10)
+
+    # Indica se houve vazamento
+    vazamento = models.BooleanField()
+
+    # Nome do dispositivo no momento em que a leitura foi salva
+    dispositivo_nome = models.CharField(max_length=100)
+
+    # Data em que o usuário salvou a leitura
+    data_salvamento = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'leituras_salvas'
+        ordering = ['-data_hora']
 
     def __str__(self):
-        # Identifica o registro pelo dispositivo e pela data
-        return f"{self.dispositivo.nome} - {self.data_hora}"
+        return f"{self.dispositivo_nome} - {self.data_hora}"
