@@ -4,16 +4,79 @@ document.addEventListener("DOMContentLoaded", function () {
     const listaDispositivos = document.getElementById("lista-dispositivos");
     const totalDispositivos = document.getElementById("total-dispositivos");
 
-    // Verifica se os elementos existem.
+    // Elementos do modal.
+    const modalExcluir = document.getElementById("modal-excluir");
+    const nomeDispositivo = document.getElementById("nome-dispositivo-excluir");
+    const botaoCancelar = document.getElementById("cancelar-exclusao");
+    const botaoConfirmar = document.getElementById("confirmar-exclusao");
+
+    let formularioSelecionado = null;
+
     if (!listaDispositivos || !totalDispositivos) {
         return;
     }
 
-    // Atualiza a lista consultando novamente o servidor.
+    // Abre o modal ao clicar em Excluir.
+    listaDispositivos.addEventListener("click", function (evento) {
+
+        const botaoExcluir = evento.target.closest(".botao-excluir");
+
+        if (!botaoExcluir) {
+            return;
+        }
+
+        formularioSelecionado = botaoExcluir.closest(".form-excluir");
+
+        if (!formularioSelecionado) {
+            return;
+        }
+
+        nomeDispositivo.textContent = botaoExcluir.dataset.nome;
+
+        modalExcluir.classList.add("ativo");
+        modalExcluir.setAttribute("aria-hidden", "false");
+    });
+
+    // Fecha o modal.
+    function fecharModal() {
+        modalExcluir.classList.remove("ativo");
+        modalExcluir.setAttribute("aria-hidden", "true");
+        formularioSelecionado = null;
+    }
+
+    botaoCancelar.addEventListener("click", fecharModal);
+
+    // Fecha ao clicar fora da caixa de confirmação.
+    modalExcluir.addEventListener("click", function (evento) {
+        if (evento.target === modalExcluir) {
+            fecharModal();
+        }
+    });
+
+    // Confirma e envia o formulário.
+    botaoConfirmar.addEventListener("click", function () {
+
+        if (formularioSelecionado) {
+            formularioSelecionado.submit();
+        }
+
+    });
+
+    // Fecha o modal com a tecla ESC.
+    document.addEventListener("keydown", function (evento) {
+        if (evento.key === "Escape" && modalExcluir.classList.contains("ativo")) {
+            fecharModal();
+        }
+    });
+
+    // Atualização automática da lista.
     async function atualizarDispositivos() {
 
-        // Não atualiza enquanto a página estiver em segundo plano.
-        if (document.hidden) {
+        // Não atualiza em segundo plano nem enquanto o modal está aberto.
+        if (
+            document.hidden ||
+            modalExcluir.classList.contains("ativo")
+        ) {
             return;
         }
 
@@ -31,17 +94,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error("Não foi possível atualizar os dispositivos.");
             }
 
-            // Recebe o HTML atualizado.
             const html = await resposta.text();
-
-            // Transforma a resposta em um documento HTML.
             const documento = new DOMParser().parseFromString(html, "text/html");
 
-            // Busca os elementos atualizados.
             const novaLista = documento.getElementById("lista-dispositivos");
             const novoTotal = documento.getElementById("total-dispositivos");
 
-            // Atualiza a página.
             if (novaLista && novoTotal) {
                 listaDispositivos.innerHTML = novaLista.innerHTML;
                 totalDispositivos.textContent = novoTotal.textContent;

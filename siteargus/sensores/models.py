@@ -78,7 +78,7 @@ class Localizacao(models.Model):
     )
 
     class Meta:
-        db_table = 'localização'
+        db_table = 'localizacao'
 
     def __str__(self):
         return self.descricao

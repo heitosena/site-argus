@@ -6,17 +6,15 @@
 <html lang="pt-br">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% load static %}
 
     <!-- Conexão com o CSS. -->
-    <link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=3">
 
     <title>Cadastro de Dispositivos - A.R.G.U.S.</title>
-
 </head>
 
 <body>
@@ -36,49 +34,49 @@
     <!-- Formulário responsável pelo cadastro. -->
     <form method="post">
 
-        <!-- Protege o formulário contra ataques CSRF. -->
         {% csrf_token %}
 
-        <!-- Campo para o nome do sensor. -->
+        <!-- Nome do dispositivo. -->
         <label for="nome">Nome</label>
         <input type="text" id="nome" name="nome" required>
 
         <br><br>
 
-        <!-- Campo para o modelo do sensor. -->
+        <!-- Modelo do dispositivo. -->
         <label for="modelo">Modelo</label>
-        <input type="text" id="modelo" name="modelo" value="ESP32 - Sensor de Gás" required>
+        <input
+            type="text"
+            id="modelo"
+            name="modelo"
+            value="ESP32 - Sensor de Gás"
+            required
+        >
 
         <br><br>
 
-        <!-- Campo para escolher o status. -->
+        <!-- Status do dispositivo. -->
         <label for="status">Status</label>
         <select id="status" name="status" required>
-
             <option value="Ativo">Ativo</option>
             <option value="Inativo">Inativo</option>
             <option value="Manutenção">Manutenção</option>
-
         </select>
 
         <br><br>
 
-        <!-- Campo para informar a bateria. -->
-        <label for="bateria">Bateria (%):</label>
-        <input type="number" id="bateria" name="bateria"
-               min="0" max="100" value="100" required>
-
-        <br><br>
-
-        <!-- Caixa para informar se o sensor está conectado à rede. -->
+        <!-- Conexão com a rede. -->
         <label for="rede_conectada">
-            <input type="checkbox" id="rede_conectada" name="rede_conectada">
+            <input
+                type="checkbox"
+                id="rede_conectada"
+                name="rede_conectada"
+            >
             Rede conectada
         </label>
 
         <br><br>
 
-        <!-- Botão que envia o formulário. -->
+        <!-- Botão de cadastro. -->
         <button type="submit">Cadastrar dispositivo</button>
 
     </form>

@@ -9,9 +9,9 @@
 
     <title>Dispositivos - A.R.G.U.S.</title>
 
-    <link rel="stylesheet" href="{% static 'sensores/css/lista_sensores.css' %}?v=1">
+    <link rel="stylesheet" href="{% static 'sensores/css/lista_sensores.css' %}?v=5">
 
-    <script src="{% static 'sensores/js/lista_sensores.js' %}?v=1" defer></script>
+    <script src="{% static 'sensores/js/lista_sensores.js' %}?v=2" defer></script>
 </head>
 
 <body>
@@ -74,7 +74,7 @@
 
                                 <div class="detalhe-item">
                                     <span>Bateria</span>
-                                    <strong>{{ dispositivo.bateria }}%</strong>
+                                    <strong>{{ dispositivo.bateria|default:"Não informada" }}{% if dispositivo.bateria != None %}%{% endif %}</strong>
                                 </div>
 
                                 <div class="detalhe-item">
@@ -93,6 +93,21 @@
 
                             <div class="card-rodape">
                                 <span>Dispositivo cadastrado no A.R.G.U.S.</span>
+
+                                <form method="POST"
+                                      action="{% url 'excluir_sensor' dispositivo.id %}"
+                                      class="form-excluir">
+
+                                    {% csrf_token %}
+
+                                    <button type="button"
+                                            class="botao-excluir"
+                                            data-nome="{{ dispositivo.nome }}">
+                                        <span aria-hidden="true">🗑</span>
+                                        Excluir
+                                    </button>
+
+                                </form>
                             </div>
 
                         </article>
@@ -113,6 +128,38 @@
         </section>
 
     </main>
+
+    <!-- Modal de confirmação -->
+    <div class="modal-overlay" id="modal-excluir" aria-hidden="true">
+
+        <div class="modal-confirmacao" role="dialog"
+             aria-modal="true" aria-labelledby="modal-titulo">
+
+            <div class="modal-icone">🗑</div>
+
+            <h2 id="modal-titulo">Excluir dispositivo?</h2>
+
+            <p>
+                Tem certeza de que deseja excluir
+                <strong id="nome-dispositivo-excluir"></strong>?
+                Essa ação não poderá ser desfeita.
+            </p>
+
+            <div class="modal-botoes">
+
+                <button type="button" class="botao-cancelar" id="cancelar-exclusao">
+                    Cancelar
+                </button>
+
+                <button type="button" class="botao-confirmar-exclusao" id="confirmar-exclusao">
+                    Sim, excluir
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

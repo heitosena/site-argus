@@ -8,6 +8,13 @@ urlpatterns = [
     # Tela para cadastrar um sensor.
     path('cadastrar/', views.cadastrar_sensor, name='cadastrar_sensor'),
 
+    # Exclui um dispositivo específico.
+    path(
+        'excluir-dispositivo/<int:dispositivo_id>/',
+        views.excluir_sensor,
+        name='excluir_sensor'
+    ),
+
     # Tela de Dashboard.
     path('dashboard/', views.dashboard, name='dashboard'),
 

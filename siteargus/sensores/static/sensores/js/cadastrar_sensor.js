@@ -3,11 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Elementos do formulário.
     const formulario = document.querySelector("form");
     const campoNome = document.getElementById("nome");
-    const campoBateria = document.getElementById("bateria");
     const botaoCadastrar = formulario?.querySelector('button[type="submit"]');
 
     // Verifica se os elementos existem.
-    if (!formulario || !campoNome || !campoBateria || !botaoCadastrar) {
+    if (!formulario || !campoNome || !botaoCadastrar) {
         return;
     }
 
@@ -40,26 +39,12 @@ document.addEventListener("DOMContentLoaded", function () {
     formulario.addEventListener("submit", function (evento) {
 
         const nome = campoNome.value.trim();
-        const bateria = Number(campoBateria.value);
 
         // Verifica o nome.
         if (nome.length < 2) {
             evento.preventDefault();
             alert("Digite um nome válido para o dispositivo.");
             campoNome.focus();
-            return;
-        }
-
-        // Verifica a porcentagem da bateria.
-        if (
-            campoBateria.value === "" ||
-            !Number.isFinite(bateria) ||
-            bateria < 0 ||
-            bateria > 100
-        ) {
-            evento.preventDefault();
-            alert("A bateria deve estar entre 0% e 100%.");
-            campoBateria.focus();
             return;
         }
 
