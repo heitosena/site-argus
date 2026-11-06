@@ -12,7 +12,7 @@
     {% load static %}
 
     <!-- Conexão com o CSS. -->
-    <link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=3">
+    <link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=7">
 
     <title>Cadastro de Dispositivos - A.R.G.U.S.</title>
 </head>
@@ -76,8 +76,18 @@
 
         <br><br>
 
-        <!-- Botão de cadastro. -->
-        <button type="submit">Cadastrar dispositivo</button>
+        <!-- Botões de ação. -->
+<div class="botoes-acoes">
+
+    <!-- Botão de cadastro. -->
+    <button type="submit">Cadastrar dispositivo</button>
+
+    <!-- Botão para visualizar dispositivos cadastrados. -->
+    <a href="{% url 'lista_sensores' %}" class="botao-lista">
+        Voltar
+    </a>
+
+</div>
 
     </form>
 

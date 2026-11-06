@@ -96,31 +96,61 @@ form > label[for="rede_conectada"] {
     cursor: pointer;
 }
 
-/* Botão de cadastro. */
-form > button {
+/* Área dos botões de ação. */
+.botoes-acoes {
+    display: flex;
+    gap: 12px;
     width: 100%;
+}
+
+/* Estilo comum dos botões. */
+.botoes-acoes button,
+.botao-lista {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
     min-height: 46px;
     padding: 12px 20px;
-    background-color: #0ea5c8;
-    border: 1px solid #0ea5c8;
     border-radius: 8px;
-    color: #080e17;
     font-size: 15px;
     font-weight: 700;
+    text-align: center;
+    text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s ease,
                 transform 0.2s ease,
                 opacity 0.2s ease;
 }
 
-/* Efeito ao passar o mouse. */
-form > button:hover:not(:disabled) {
+/* Botão de cadastro. */
+.botoes-acoes button {
+    background-color: #0ea5c8;
+    border: 1px solid #0ea5c8;
+    color: #080e17;
+}
+
+/* Botão voltar. */
+.botao-lista {
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    color: #ffffff;
+}
+
+/* Efeito ao passar o mouse no cadastro. */
+.botoes-acoes button:hover:not(:disabled) {
     background-color: #0c91b0;
     transform: translateY(-2px);
 }
 
+/* Efeito ao passar o mouse no botão voltar. */
+.botao-lista:hover {
+    background-color: #bd2938;
+    transform: translateY(-2px);
+}
+
 /* Botão desabilitado durante o cadastro. */
-form > button:disabled {
+.botoes-acoes button:disabled {
     opacity: 0.65;
     cursor: not-allowed;
 }
@@ -151,5 +181,9 @@ form > button:disabled {
 
     form {
         padding: 24px 18px;
+    }
+
+    .botoes-acoes {
+        flex-direction: column;
     }
 }
