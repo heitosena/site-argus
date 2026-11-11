@@ -107,46 +107,85 @@ def lista_leituras(request):
 
 
 # Salva cópias independentes das leituras selecionadas
+@require_POST
 def salvar_leituras(request):
+    ids = request.POST.getlist('registros')
 
-    if request.method == 'POST':
+    # Busca somente leituras que ainda não foram salvas.
+    registros = Registro.objects.filter(
+        id__in=ids,
+        salvo=False
+    ).select_related('dispositivo')
 
-        ids = request.POST.getlist('registros')
+    for registro in registros:
 
-        registros = Registro.objects.filter(
-            id__in=ids
-        ).select_related('dispositivo')
+        # Cria uma cópia independente da leitura.
+        LeituraSalva.objects.create(
+            data_hora=registro.data_hora,
+            dispositivo_nome=registro.dispositivo.nome,
+            temperatura=registro.temperatura,
+            umidade=registro.umidade,
+            gas_percentual=registro.gas_percentual,
+            nivel_gas=registro.nivel_gas,
+            vazamento=registro.vazamento
+        )
 
-        for registro in registros:
-
-            LeituraSalva.objects.get_or_create(
-                data_hora=registro.data_hora,
-                dispositivo_nome=registro.dispositivo.nome,
-                defaults={
-                    'temperatura': registro.temperatura,
-                    'umidade': registro.umidade,
-                    'gas_percentual': registro.gas_percentual,
-                    'nivel_gas': registro.nivel_gas,
-                    'vazamento': registro.vazamento,
-                }
-            )
-
-            registro.salvo = True
-            registro.save(update_fields=['salvo'])
+        # Marca o registro original como salvo.
+        registro.salvo = True
+        registro.save(update_fields=['salvo'])
 
     return redirect('lista_leituras')
 
 
-# Exclui somente as leituras originais
+# Exclui as leituras selecionadas pelo usuário.
+@require_POST
 def excluir_leituras(request):
 
-    if request.method == 'POST':
+    ids = request.POST.getlist('registros')
 
-        ids = request.POST.getlist('registros')
+    # Identifica se a exclusão veio da tela de leituras salvas.
+    origem_salvas = request.POST.get('origem_salvas') == '1'
 
-        Registro.objects.filter(id__in=ids).delete()
+    if not ids:
+        messages.warning(
+            request,
+            'Selecione pelo menos uma leitura para excluir.'
+        )
+
+    else:
+
+        # Exclui cópias independentes das leituras salvas.
+        if origem_salvas:
+
+            quantidade, _ = LeituraSalva.objects.filter(
+                id__in=ids
+            ).delete()
+
+            if quantidade:
+                messages.success(
+                    request,
+                    f'{quantidade} leitura(s) salva(s) excluída(s) com sucesso!'
+                )
+
+        # Exclui somente as leituras originais.
+        else:
+
+            quantidade, _ = Registro.objects.filter(
+                id__in=ids
+            ).delete()
+
+            if quantidade:
+                messages.success(
+                    request,
+                    f'{quantidade} leitura(s) excluída(s) com sucesso!'
+                )
+
+    # Retorna para a tela de onde a exclusão foi solicitada.
+    if origem_salvas:
+        return redirect('ver_leituras_salvas')
 
     return redirect('lista_leituras')
+
 
 
 # Exibe as cópias independentes das leituras salvas

@@ -51,3 +51,30 @@ class Alerta(models.Model):
 
     def __str__(self):
         return f'{self.get_tipo_display()} - {self.dispositivo.nome}'
+
+
+class ProcessamentoAlerta(models.Model):
+
+    # Dispositivo cujas leituras estão sendo processadas
+    dispositivo = models.OneToOneField(
+        'sensores.Dispositivo',
+        on_delete=models.CASCADE,
+        related_name='processamento_alertas'
+    )
+
+    # ID da última leitura processada
+    ultimo_registro_id = models.PositiveBigIntegerField(
+        default=0
+    )
+
+    # Data da última atualização do processamento
+    atualizado_em = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        verbose_name = 'Processamento de alerta'
+        verbose_name_plural = 'Processamentos de alertas'
+
+    def __str__(self):
+        return f'Processamento - {self.dispositivo.nome}'

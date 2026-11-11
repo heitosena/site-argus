@@ -113,12 +113,20 @@ p {
 .acoes-leituras {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
     margin: 24px 0;
     padding: 16px;
     background-color: #0d1520;
     border: 1px solid #1a2d40;
     border-radius: 10px;
+}
+
+/* Agrupa os botões à esquerda. */
+.grupo-acoes-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 /* Estilo geral dos botões. */
@@ -169,14 +177,14 @@ p {
     background-color: #0ea5c8;
 }
 
+/* Botão Atualizar - alinhado à direita. */
 #atualizar-leituras {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0;
+    margin-right: 0;
     padding: 13px 28px;
     font-size: 16px;
-    transform: translateX(-230px);
-    position: relative;
-    left: 0;
+    transform: none;
+    position: static;
 }
 
 /* Estilo do botão Voltar. */
@@ -201,7 +209,16 @@ p {
     transform: translateY(-2px);
 }
 
+/* Adaptação para telas menores. */
+@media (max-width: 600px) {
+    .acoes-leituras {
+        flex-wrap: wrap;
+    }
 
+    .grupo-acoes-esquerda {
+        flex-wrap: wrap;
+    }
+}
 /* Adapta a página para telas menores. */
 @media (max-width: 768px) {
     body {
@@ -309,4 +326,28 @@ p {
 #fechar-aviso:hover {
     background-color: #087f9c;
     transform: translateY(-2px);
+}
+
+/* Evita que o modal ultrapasse a largura da tela. */
+.conteudo-modal {
+    box-sizing: border-box;
+}
+
+/* Permite organizar os botões em telas menores. */
+.botoes-modal {
+    flex-wrap: wrap;
+}
+
+/* Adaptação dos modais para celulares. */
+@media (max-width: 480px) {
+
+    .conteudo-modal {
+        width: 95%;
+        padding: 22px;
+    }
+
+    .botoes-modal button {
+        flex: 1;
+    }
+
 }

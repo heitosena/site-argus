@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alertas | A.R.G.U.S.</title>
+
+    <!-- CSS da página de alertas -->
+    <link rel="stylesheet" href="{% static 'alertas/css/lista_alertas.css' %}">
+
+    <!-- JavaScript da página de alertas -->
+    <script src="{% static 'alertas/js/lista_alertas.js' %}" defer></script>
+</head>
+
+<body>
+
+    <main>
+        <header class="cabecalho">
+            <h1>Central de Alertas</h1>
+            <p>Acompanhe os alertas registrados pelos dispositivos.</p>
+        </header>
+
+        <section class="lista-alertas" aria-label="Alertas registrados">
+
+            {% for alerta in alertas %}
+
+                <article
+                    class="alerta-card alerta-{{ alerta.tipo }}"
+                    data-status="{{ alerta.status }}"
+                >
+                    <div class="alerta-cabecalho">
+                        <h2>{{ alerta.get_tipo_display }}</h2>
+
+                        <span class="alerta-status">
+                            {{ alerta.get_status_display }}
+                        </span>
+                    </div>
+
+                    <p class="alerta-descricao">
+                        {{ alerta.descricao }}
+                    </p>
+
+                    <div class="alerta-informacoes">
+                        <p>
+                            <strong>Dispositivo:</strong>
+                            {{ alerta.dispositivo.nome }}
+                        </p>
+
+                        <p>
+                            <strong>Data:</strong>
+                            {{ alerta.data_criacao|date:"d/m/Y H:i" }}
+                        </p>
+                    </div>
+                </article>
+
+            {% empty %}
+
+                <div class="sem-alertas">
+                    <h2>Nenhum alerta registrado</h2>
+                    <p>Quando um dispositivo gerar um alerta, ele aparecerá aqui.</p>
+                </div>
+
+            {% endfor %}
+
+        </section>
+
+        <footer class="rodape">
+            <p id="status-atualizacao">
+                Atualização automática ativada.
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

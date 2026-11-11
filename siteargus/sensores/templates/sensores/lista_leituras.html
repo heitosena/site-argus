@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Carrega o arquivo CSS da página de leituras. -->
-    <link rel="stylesheet" href="{% static 'sensores/css/lista_leituras.css' %}?v=19">
+    <link rel="stylesheet" href="{% static 'sensores/css/lista_leituras.css' %}?v=21">
 
     <!-- Define o título da aba. -->
     <title>Leituras - A.R.G.U.S.</title>
@@ -100,36 +100,41 @@
         <!-- Área com os botões de ação. -->
         <section class="acoes-leituras">
 
-            {% if not mostrando_salvas %}
+            <!-- Grupo de botões à esquerda. -->
+            <div class="grupo-acoes-esquerda">
 
-                <!-- Botão para salvar leituras selecionadas. -->
-                <button type="submit" id="salvar-leituras">
-                    💾 Salvar
-                </button>
+                {% if not mostrando_salvas %}
 
-            {% endif %}
+                    <!-- Botão para salvar leituras selecionadas. -->
+                    <button type="submit" id="salvar-leituras">
+                        💾 Salvar
+                    </button>
 
-            <!-- Botão para excluir leituras selecionadas. -->
-            <button
-                type="submit"
-                id="excluir-leituras"
-                formaction="/sensores/excluir-leituras/"
-            >
-                🗑 Excluir
-            </button>
+                {% endif %}
 
-            {% if not mostrando_salvas %}
-
-                <!-- Botão para visualizar leituras salvas. -->
+                <!-- Botão para excluir leituras selecionadas. -->
                 <button
-                    type="button"
-                    id="ver-salvas"
-                    onclick="window.location.href='/sensores/leituras-salvas/'"
+                    type="submit"
+                    id="excluir-leituras"
+                    formaction="/sensores/excluir-leituras/"
                 >
-                    📋 Ver salvas
+                    🗑 Excluir
                 </button>
 
-            {% endif %}
+                {% if not mostrando_salvas %}
+
+                    <!-- Botão para visualizar leituras salvas. -->
+                    <button
+                        type="button"
+                        id="ver-salvas"
+                        onclick="window.location.href='/sensores/leituras-salvas/'"
+                    >
+                        📋 Ver salvas
+                    </button>
+
+                {% endif %}
+
+            </div>
 
             <!-- Botão para atualizar a lista. -->
             <button type="button" id="atualizar-leituras">
@@ -291,7 +296,7 @@
     </div>
 
     <!-- Carrega o JavaScript da página de leituras. -->
-    <script src="{% static 'sensores/js/lista_leituras.js' %}?v=6"></script>
+    <script src="{% static 'sensores/js/lista_leituras.js' %}?v=8"></script>
 
 </body>
 </html>

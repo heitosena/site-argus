@@ -3,6 +3,10 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Dispositivo(models.Model):
+
+    # Identificador do dispositivo (compatível com o banco MySQL)
+    id = models.AutoField(primary_key=True)
+
     # Nome dado ao dispositivo
     nome = models.CharField(max_length=100)
 
