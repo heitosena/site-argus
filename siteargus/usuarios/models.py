@@ -7,3 +7,7 @@ class Usuario(models.Model):
     email = models.EmailField(max_length=150, unique = True)
     telefone = models.CharField(max_length=20)
     senha = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'usuarios'
+        managed = False
