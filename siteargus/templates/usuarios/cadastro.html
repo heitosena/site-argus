@@ -22,9 +22,9 @@
             <h1>Cadastro</h1>
         </div>
         <div class="formularioCad"> <!-- Container do formulário de cadastro -->
-            <form method="post" id="formCad">
+            <form method="post" id="formCad" novalidate>
                 {% csrf_token %}
-                <label for="nome">Nome</label>
+                <label for="nome">Nome Completo</label>
                 <input type="text" id="nome" name="nome" placeholder="Guilherme Lacerda" required>
 
                 <label for="email">E-mail</label>
@@ -38,9 +38,9 @@
                 <label for="telefone">Telefone</label>
                 <input type="tel" id="telefone" name="telefone" maxlength="14" placeholder="(11) 99999-9999" required>
 
-                <div class="botao_cadastrar"> <!-- Container do botão de cadastro -->
-                    <button type="submit">Criar conta</button>
-                </div>
+                <button type="submit" class="botao_cadastrar">
+                Criar conta
+                </button>
             </form>
         </div>
     </div>
