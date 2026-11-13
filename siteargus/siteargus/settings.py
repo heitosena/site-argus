@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_ARGUS = Path(__file__).resolve().parent.parent
@@ -78,11 +82,11 @@ WSGI_APPLICATION = 'siteargus.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'argus',
-        'USER': 'argus_django',
-        'PASSWORD': os.environ.get('ARGUS_DB_PASSWORD'), #colocar a senha do mysql preciso fazer o env
-        'HOST': '100.66.247.90',
-        'PORT': '3306',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '3306'),
     }
 }
 

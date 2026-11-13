@@ -31,8 +31,8 @@ body {
     margin: 0 auto 25px auto;
     font-size: 28px;
     font-weight: 700;
-    text-align: center;
-    color: #e8f0f5;
+    text-align: left;
+    color: #abd8f4;
 }
 
 /* Formulário. */
@@ -44,7 +44,7 @@ body {
 .formularioCad form > label {
     display: block;
     margin-bottom: 9px;
-    color: #e8f0f5;
+    color: #abd8f4;
     font-size: 14px;
     font-weight: 600;
 }
