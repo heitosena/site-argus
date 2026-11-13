@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}A.R.G.U.S.{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'base.css' %}?v=2">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <aside class="barra-lateral">
+        <div class="logo-argus">
+            <h1>A.R.G.U.S.</h1>
+            <p>Sistema de monitoramento</p>
+        </div>
+
+        <nav class="menu-lateral">
+
+            <a href="{% url 'dashboard' %}"
+               class="{% if request.resolver_match.url_name == 'dashboard' %}ativo{% endif %}">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="{% url 'lista_leituras' %}"
+               class="{% if request.resolver_match.url_name == 'lista_leituras' %}ativo{% endif %}">
+                <span>▤</span> Leituras
+            </a>
+
+            <a href="{% url 'lista_sensores' %}"
+               class="{% if request.resolver_match.url_name == 'lista_sensores' %}ativo{% endif %}">
+                <span>▣</span> Sensores cadastrados
+            </a>
+
+            <a href="{% url 'lista_alertas' %}"
+               class="{% if request.resolver_match.url_name == 'lista_alertas' %}ativo{% endif %}">
+                <span>♧</span> Alertas
+            </a>
+
+            <a href="#" class="item-indisponivel" title="Em desenvolvimento">
+                <span>⚙</span> Configurações
+            </a>
+
+        </nav>
+    </aside>
+
+    <main class="conteudo-principal">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{% static 'base.js' %}?v=2"></script>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

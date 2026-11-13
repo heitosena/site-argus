@@ -1,0 +1,120 @@
+
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS
+   ========================================= */
+
+:root {
+    --cor-fundo: #080e17;
+    --cor-superficie: #0d1520;
+    --cor-borda: #1a2d40;
+    --cor-texto: #e8f0f5;
+    --cor-texto-secundario: #5a7a90;
+    --cor-destaque: #0ea5c8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+/* =========================================
+   2. BARRA LATERAL
+   ========================================= */
+
+.barra-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    padding: 28px 18px;
+    background-color: var(--cor-superficie);
+    border-right: 1px solid var(--cor-borda);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+/* =========================================
+   3. LOGO
+   ========================================= */
+
+.logo-argus {
+    padding: 0 12px 26px;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.logo-argus h1 {
+    margin: 0;
+    color: var(--cor-destaque);
+    font-size: 27px;
+    letter-spacing: 1px;
+}
+
+.logo-argus p {
+    margin: 7px 0 0;
+    color: var(--cor-texto-secundario);
+    font-size: 12px;
+}
+
+/* =========================================
+   4. MENU DE NAVEGAÇÃO
+   ========================================= */
+
+.menu-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.menu-lateral a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 14px 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--cor-texto-secundario);
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.menu-lateral a span {
+    width: 22px;
+    text-align: center;
+    font-size: 19px;
+}
+
+.menu-lateral a:hover {
+    background-color: rgba(14, 165, 200, 0.08);
+    color: var(--cor-texto);
+    border-color: var(--cor-borda);
+}
+
+/* Página atualmente selecionada. */
+
+.menu-lateral a.ativo {
+    background-color: rgba(14, 165, 200, 0.13);
+    color: var(--cor-destaque);
+    border-color: rgba(14, 165, 200, 0.25);
+    font-weight: bold;
+}
+
+/* =========================================
+   5. CONTEÚDO DAS PÁGINAS
+   ========================================= */
+
+.conteudo-principal {
+    margin-left: 260px;
+    min-height: 100vh;
+    width: calc(100% - 260px);
+}

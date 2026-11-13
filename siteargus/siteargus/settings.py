@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'sensores',
-    'alertas',
+    'alertas.apps.AlertasConfig',
+    'notificacoes',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ARGUS',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'Hd205512@',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -124,8 +125,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'dashboard',
+    BASE_DIR / 'static',
 ]

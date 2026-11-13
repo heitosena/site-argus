@@ -132,6 +132,7 @@ def processar_alertas():
                     'Vazamento de gás detectado!'
                 )
 
+            # Classificação de Perigo.
             elif registro.nivel_gas == 'Perigo':
                 atualizar_alerta(
                     dispositivo,
@@ -139,6 +140,7 @@ def processar_alertas():
                     'Nível de gás em estado de perigo.'
                 )
 
+            # Classificação de Atenção.
             elif registro.nivel_gas == 'Atenção':
                 atualizar_alerta(
                     dispositivo,
@@ -146,6 +148,15 @@ def processar_alertas():
                     'Nível de gás acima do normal. Atenção necessária.'
                 )
 
+            # Condição adicional: gás acima de 45%.
+            elif registro.gas_percentual > 45:
+                atualizar_alerta(
+                    dispositivo,
+                    'atencao',
+                    'Nível de gás ultrapassou 45%. Atenção necessária.'
+                )
+
+            # Resolve alertas quando o nível volta ao Normal.
             elif registro.nivel_gas == 'Normal':
                 resolver_alertas(dispositivo)
 

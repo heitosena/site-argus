@@ -1,90 +1,83 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard | A.R.G.U.S.</title>
+{% block title %}Dashboard | A.R.G.U.S.{% endblock %}
 
-    <!-- Carrega os estilos visuais da Dashboard. -->
-    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
-</head>
-<body>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}?v=7">
+{% endblock %}
 
-    <!-- Cabeçalho principal do sistema A.R.G.U.S. -->
-    <header class="cabecalho-dashboard">
-        <h1>A.R.G.U.S.</h1>
-        <p>Painel de monitoramento</p>
-    </header>
+{% block content %}
 
-    <!-- Conteúdo principal da Dashboard. -->
-    <main class="conteudo-dashboard">
+<header class="cabecalho-dashboard">
+    <div>
+        <h1>Painel de monitoramento</h1>
+        <p>Acompanhe as informações dos seus sensores em tempo real.</p>
+    </div>
+</header>
 
-        <!-- Apresentação do painel. -->
-        <h2>Visão geral</h2>
-        <p>Bem-vindo ao painel de monitoramento dos dispositivos.</p>
-        
-        <!-- Área com os quatro medidores da Dashboard. -->
-        <section class="medidores-dashboard">
+<div class="conteudo-dashboard">
 
-            <!-- Medidor de temperatura. -->
-            <article class="cartao-medidor">
-                <h3>Temperatura</h3>
-                <div
-                    class="medidor-circular"
-                    id="medidor-temperatura"
-                    data-valor="{{ ultima_leitura.temperatura|default:0 }}"
-                >
-                    <span class="valor-medidor">0</span>
-                </div>
-                <p>°C</p>
-            </article>
+    <div class="medidores-dashboard">
 
-            <!-- Medidor de umidade. -->
-            <article class="cartao-medidor">
-                <h3>Umidade</h3>
-                <div
-                    class="medidor-circular"
-                    id="medidor-umidade"
-                    data-valor="{{ ultima_leitura.umidade|default:0 }}"
-                >
-                    <span class="valor-medidor">0</span>
-                </div>
-                <p>%</p>
-            </article>
+        <!-- MEDIDOR DE TEMPERATURA -->
+        <section class="cartao-medidor">
+            <h3>Temperatura</h3>
 
-            <!-- Medidor de gás. -->
-            <article class="cartao-medidor">
-                <h3>Nível de gás</h3>
-                <div
-                    class="medidor-circular"
-                    id="medidor-gas"
-                    data-valor="{{ ultima_leitura.gas_percentual|default:0 }}"
-                >
-                    <span class="valor-medidor">0</span>
-                </div>
-                <p>%</p>
-            </article>
-
-            <!-- Medidor de bateria. -->
-            <article class="cartao-medidor">
-                <h3>Bateria</h3>
-                <div
-                    class="medidor-circular"
-                    id="medidor-bateria"
-                    data-valor="{{ ultima_leitura.dispositivo.bateria|default:0 }}"
-                >
-                    <span class="valor-medidor">0</span>
-                </div>
-                <p>%</p>
-            </article>
-
+            <div
+                class="medidor-circular"
+                id="medidor-temperatura"
+                data-valor="{{ ultima_leitura.temperatura|default:0 }}"
+            >
+                <span class="valor-medidor">0</span>
+            </div>
         </section>
 
-    </main>
+        <!-- MEDIDOR DE UMIDADE -->
+        <section class="cartao-medidor">
+            <h3>Umidade</h3>
 
-    <!-- Carrega as animações dos medidores da Dashboard. -->
-    <script src="{% static 'dashboard.js' %}?v=3"></script>
-</body>
-</html>
+            <div
+                class="medidor-circular"
+                id="medidor-umidade"
+                data-valor="{{ ultima_leitura.umidade|default:0 }}"
+            >
+                <span class="valor-medidor">0</span>
+            </div>
+        </section>
+
+        <!-- MEDIDOR DE GÁS -->
+        <section class="cartao-medidor">
+            <h3>Nível de gás</h3>
+
+            <div
+                class="medidor-circular"
+                id="medidor-gas"
+                data-valor="{{ ultima_leitura.gas_percentual|default:0 }}"
+            >
+                <span class="valor-medidor">0</span>
+            </div>
+        </section>
+
+        <!-- MEDIDOR DE BATERIA -->
+        <section class="cartao-medidor">
+            <h3>Bateria</h3>
+
+            <div
+                class="medidor-circular"
+                id="medidor-bateria"
+                data-valor="{{ ultima_leitura.dispositivo.bateria|default:0 }}"
+            >
+                <span class="valor-medidor">0</span>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'dashboard.js' %}?v=6"></script>
+{% endblock %}

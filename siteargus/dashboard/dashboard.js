@@ -1,3 +1,4 @@
+
 /* Anima um medidor circular do valor inicial até o valor final. */
 function animarMedidor(id, valorFinal, valorMaximo, unidade = "") {
     const medidor = document.getElementById(id);
@@ -9,6 +10,11 @@ function animarMedidor(id, valorFinal, valorMaximo, unidade = "") {
 
     const textoValor = medidor.querySelector(".valor-medidor");
 
+    // Interrompe se o elemento do valor não existir.
+    if (!textoValor) {
+        return;
+    }
+
     // Evita valores negativos ou acima do limite definido.
     const valorDestino = Math.max(
         0,
@@ -17,6 +23,12 @@ function animarMedidor(id, valorFinal, valorMaximo, unidade = "") {
 
     const duracao = 1200;
     const inicio = performance.now();
+
+    // Define quantas casas decimais cada medidor deve apresentar.
+    const casasDecimais = (
+        id === "medidor-temperatura" ||
+        id === "medidor-umidade"
+    ) ? 1 : 0;
 
     // Atualiza o número e o preenchimento do círculo.
     function atualizar(instanteAtual) {
@@ -29,7 +41,11 @@ function animarMedidor(id, valorFinal, valorMaximo, unidade = "") {
         const valorAtual = valorDestino * suavizacao;
         const angulo = (valorAtual / valorMaximo) * 360;
 
-        textoValor.textContent = `${Math.round(valorAtual)}${unidade}`;
+        // Formata o valor conforme o tipo de medidor.
+        textoValor.textContent = `${valorAtual.toLocaleString("pt-BR", {
+            minimumFractionDigits: casasDecimais,
+            maximumFractionDigits: casasDecimais
+        })}${unidade}`;
 
         medidor.style.setProperty("--progresso", `${angulo}deg`);
 
@@ -56,21 +72,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // Anima o medidor de temperatura com o valor do banco.
     animarMedidor(
         "medidor-temperatura",
-        parseFloat(temperatura.dataset.valor) || 0,
-        50
+        parseFloat(temperatura?.dataset.valor) || 0,
+        50,
+        " °C"
     );
 
     // Anima o medidor de umidade com o valor do banco.
     animarMedidor(
         "medidor-umidade",
-        parseFloat(umidade.dataset.valor) || 0,
-        100
+        parseFloat(umidade?.dataset.valor) || 0,
+        100,
+        "%"
     );
 
     // Anima o medidor de gás com o valor do banco.
     animarMedidor(
         "medidor-gas",
-        parseFloat(gas.dataset.valor) || 0,
+        parseFloat(gas?.dataset.valor) || 0,
         100,
         "%"
     );
@@ -78,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Anima o medidor da bateria com o valor do dispositivo.
     animarMedidor(
         "medidor-bateria",
-        parseFloat(bateria.dataset.valor) || 0,
+        parseFloat(bateria?.dataset.valor) || 0,
         100,
         "%"
     );
