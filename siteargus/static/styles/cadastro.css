@@ -29,7 +29,7 @@ body {
 .tituloCad h1 {
     max-width: 650px;
     margin: 0 auto 25px auto;
-    font-size: 14px;
+    font-size: 28px;
     font-weight: 700;
     text-align: left;
     color: #abd8f4;
@@ -148,6 +148,7 @@ body {
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
+    color: #abd8f4;
 }
 
 .link-login a {

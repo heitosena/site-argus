@@ -27,7 +27,7 @@ body {
 .tituloLogin {
     max-width: 650px;
     margin: 0 auto 25px auto;
-    font-size: 14px;
+    font-size: 28px ;
     font-weight: 700;
     text-align: left;
     color: #abd8f4;
@@ -123,12 +123,21 @@ body {
     box-shadow: 0 0 12px rgba(14, 165, 200, 0.45),
                 0 0 25px rgba(14, 165, 200, 0.25);
 }
+/* Efeito ao passar o mouse. */
+.formularioLogin form > .botao_entrar:hover {
+    background-color: #0c91b0;
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(14, 165, 200, 0.5),
+                0 0 25px rgba(14, 165, 200, 0.4),
+                0 0 40px rgba(14, 165, 200, 0.2);
+}
+
 
 .link-cadastro {
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
-    color: #333;
+    color: #abd8f4;
 }
 
 .link-cadastro a {
@@ -142,3 +151,4 @@ body {
     color: #0056b3;
     text-decoration: underline;
 }
+    

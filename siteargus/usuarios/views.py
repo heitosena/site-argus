@@ -3,12 +3,35 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from django.contrib.auth.hashers import check_password
 import re
 
 from .models import Usuario
 
 
 def login_views(request):
+
+    if request.method == "POST":
+
+        email = request.POST.get("email", "").strip().lower()
+        senha = request.POST.get("senha", "")
+
+        # Procurando o usuário no MySQL
+        usuario = Usuario.objects.filter(email=email).first()
+
+        # Verificando se o usuário existe e se a senha está correta
+        if usuario and check_password(senha, usuario.senha):
+
+            # Criando a sessão do usuário
+            request.session["usuario_id"] = usuario.id
+            request.session["usuario_nome"] = usuario.nome
+
+            return redirect("dashboard")
+
+        return render(request, "usuarios/login.html", {
+            "erro": "E-mail ou senha incorretos."
+        })
+
     return render(request, "usuarios/login.html")
 
 
@@ -77,8 +100,8 @@ def cadastro_views(request):
 
 
 def logout_views(request):
-    return render(request, "usuarios/logout.html")
-
+    request.session.flush()
+    return redirect("login")
 
 def dashboard_views(request):
     return render(request, "usuarios/dashboard.html")
