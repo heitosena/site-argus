@@ -1,189 +1,254 @@
-/* Configurações gerais da página. */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
-body {
-    min-height: 100vh;
-    padding: 40px 20px;
-    background-color: #080e17;
-    color: #e8f0f5;
-    font-family: Arial, Helvetica, sans-serif;
-}
+/* =================================
+   PÁGINA DE CADASTRO
+================================= */
 
-/* Título principal. */
-h1 {
-    max-width: 650px;
-    margin: 30px auto 25px;
-    font-size: 28px;
-    font-weight: 700;
-    text-align: center;
-    color: #e8f0f5;
-}
-
-/* Cartão do formulário. */
-form {
-    max-width: 650px;
+.pagina-cadastro {
+    width: 100%;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 35px;
-    background-color: #0d1520;
-    border: 1px solid #1a2d40;
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    padding: 45px 5%;
 }
 
-/* Oculta as quebras de linha originais. */
-form > br {
-    display: none;
-}
+/* =================================
+   TÍTULO
+================================= */
 
-/* Rótulos dos campos. */
-form > label {
-    display: block;
-    margin-bottom: 9px;
-    color: #e8f0f5;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-/* Campos de texto e seleção. */
-form > input,
-form > select {
-    display: block;
-    width: 100%;
-    height: 44px;
-    margin-bottom: 24px;
-    padding: 0 13px;
-    background-color: #080e17;
-    border: 1px solid #1a2d40;
-    border-radius: 8px;
-    color: #e8f0f5;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s ease,
-                box-shadow 0.2s ease;
-}
-
-/* Destaque ao selecionar um campo. */
-form > input:focus,
-form > select:focus {
-    border-color: #0ea5c8;
-    box-shadow: 0 0 0 3px rgba(14, 165, 200, 0.12);
-}
-
-/* Opções do campo de status. */
-form > select {
-    cursor: pointer;
-}
-
-/* Área do checkbox. */
-form > label[for="rede_conectada"] {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 5px 0 28px;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-/* Checkbox. */
-#rede_conectada {
-    width: 17px;
-    height: 17px;
-    accent-color: #0ea5c8;
-    cursor: pointer;
-}
-
-/* Área dos botões de ação. */
-.botoes-acoes {
-    display: flex;
-    gap: 12px;
-    width: 100%;
-}
-
-/* Estilo comum dos botões. */
-.botoes-acoes button,
-.botao-lista {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    min-height: 46px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 15px;
+.pagina-cadastro h1 {
+    color: var(--cor-texto);
+    font-size: 32px;
     font-weight: 700;
-    text-align: center;
-    text-decoration: none;
+    margin-bottom: 32px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+/* =================================
+   FORMULÁRIO
+================================= */
+
+.pagina-cadastro form {
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 38px;
+}
+
+.pagina-cadastro form > label {
+    display: block;
+    color: var(--cor-texto);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.pagina-cadastro input[type="text"],
+.pagina-cadastro select {
+    width: 100%;
+    min-height: 46px;
+    padding: 13px 15px;
+    background: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+    color: var(--cor-texto);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pagina-cadastro input[type="text"]:focus,
+.pagina-cadastro select:focus {
+    border-color: var(--cor-destaque);
+}
+
+.pagina-cadastro select {
     cursor: pointer;
-    transition: background-color 0.2s ease,
-                transform 0.2s ease,
-                opacity 0.2s ease;
 }
 
-/* Botão de cadastro. */
-.botoes-acoes button {
-    background-color: #0ea5c8;
-    border: 1px solid #0ea5c8;
-    color: #080e17;
+.pagina-cadastro select option {
+    background: var(--cor-superficie);
+    color: var(--cor-texto);
 }
 
-/* Botão voltar. */
-.botao-lista {
-    background-color: #dc3545;
-    border: 1px solid #dc3545;
-    color: #ffffff;
-}
+/* =================================
+   CAMPO SOMENTE LEITURA
+================================= */
 
-/* Efeito ao passar o mouse no cadastro. */
-.botoes-acoes button:hover:not(:disabled) {
-    background-color: #0c91b0;
-    transform: translateY(-2px);
-}
-
-/* Efeito ao passar o mouse no botão voltar. */
-.botao-lista:hover {
-    background-color: #bd2938;
-    transform: translateY(-2px);
-}
-
-/* Botão desabilitado durante o cadastro. */
-.botoes-acoes button:disabled {
-    opacity: 0.65;
+.pagina-cadastro input[readonly] {
+    background: var(--cor-superficie);
+    color: var(--cor-texto-secundario);
     cursor: not-allowed;
 }
 
-/* Mensagem de sucesso. */
-.mensagem-sucesso {
-    max-width: 650px;
-    margin: 0 auto 20px;
-    padding: 14px 18px;
-    background-color: #102b25;
-    border: 1px solid #1d654d;
-    border-radius: 8px;
-    color: #72dfae;
-    font-size: 14px;
-    text-align: center;
+/* =================================
+   VALIDAÇÃO DO CAMPO
+================================= */
+
+.pagina-cadastro input.campoInvalido,
+.pagina-cadastro input.campoInvalido:focus {
+    border-color: #e05252;
+    box-shadow: 0 0 8px rgba(224, 82, 82, 0.2);
 }
 
-/* Adaptação para dispositivos menores. */
+/* =================================
+   MENSAGEM DE ERRO - CÓDIGO DO AMIGO
+================================= */
+
+.formularioCad input.campoInvalido {
+    border-color: #e05252;
+    box-shadow: 0 0 8px rgba(224, 82, 82, 0.2);
+}
+
+/* Mensagem de erro. */
+
+.mensagemErro {
+    display: block;
+    margin-top: -17px;
+    margin-bottom: 20px;
+    color: #ff7777;
+    font-size: 13px;
+    font-weight: 500;
+    animation: aparecerErro 0.2s ease;
+}
+
+@keyframes aparecerErro {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =================================
+   CHECKBOX
+================================= */
+
+.pagina-cadastro label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-size: 15px;
+    color: var(--cor-texto);
+}
+
+.pagina-cadastro input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--cor-destaque);
+    cursor: pointer;
+}
+
+/* =================================
+   BOTÕES
+================================= */
+
+.botoes-acoes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 22px;
+}
+
+.botoes-acoes button,
+.botoes-acoes .botao-lista {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 46px;
+    padding: 12px 22px;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+/* Cadastrar */
+
+.botoes-acoes button {
+    background: var(--cor-destaque);
+    border: 1px solid var(--cor-destaque);
+    color: #ffffff;
+}
+
+.botoes-acoes button:hover {
+    background: #0b8eac;
+    border-color: #0b8eac;
+}
+
+/* Voltar */
+
+.botoes-acoes .botao-lista {
+    background: #7f1d1d;
+    border: 1px solid #991b1b;
+    color: #ffffff;
+}
+
+.botoes-acoes .botao-lista:hover {
+    background: #991b1b;
+    border-color: #b91c1c;
+    color: #ffffff;
+}
+
+/* =================================
+   MENSAGEM DE SUCESSO
+================================= */
+
+.pagina-cadastro .mensagem-sucesso {
+    background: #102d27;
+    border: 1px solid #1d6652;
+    color: #65d6ae;
+    padding: 15px 18px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+/* Tema claro */
+
+:root[data-tema="claro"] .pagina-cadastro .mensagem-sucesso {
+    background: #e6f6ef;
+    border-color: #a7dfc5;
+    color: #176b49;
+}
+
+/* =================================
+   RESPONSIVIDADE
+================================= */
+
 @media (max-width: 600px) {
-    body {
-        padding: 20px 14px;
+
+    .pagina-cadastro {
+        padding: 30px 18px;
     }
 
-    h1 {
-        margin-top: 20px;
-        font-size: 23px;
+    .pagina-cadastro h1 {
+        font-size: 26px;
     }
 
-    form {
-        padding: 24px 18px;
+    .pagina-cadastro form {
+        padding: 25px 20px;
     }
 
     .botoes-acoes {
         flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .botoes-acoes button,
+    .botoes-acoes .botao-lista {
+        width: 100%;
     }
 }

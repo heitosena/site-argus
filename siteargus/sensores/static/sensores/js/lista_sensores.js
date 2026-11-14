@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
     // Elementos da página.
@@ -11,6 +12,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const botaoConfirmar = document.getElementById("confirmar-exclusao");
 
     let formularioSelecionado = null;
+
+    // Mensagem de sucesso.
+    const mensagemSucesso = document.getElementById("mensagem-sucesso");
+
+    // Faz a mensagem desaparecer após 4 segundos.
+    if (mensagemSucesso) {
+
+        setTimeout(function () {
+
+            mensagemSucesso.style.transition = "opacity 0.5s";
+            mensagemSucesso.style.opacity = "0";
+
+            setTimeout(function () {
+                mensagemSucesso.remove();
+            }, 500);
+
+        }, 4000);
+
+    }
 
     if (!listaDispositivos || !totalDispositivos) {
         return;

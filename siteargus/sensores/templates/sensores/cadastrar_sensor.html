@@ -1,60 +1,54 @@
 
-<!-- Define o padrão HTML5. -->
-<!DOCTYPE html>
+{% extends "base/base.html" %}
+{% load static %}
 
-<!-- Inicia a página em português. -->
-<html lang="pt-br">
+{% block title %}Cadastro de Dispositivos | A.R.G.U.S.{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=26">
+{% endblock %}
 
-    {% load static %}
+{% block content %}
 
-    <!-- Conexão com o CSS. -->
-    <link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=7">
+<div class="pagina-cadastro">
 
-    <title>Cadastro de Dispositivos - A.R.G.U.S.</title>
-</head>
-
-<body>
-
-    <!-- Mensagem de sucesso do Django. -->
     {% if messages %}
         {% for message in messages %}
-            <div class="mensagem-sucesso">
-                {{ message }}
-            </div>
+            {% if 'cadastro' in message.extra_tags %}
+                <div class="mensagem-sucesso">
+                    {{ message }}
+                </div>
+            {% endif %}
         {% endfor %}
     {% endif %}
 
-    <!-- Título da página. -->
     <h1>Cadastro de Dispositivo</h1>
 
-    <!-- Formulário responsável pelo cadastro. -->
     <form method="post">
 
         {% csrf_token %}
 
-        <!-- Nome do dispositivo. -->
         <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" required>
+        <input
+            type="text"
+            id="nome"
+            name="nome"
+            required
+        >
 
         <br><br>
 
-        <!-- Modelo do dispositivo. -->
         <label for="modelo">Modelo</label>
         <input
             type="text"
             id="modelo"
             name="modelo"
             value="ESP32 - Sensor de Gás"
-            required
+            readonly
         >
 
         <br><br>
 
-        <!-- Status do dispositivo. -->
         <label for="status">Status</label>
         <select id="status" name="status" required>
             <option value="Ativo">Ativo</option>
@@ -64,7 +58,6 @@
 
         <br><br>
 
-        <!-- Conexão com a rede. -->
         <label for="rede_conectada">
             <input
                 type="checkbox"
@@ -76,24 +69,22 @@
 
         <br><br>
 
-        <!-- Botões de ação. -->
-<div class="botoes-acoes">
+        <div class="botoes-acoes">
 
-    <!-- Botão de cadastro. -->
-    <button type="submit">Cadastrar dispositivo</button>
+            <button type="submit">Cadastrar dispositivo</button>
 
-    <!-- Botão para visualizar dispositivos cadastrados. -->
-    <a href="{% url 'lista_sensores' %}" class="botao-lista">
-        Voltar
-    </a>
+            <a href="{% url 'lista_sensores' %}" class="botao-lista">
+                Voltar
+            </a>
 
-</div>
+        </div>
 
     </form>
 
+</div>
 
-    <script src="{% static 'sensores/js/cadastrar_sensor.js' %}?v=4"></script>
+{% endblock %}
 
-</body>
-
-</html>
+{% block extra_js %}
+<script src="{% static 'sensores/js/cadastrar_sensor.js' %}?v=11"></script>
+{% endblock %}

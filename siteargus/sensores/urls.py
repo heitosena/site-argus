@@ -31,10 +31,13 @@ urlpatterns = [
         name='excluir_leituras'
     ),
 
-    # Exibe as leituras salvas.
+      # Exibe as leituras salvas.
     path(
         'leituras-salvas/',
         views.ver_leituras_salvas,
         name='ver_leituras_salvas'
     ),
+
+    # Tela de configurações.
+    path('configuracoes/', views.configuracoes, name='configuracoes'),
 ]

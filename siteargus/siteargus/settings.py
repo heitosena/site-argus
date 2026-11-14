@@ -131,4 +131,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'dashboard',
     BASE_DIR / 'static',
+    BASE_DIR / 'static' / 'base',
+    BASE_DIR / 'static' / 'configuracao',
 ]

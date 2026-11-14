@@ -1,25 +1,13 @@
+
 /* ==============================
-   CONFIGURAÇÕES GERAIS
+   CONFIGURAÇÕES DA PÁGINA
 ============================== */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    min-height: 100vh;
-    background: #080e17;
-    color: #e8f0f5;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 45px 6%;
-}
-
-main {
+.pagina-alertas {
     width: 100%;
     max-width: 1150px;
     margin: 0 auto;
+    padding: 45px 6%;
 }
 
 /* ==============================
@@ -29,7 +17,7 @@ main {
 .cabecalho {
     margin-bottom: 35px;
     padding-bottom: 25px;
-    border-bottom: 1px solid #1a2d40;
+    border-bottom: 1px solid var(--cor-borda);
 }
 
 .cabecalho h1 {
@@ -37,10 +25,11 @@ main {
     font-weight: 700;
     margin-bottom: 10px;
     letter-spacing: -0.5px;
+    color: var(--cor-texto);
 }
 
 .cabecalho p {
-    color: #8ba2b5;
+    color: var(--cor-texto-secundario);
     font-size: 15px;
     line-height: 1.6;
 }
@@ -58,16 +47,16 @@ main {
 /* Cartão individual */
 
 .alerta-card {
-    background: #0d1520;
-    border: 1px solid #1a2d40;
-    border-left: 4px solid #0ea5c8;
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-left: 4px solid var(--cor-destaque);
     border-radius: 10px;
     padding: 24px;
     transition: border-color 0.2s, transform 0.2s;
 }
 
 .alerta-card:hover {
-    border-color: #0ea5c8;
+    border-color: var(--cor-destaque);
     transform: translateY(-2px);
 }
 
@@ -81,20 +70,24 @@ main {
 
 .alerta-cabecalho h2 {
     font-size: 19px;
-    color: #e8f0f5;
+    color: var(--cor-texto);
 }
 
+/* Status: Ativo e Resolvido */
+
 .alerta-status {
+    display: inline-block;
     padding: 6px 12px;
     border-radius: 20px;
-    background: #142d3a;
-    color: #42c5e3;
+    background: var(--cor-fundo);
+    color: var(--cor-destaque);
+    border: 1px solid var(--cor-borda);
     font-size: 12px;
     font-weight: 600;
 }
 
 .alerta-descricao {
-    color: #b5c7d3;
+    color: var(--cor-texto);
     font-size: 14px;
     line-height: 1.6;
     margin-bottom: 18px;
@@ -105,16 +98,16 @@ main {
     flex-wrap: wrap;
     gap: 12px 30px;
     padding-top: 15px;
-    border-top: 1px solid #1a2d40;
+    border-top: 1px solid var(--cor-borda);
 }
 
 .alerta-informacoes p {
-    color: #8ba2b5;
+    color: var(--cor-texto-secundario);
     font-size: 13px;
 }
 
 .alerta-informacoes strong {
-    color: #e8f0f5;
+    color: var(--cor-texto);
 }
 
 /* ==============================
@@ -125,10 +118,9 @@ main {
     border-left-color: #e6b84c;
 }
 
-.alerta-perigo {
-    border-left-color: #ed8b42;
-}
+/* Perigo e Vazamento: mesma identificação visual */
 
+.alerta-perigo,
 .alerta-vazamento {
     border-left-color: #e05252;
 }
@@ -142,12 +134,11 @@ main {
 ============================== */
 
 .sem-alertas {
-    background: #0d1520;
-    border: 1px solid #1a2d40;
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
     border-radius: 12px;
     min-height: 260px;
     padding: 45px 25px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -158,12 +149,12 @@ main {
 .sem-alertas h2 {
     font-size: 21px;
     margin-bottom: 12px;
-    color: #e8f0f5;
+    color: var(--cor-texto);
 }
 
 .sem-alertas p {
     max-width: 450px;
-    color: #71899d;
+    color: var(--cor-texto-secundario);
     font-size: 14px;
     line-height: 1.7;
 }
@@ -175,12 +166,12 @@ main {
 .rodape {
     margin-top: 25px;
     padding-top: 18px;
-    border-top: 1px solid #1a2d40;
+    border-top: 1px solid var(--cor-borda);
     text-align: center;
 }
 
 .rodape p {
-    color: #5a7a90;
+    color: var(--cor-texto-secundario);
     font-size: 12px;
 }
 
@@ -190,7 +181,7 @@ main {
 
 @media (max-width: 600px) {
 
-    body {
+    .pagina-alertas {
         padding: 30px 18px;
     }
 

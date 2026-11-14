@@ -1,3 +1,4 @@
+
 from django.db import transaction
 from django.utils import timezone
 
@@ -124,40 +125,32 @@ def processar_alertas():
                 )
                 continue
 
-            # Vazamento tem prioridade.
+            # Vazamento detectado tem prioridade.
             if registro.vazamento:
                 atualizar_alerta(
                     dispositivo,
                     'vazamento',
-                    'Vazamento de gás detectado!'
+                    'Perigo de vazamento de gás detectado!'
                 )
 
-            # Classificação de Perigo.
-            elif registro.nivel_gas == 'Perigo':
-                atualizar_alerta(
-                    dispositivo,
-                    'perigo',
-                    'Nível de gás em estado de perigo.'
-                )
-
-            # Classificação de Atenção.
-            elif registro.nivel_gas == 'Atenção':
-                atualizar_alerta(
-                    dispositivo,
-                    'atencao',
-                    'Nível de gás acima do normal. Atenção necessária.'
-                )
-
-            # Condição adicional: gás acima de 45%.
+            # Acima de 45%: Perigo de vazamento.
             elif registro.gas_percentual > 45:
                 atualizar_alerta(
                     dispositivo,
-                    'atencao',
-                    'Nível de gás ultrapassou 45%. Atenção necessária.'
+                    'perigo',
+                    'Perigo de vazamento! Nível de gás acima de 45%.'
                 )
 
-            # Resolve alertas quando o nível volta ao Normal.
-            elif registro.nivel_gas == 'Normal':
+            # Acima de 20% até 45%: Atenção.
+            elif registro.gas_percentual > 20:
+                atualizar_alerta(
+                    dispositivo,
+                    'atencao',
+                    'Nível de gás elevado. Atenção necessária.'
+                )
+
+            # Até 20%: Normal.
+            else:
                 resolver_alertas(dispositivo)
 
             # Atualiza o último registro processado.

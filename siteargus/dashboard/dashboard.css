@@ -3,15 +3,6 @@
    1. CONFIGURAÇÕES GERAIS
    ========================================= */
 
-:root {
-    --cor-fundo: #080e17;
-    --cor-superficie: #0d1520;
-    --cor-borda: #1a2d40;
-    --cor-texto: #e8f0f5;
-    --cor-texto-secundario: #5a7a90;
-    --cor-destaque: #0ea5c8;
-}
-
 * {
     box-sizing: border-box;
 }
@@ -182,7 +173,182 @@ body {
 }
 
 /* =========================================
-   7. ADAPTAÇÃO PARA TELAS MENORES
+   7. TÍTULOS DAS NOVAS SEÇÕES
+   ========================================= */
+
+.secao-resumo-dispositivos,
+.secao-historico-dashboard {
+    margin-top: 36px;
+}
+
+.titulo-secao-dashboard {
+    margin-bottom: 20px;
+}
+
+.titulo-secao-dashboard h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+    color: var(--cor-texto);
+}
+
+.titulo-secao-dashboard p {
+    margin: 0;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   8. RESUMO DOS DISPOSITIVOS
+   ========================================= */
+
+.resumo-dispositivos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.cartao-resumo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    padding: 22px 18px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.cartao-resumo:hover {
+    transform: translateY(-3px);
+    border-color: var(--cor-destaque);
+}
+
+/* Ícones dos cartões de resumo. */
+.icone-resumo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background-color: rgba(14, 165, 200, 0.12);
+    color: var(--cor-destaque);
+    font-size: 21px;
+}
+
+/* Dispositivos ativos. */
+.icone-resumo.resumo-ativo {
+    color: #35c98a;
+    background-color: rgba(53, 201, 138, 0.12);
+}
+
+/* Dispositivos inativos. */
+.icone-resumo.resumo-inativo {
+    color: #e05252;
+    background-color: rgba(224, 82, 82, 0.12);
+}
+
+/* Dispositivos em manutenção. */
+.icone-resumo.resumo-manutencao {
+    color: #e6b84f;
+    background-color: rgba(230, 184, 79, 0.12);
+}
+
+.cartao-resumo div {
+    min-width: 0;
+}
+
+.cartao-resumo p {
+    margin: 0 0 7px;
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.cartao-resumo strong {
+    display: block;
+    color: var(--cor-texto);
+    font-size: 27px;
+    font-weight: 700;
+}
+
+/* =========================================
+   9. HISTÓRICO DE MEDIÇÕES
+   ========================================= */
+
+.cartao-grafico {
+    padding: 24px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.cabecalho-grafico {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.cabecalho-grafico h3 {
+    margin: 0 0 7px;
+    color: var(--cor-texto);
+    font-size: 17px;
+}
+
+.cabecalho-grafico span {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+.cabecalho-grafico .unidade-grafico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background-color: rgba(14, 165, 200, 0.12);
+    color: var(--cor-destaque);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Área onde o gráfico será renderizado. */
+.area-grafico {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+/* Canvas utilizado pelo gráfico. */
+.area-grafico canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Mensagem exibida quando não existem medições. */
+.mensagem-sem-leituras {
+    margin: 16px 0 0;
+    padding: 14px;
+    border: 1px dashed var(--cor-borda);
+    border-radius: 8px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    text-align: center;
+}
+
+/* =========================================
+   10. ADAPTAÇÃO PARA TELAS MENORES
    ========================================= */
 
 /* Tablets e telas médias. */
@@ -191,6 +357,10 @@ body {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
         padding: 16px;
+    }
+
+    .resumo-dispositivos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -211,5 +381,26 @@ body {
 
     .cartao-medidor {
         padding: 28px 12px 24px;
+    }
+
+    .resumo-dispositivos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .cartao-resumo {
+        padding: 18px 16px;
+    }
+
+    .cartao-grafico {
+        padding: 18px 14px;
+    }
+
+    .area-grafico {
+        height: 240px;
+    }
+
+    .titulo-secao-dashboard h2 {
+        font-size: 20px;
     }
 }

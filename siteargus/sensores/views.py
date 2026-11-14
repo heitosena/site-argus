@@ -1,3 +1,4 @@
+
 # Importa as funções para renderizar páginas e redirecionar
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -51,7 +52,8 @@ def cadastrar_sensor(request):
 
         messages.success(
             request,
-            f'O dispositivo "{nome}" foi cadastrado com sucesso!'
+            f'O dispositivo "{nome}" foi cadastrado com sucesso!',
+            extra_tags='cadastro'
         )
 
         return redirect('cadastrar_sensor')
@@ -81,7 +83,8 @@ def excluir_sensor(request, dispositivo_id):
 
     messages.success(
         request,
-        f'O dispositivo "{nome}" foi excluído com sucesso!'
+        f'O dispositivo "{nome}" foi excluído com sucesso!',
+        extra_tags='dispositivo'
     )
 
     return redirect('lista_sensores')
@@ -149,7 +152,8 @@ def excluir_leituras(request):
     if not ids:
         messages.warning(
             request,
-            'Selecione pelo menos uma leitura para excluir.'
+            'Selecione pelo menos uma leitura para excluir.',
+            extra_tags='leitura'
         )
 
     else:
@@ -164,7 +168,8 @@ def excluir_leituras(request):
             if quantidade:
                 messages.success(
                     request,
-                    f'{quantidade} leitura(s) salva(s) excluída(s) com sucesso!'
+                    f'{quantidade} leitura(s) salva(s) excluída(s) com sucesso!',
+                    extra_tags='leitura'
                 )
 
         # Exclui somente as leituras originais.
@@ -177,7 +182,8 @@ def excluir_leituras(request):
             if quantidade:
                 messages.success(
                     request,
-                    f'{quantidade} leitura(s) excluída(s) com sucesso!'
+                    f'{quantidade} leitura(s) excluída(s) com sucesso!',
+                    extra_tags='leitura'
                 )
 
     # Retorna para a tela de onde a exclusão foi solicitada.
@@ -185,7 +191,6 @@ def excluir_leituras(request):
         return redirect('ver_leituras_salvas')
 
     return redirect('lista_leituras')
-
 
 
 # Exibe as cópias independentes das leituras salvas
@@ -209,16 +214,72 @@ def ver_leituras_salvas(request):
 # Exibe a página principal da Dashboard do A.R.G.U.S.
 def dashboard(request):
 
-    ultima_leitura = Registro.objects.select_related(
+    # Busca os dispositivos do usuário de teste.
+    dispositivos = Dispositivo.objects.filter(usuario_id=1)
+
+    # Calcula a quantidade de dispositivos cadastrados.
+    total_dispositivos = dispositivos.count()
+
+    # Calcula a quantidade de dispositivos ativos.
+    dispositivos_ativos = dispositivos.filter(
+        status='Ativo'
+    ).count()
+
+    # Calcula a quantidade de dispositivos inativos.
+    dispositivos_inativos = dispositivos.filter(
+        status='Inativo'
+    ).count()
+
+    # Calcula a quantidade de dispositivos em manutenção.
+    dispositivos_manutencao = dispositivos.filter(
+        status='Manutenção'
+    ).count()
+
+    # Busca a última leitura dos dispositivos do usuário.
+    ultima_leitura = Registro.objects.filter(
+        dispositivo__usuario_id=1
+    ).select_related(
         'dispositivo'
     ).order_by('-data_hora').first()
 
+    # Busca as últimas 20 leituras de gás.
+    historico_gas = list(
+        Registro.objects.filter(
+            dispositivo__usuario_id=1
+        ).order_by(
+            '-data_hora'
+        ).values(
+            'data_hora',
+            'gas_percentual'
+        )[:20]
+    )
+
+    # Inverte a ordem para apresentar as leituras da mais antiga à mais recente.
+    historico_gas.reverse()
+
+    # Organiza as informações enviadas para o HTML.
     context = {
         'ultima_leitura': ultima_leitura,
+
+        'total_dispositivos': total_dispositivos,
+        'dispositivos_ativos': dispositivos_ativos,
+        'dispositivos_inativos': dispositivos_inativos,
+        'dispositivos_manutencao': dispositivos_manutencao,
+
+        'historico_gas': historico_gas,
     }
 
     return render(
         request,
         "dashboard.html",
         context
+    )
+
+
+# Exibe a página de configurações do A.R.G.U.S.
+def configuracoes(request):
+
+    return render(
+        request,
+        'configuracao/configuracoes.html'
     )

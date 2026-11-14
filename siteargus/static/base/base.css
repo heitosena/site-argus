@@ -118,3 +118,31 @@ body {
     min-height: 100vh;
     width: calc(100% - 260px);
 }
+
+
+/* =========================================
+   7. TEMA CLARO
+   ========================================= */
+
+:root[data-tema="claro"] {
+    --cor-fundo: #f1f5f9;
+    --cor-superficie: #ffffff;
+    --cor-borda: #d6e0e9;
+    --cor-texto: #172b3a;
+    --cor-texto-secundario: #647b8c;
+    --cor-destaque: #0786a8;
+}
+
+/* Transição suave entre os temas */
+
+body {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease;
+}
+
+.barra-lateral {
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease;
+}

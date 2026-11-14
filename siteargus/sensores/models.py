@@ -88,6 +88,7 @@ class Localizacao(models.Model):
         return self.descricao
 
 
+
 class Registro(models.Model):
     # Data e hora em que o registro foi recebido
     data_hora = models.DateTimeField(auto_now_add=True)
@@ -136,6 +137,23 @@ class Registro(models.Model):
         on_delete=models.CASCADE,
         related_name='registros'
     )
+
+    def save(self, *args, **kwargs):
+
+        # Um vazamento detectado tem prioridade.
+        if self.vazamento or self.gas_percentual > 45:
+            self.nivel_gas = 'Perigo'
+            self.vazamento = True
+
+        elif self.gas_percentual > 20:
+            self.nivel_gas = 'Atenção'
+            self.vazamento = False
+
+        else:
+            self.nivel_gas = 'Normal'
+            self.vazamento = False
+
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'registros'

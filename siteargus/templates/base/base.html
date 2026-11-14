@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -7,7 +8,7 @@
 
     <title>{% block title %}A.R.G.U.S.{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'base.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'base.css' %}?v=4">
 
     {% block extra_css %}{% endblock %}
 </head>
@@ -36,12 +37,18 @@
                 <span>▣</span> Sensores cadastrados
             </a>
 
+            <a href="{% url 'cadastrar_sensor' %}"
+               class="{% if request.resolver_match.url_name == 'cadastrar_sensor' %}ativo{% endif %}">
+                <span>＋</span> Cadastrar novo sensor
+            </a>
+
             <a href="{% url 'lista_alertas' %}"
                class="{% if request.resolver_match.url_name == 'lista_alertas' %}ativo{% endif %}">
                 <span>♧</span> Alertas
             </a>
 
-            <a href="#" class="item-indisponivel" title="Em desenvolvimento">
+            <a href="{% url 'configuracoes' %}"
+               class="{% if request.resolver_match.url_name == 'configuracoes' %}ativo{% endif %}">
                 <span>⚙</span> Configurações
             </a>
 
@@ -52,7 +59,7 @@
         {% block content %}{% endblock %}
     </main>
 
-    <script src="{% static 'base.js' %}?v=2"></script>
+    <script src="{% static 'base.js' %}?v=3"></script>
 
     {% block extra_js %}{% endblock %}
 
