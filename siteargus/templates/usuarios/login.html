@@ -1,52 +1,55 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
-<head>
+  <head>
     <!--parametros de uso-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
 
     <!--Modo de relacionar o html com o css para estilizar-->
-    <link rel="stylesheet" href="{% static 'styles/login.css'%}">
+    <link rel="stylesheet" href="{% static 'styles/login.css'%}" />
+  </head>
 
-
-</head>
-
-
-<body>
+  <body>
     <div class="containerLogin">
-        <div class="tituloLogin">
-            <!--formulario de login-->
-            <h1>Login</h1>
-        </div>
-        <div class="formularioLogin">
-            <form method="post" id="formLogin">
+      <div class="tituloLogin">
+        <!--formulario de login-->
+        <h1>Login</h1>
+      </div>
+      <div class="formularioLogin">
+        <form method="post" id="formLogin">
+          {% csrf_token %}
+          <!--caixa de email-->
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="lacerda@email.com"
+          />
 
-                {% csrf_token %}
-                <!--caixa de email-->
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="lacerda@email.com">
+          <!--caixa de senha-->
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="senha123"
+          />
 
-                <!--caixa de senha-->
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" placeholder="senha123">
-                
-                    <!--botão de submit para enviar-->
-                <button type="submit" class="botao_entrar">Entrar</button>
-                
-            </form>
-        </div>
-
+          <!--botão de submit para enviar-->
+          <button type="submit" class="botao_entrar">Entrar</button>
+        </form>
+        <p class="link-cadastro">
+          Não possui uma conta?
+          <a href="{% url 'cadastro' %}">Cadastre-se</a>
+        </p>
+      </div>
     </div>
 
     <!--Relacionando com JavaScript-->
     <script src="{% static 'js/Login.js' %}"></script>
-
-</body>
-
-
-
+  </body>
 </html>

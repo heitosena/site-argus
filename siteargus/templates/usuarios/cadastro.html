@@ -1,52 +1,84 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Criar conta</title>
 
     <!--Modo de relacionar o html com o css para estilizar-->
 
-    <link rel="stylesheet" href="{% static 'styles/cadastro.css'%}">
-    
+    <link rel="stylesheet" href="{% static 'styles/cadastro.css'%}" />
+  </head>
 
-</head>
+  <body>
+    <div class="containerCad">
+      <!-- Container principal do formulário de cadastro -->
+      <!--criei divisioes para cada campo para ter mais liberdade de estilizar-->
+      <div class="tituloCad">
+        <h1>Cadastro</h1>
+      </div>
+      <div class="formularioCad">
+        <!-- Container do formulário de cadastro -->
+        <form method="post" id="formCad" novalidate>
+          {% csrf_token %}
+          <label for="nome">Nome Completo</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            placeholder="Guilherme Lacerda"
+            required
+          />
 
-<body>
-    <div class="containerCad"> <!-- Container principal do formulário de cadastro -->
-        <!--criei divisioes para cada campo para ter mais liberdade de estilizar-->
-        <div class="tituloCad">
-            <h1>Cadastro</h1>
-        </div>
-        <div class="formularioCad"> <!-- Container do formulário de cadastro -->
-            <form method="post" id="formCad" novalidate>
-                {% csrf_token %}
-                <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" name="nome" placeholder="Guilherme Lacerda" required>
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="lacerda@exemplo.com"
+            required
+          />
 
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="lacerda@exemplo.com" required>
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="Mínimo 8 caracteres"
+            required
+          />
+          <label for="confSenha">Confirmar Senha</label>
+          <input
+            type="password"
+            id="confSenha"
+            name="confSenha"
+            placeholder="Repita a senha"
+            required
+          />
 
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" placeholder="Mínimo 8 caracteres" required>
-                <label for="confSenha">Confirmar Senha</label>
-                <input type="password" id="confSenha" name="confSenha" placeholder="Repita a senha" required>
+          <label for="telefone">Telefone</label>
+          <input
+            type="text"
+            id="telefone"
+            name="telefone"
+            maxlength="15"
+            placeholder="(00) 00000-0000"
+            inputmode="numeric"
+            required
+          />
 
-                <label for="telefone">Telefone</label>
-                <input type="tel" id="telefone" name="telefone" maxlength="14" placeholder="(11) 99999-9999" required>
-
-                <button type="submit" class="botao_cadastrar">
-                Criar conta
-                </button>
-            </form>
-        </div>
+          <button type="submit" class="botao_cadastrar">Criar conta</button>
+        </form>
+        <p class="link-login">
+          Já possui uma conta?
+          <a href="{% url 'login' %}">Faça login</a>
+        </p>
+      </div>
     </div>
 
-    <!--relacionando o HTML com o JavaScript-->    
+    <!--relacionando o HTML com o JavaScript-->
     <script src="{% static 'js/cadastro.js' %}"></script>
-</body>
-
+  </body>
 </html>
