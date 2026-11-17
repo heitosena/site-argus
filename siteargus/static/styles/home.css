@@ -1,0 +1,446 @@
+
+/* =========================================
+   CONFIGURAÇÕES GERAIS
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #080e17;
+    color: #e8f0f5;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.containerHome {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   CABEÇALHO
+========================================= */
+
+.cabecalhoHome {
+    width: 100%;
+    height: 85px;
+    background: rgba(8, 14, 23, 0.94);
+    border-bottom: 1px solid #1a2d40;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+}
+
+.cabecalhoHome .containerHome {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoHome {
+    display: flex;
+    align-items: center;
+}
+
+.logoHome img {
+    width: 145px;
+    max-height: 65px;
+    object-fit: contain;
+}
+
+.menuHome {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+}
+
+.linkMenuHome {
+    color: #a9bac9;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.linkMenuHome:hover {
+    color: #38a5ff;
+}
+
+.botaoEntrarHome {
+    padding: 10px 25px;
+    background: #1675bd;
+    color: #ffffff;
+    border: 1px solid #238bd8;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.botaoEntrarHome:hover {
+    background: #2196ed;
+    box-shadow: 0 0 18px rgba(33, 150, 237, 0.3);
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   TÍTULOS DAS SEÇÕES
+========================================= */
+
+.tituloSecaoHome {
+    max-width: 700px;
+    margin-bottom: 55px;
+}
+
+.subtituloHome {
+    display: inline-block;
+    color: #329ce5;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.tituloFuncionalidadesHome,
+.tituloComoFuncionaHome {
+    font-size: clamp(30px, 4vw, 43px);
+    font-weight: 650;
+    line-height: 1.2;
+    color: #edf5fc;
+    margin-bottom: 18px;
+}
+
+.textoSecaoHome {
+    max-width: 570px;
+    color: #899cac;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   FUNCIONALIDADES
+========================================= */
+
+.funcionalidadesHome {
+    padding: 110px 0 120px;
+    background: #080e17;
+}
+
+.listaFuncionalidadesHome {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.cardFuncionalidade {
+    min-height: 280px;
+    padding: 35px 30px;
+    background: #0d1520;
+    border: 1px solid #1a2d40;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.cardFuncionalidade:hover {
+    transform: translateY(-7px);
+    border-color: #238bd8;
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.25),
+        0 0 18px rgba(35, 139, 216, 0.08);
+}
+
+.iconeFuncionalidade {
+    width: 53px;
+    height: 53px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(35, 139, 216, 0.12);
+    border: 1px solid rgba(35, 139, 216, 0.3);
+    border-radius: 9px;
+    color: #42aaff;
+    font-size: 27px;
+    margin-bottom: 28px;
+}
+
+.cardFuncionalidade h3 {
+    color: #e5eef6;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 13px;
+}
+
+.cardFuncionalidade p {
+    color: #899cac;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+
+/* =========================================
+   COMO FUNCIONA
+========================================= */
+
+.comoFuncionaHome {
+    padding: 110px 0;
+    background: #0a121d;
+    border-top: 1px solid #172638;
+    border-bottom: 1px solid #172638;
+}
+
+.etapasHome {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.etapaHome {
+    position: relative;
+    padding: 35px 30px;
+    min-height: 330px;
+    background: #0d1825;
+    border: 1px solid #1a2d40;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.etapaHome:hover {
+    border-color: #238bd8;
+    transform: translateY(-5px);
+}
+
+.numeroEtapaHome {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: #263d54;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.iconeEtapaHome {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(35, 139, 216, 0.12);
+    border: 1px solid rgba(35, 139, 216, 0.3);
+    border-radius: 9px;
+    color: #42aaff;
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+.nomeEtapaHome {
+    display: block;
+    color: #329ce5;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+    margin-bottom: 12px;
+}
+
+.etapaHome h3 {
+    color: #e5eef6;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.etapaHome p {
+    color: #899cac;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.avisoConceitualHome {
+    margin-top: 30px;
+    padding: 17px 20px;
+    background: rgba(35, 139, 216, 0.05);
+    border-left: 3px solid #238bd8;
+    color: #8296a9;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   RODAPÉ
+========================================= */
+
+.rodapeHome {
+    padding: 70px 0 25px;
+    background: #070c13;
+}
+
+.conteudoRodapeHome {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    padding-bottom: 55px;
+}
+
+.logoRodapeHome {
+    display: inline-block;
+    color: #40aaff;
+    font-size: 27px;
+    font-weight: 750;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.descricaoRodapeHome h2 {
+    max-width: 390px;
+    color: #dce7f0;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.descricaoRodapeHome p,
+.informacoesAcademicasHome p {
+    color: #8293a3;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.informacoesAcademicasHome .subtituloHome {
+    margin-bottom: 18px;
+}
+
+.informacoesAcademicasHome h3 {
+    color: #dce7f0;
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+
+.informacoesAcademicasHome p {
+    margin-bottom: 8px;
+}
+
+.finalRodapeHome {
+    padding-top: 22px;
+    border-top: 1px solid #192737;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.finalRodapeHome p {
+    color: #687c8e;
+    font-size: 14px;
+}
+
+.voltarTopoHome {
+    color: #329ce5;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.voltarTopoHome:hover {
+    color: #ffffff;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 850px) {
+
+    .listaFuncionalidadesHome,
+    .etapasHome {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .conteudoRodapeHome {
+        gap: 40px;
+    }
+
+    .menuHome {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .cabecalhoHome {
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .cabecalhoHome .containerHome {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .logoHome img {
+        width: 120px;
+    }
+
+    .menuHome {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .linkMenuHome {
+        font-size: 14px;
+    }
+
+    .botaoEntrarHome {
+        padding: 8px 17px;
+        font-size: 14px;
+    }
+
+    .funcionalidadesHome,
+    .comoFuncionaHome {
+        padding: 75px 0;
+    }
+
+    .tituloSecaoHome {
+        margin-bottom: 35px;
+    }
+
+    .listaFuncionalidadesHome,
+    .etapasHome {
+        grid-template-columns: 1fr;
+    }
+
+    .cardFuncionalidade,
+    .etapaHome {
+        min-height: auto;
+    }
+
+    .conteudoRodapeHome {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .finalRodapeHome {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}

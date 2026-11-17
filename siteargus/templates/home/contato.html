@@ -1,0 +1,99 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}ARGUS | Entre em contato{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'styles/contato.css' %}">
+{% endblock %}
+
+{% block conteudo %}
+
+<section class="contatoPagina">
+
+    <div class="containerContato">
+
+        <div class="cabecalhoContato">
+
+            <span class="subtituloContato">
+                FALE CONOSCO
+            </span>
+
+            <h1>
+                Entre em contato
+            </h1>
+
+            <p>
+                Tem dúvidas, sugestões ou deseja conhecer melhor o ARGUS?
+                Entre em contato com nossa equipe através dos canais abaixo.
+            </p>
+
+        </div>
+
+
+        <div class="cardsContato">
+
+            <!-- EMAIL -->
+            <div class="cardContato">
+
+                <div class="iconeContato">
+                    @
+                </div>
+
+                <h2>E-mail</h2>
+
+                <p>
+                    Para dúvidas, sugestões e informações sobre o projeto.
+                </p>
+
+                <a href="mailto:projetoargus67@gmail.com">
+                    projetoargus67@gmail.com
+                    <span>↗</span>
+                </a>
+
+            </div>
+
+
+            <!-- INSTAGRAM -->
+            <div class="cardContato">
+
+                <div class="iconeContato">
+                    ◎
+                </div>
+
+                <h2>Instagram</h2>
+
+                <p>
+                    Acompanhe as novidades e atualizações do projeto ARGUS.
+                </p>
+
+                <a href="https://www.instagram.com/projeto.argus/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    @projeto.argus
+                    <span>↗</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="mensagemContato">
+
+            <span class="pontoContato"></span>
+
+            <p>
+                ARGUS — Segurança Residencial Inteligente
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

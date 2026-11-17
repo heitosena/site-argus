@@ -8,7 +8,7 @@
 
     <title>{% block titulo %}ARGUS{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'styles/base.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/global.css' %}">
     {% block estilos %}{% endblock %}
 </head>
 
@@ -25,10 +25,6 @@
             <nav class="menuBase" aria-label="Menu principal">
                 <a href="{% url 'home' %}" class="linkMenuBase">
                     Início
-                </a>
-
-                <a href="{% url 'sobre' %}" class="linkMenuBase">
-                    Sobre o projeto
                 </a>
 
                 <a href="{% url 'contato' %}" class="linkMenuBase">

@@ -1,21 +1,18 @@
-/* Configurações gerais da página. */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
+/* CONTEÚDO DA PÁGINA */
 
-body {
-    min-height: 100vh;
+.conteudoBase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 40px 20px;
-    background-color: #080e17;
-    color: #e8f0f5;
-    font-family: Arial, Helvetica, sans-serif;
 }
+
+/* CONTAINER PRINCIPAL */
 
 .containerLogin {
-    max-width: 650px;
+    width: 100%;
+    max-width: 500px;
     margin: 0 auto;
     padding: 35px;
     background-color: #0d1520;
@@ -24,30 +21,17 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
+/* TÍTULO */
+
 .tituloLogin {
-    max-width: 650px;
-    margin: 0 auto 25px auto;
-    font-size: 28px ;
+    margin-bottom: 25px;
+    font-size: 28px;
     font-weight: 700;
     text-align: left;
     color: #abd8f4;
 }
 
-.formularioLogin form > label {
-    display: block;
-    margin-bottom: 9px;
-    color: #abd8f4;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.formularioLogin form > input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #1a2d40;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
+/* FORMULÁRIO */
 
 .formularioLogin form {
     width: 100%;
@@ -77,20 +61,25 @@ body {
     transition: border-color 0.2s ease;
 }
 
+.formularioLogin form > input:hover,
+.formularioLogin form > select:hover {
+    border-color: #0ea5c8;
+    box-shadow: 0 0 10px rgba(14, 165, 200, 0.35),
+                0 0 20px rgba(14, 165, 200, 0.2);
+}
+
 .formularioLogin form > input:focus,
 .formularioLogin form > select:focus {
     border-color: #0ea5c8;
-}
-
-/* Efeito ao passar o mouse nos campos. */
-.formularioLogin form > input:hover,
-.formularioLogin form > select:hover {
-    border-color: #31516a;
+    box-shadow: 0 0 12px rgba(14, 165, 200, 0.45),
+                0 0 25px rgba(14, 165, 200, 0.25);
 }
 
 .formularioLogin form > select {
     cursor: pointer;
 }
+
+/* BOTÃO */
 
 .formularioLogin form > .botao_entrar {
     display: block;
@@ -109,21 +98,6 @@ body {
                 transform 0.2s ease;
 }
 
-.formularioLogin form > input:hover,
-.formularioLogin form > select:hover {
-    border-color: #0ea5c8;
-    box-shadow: 0 0 10px rgba(14, 165, 200, 0.35),
-                0 0 20px rgba(14, 165, 200, 0.2);
-}
-
-/* Efeito ao selecionar um campo. */
-.formularioLogin form > input:focus,
-.formularioLogin form > select:focus {
-    border-color: #0ea5c8;
-    box-shadow: 0 0 12px rgba(14, 165, 200, 0.45),
-                0 0 25px rgba(14, 165, 200, 0.25);
-}
-/* Efeito ao passar o mouse. */
 .formularioLogin form > .botao_entrar:hover {
     background-color: #0c91b0;
     transform: translateY(-2px);
@@ -132,6 +106,7 @@ body {
                 0 0 40px rgba(14, 165, 200, 0.2);
 }
 
+/* LINK DE CADASTRO */
 
 .link-cadastro {
     text-align: center;
@@ -151,4 +126,15 @@ body {
     color: #0056b3;
     text-decoration: underline;
 }
-    
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+    .conteudoBase {
+        padding: 25px 14px;
+    }
+
+    .containerLogin {
+        padding: 24px 18px;
+    }
+}

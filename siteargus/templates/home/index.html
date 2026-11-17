@@ -1,57 +1,14 @@
 
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
+{% block titulo %}ARGUS | Início{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'styles/home.css' %}">
+{% endblock %}
 
-    <title>ARGUS | Início</title>
-
-    <!-- Conexão com o CSS da Home -->
-    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
-</head>
-
-<body>
-
-    <!-- CABEÇALHO -->
-    <header class="cabecalhoHome" id="inicio">
-
-        <div class="containerHome">
-
-            <a href="#inicio" class="logoHome">
-                <img src="{% static 'images/logo-argus.png' %}"
-                     alt="Logo do ARGUS">
-            </a>
-
-            <nav class="menuHome" aria-label="Menu principal">
-
-                <a href="#inicio" class="linkMenuHome">
-                    Início
-                </a>
-
-                <a href="{% url 'sobre' %}" class="linkMenuHome">
-                    Sobre o projeto
-                </a>
-
-
-                <a href="#comoFunciona" class="linkMenuHome">
-                    Como funciona
-                </a>
-
-                <a href="{% url 'login' %}" class="botaoEntrarHome">
-                    Entrar
-                </a>
-
-            </nav>
-
-        </div>
-
-    </header>
-
-
+{% block conteudo %}
     <main>
 
         <!-- APRESENTAÇÃO PRINCIPAL -->
@@ -316,17 +273,17 @@
                 <div class="informacoesAcademicasHome">
 
                     <span class="subtituloHome">
-                        PROJETO ACADÊMICO · TCC
+                        INTEGRANTES A.R.G.U.S
                     </span>
 
                     <h3>Desenvolvimento do projeto</h3>
 
                     <p>
-                        Instituição: preencher com o nome da escola.
+                        Instituição: ETEC de Embu das Artes
                     </p>
 
                     <p>
-                        Integrantes: preencher com os nomes do grupo.
+                        Integrantes: Heitor Sena, Matheus Santos, Patrick da Silva, Pedro Henrique, Samuel Ribeiro.
                     </p>
 
                 </div>
@@ -353,6 +310,4 @@
 
     </footer>
 
-</body>
-
-</html>
+{% endblock %}

@@ -1,18 +1,13 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!doctype html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Criar conta</title>
+{% block titulo %}ARGUS | Login{% endblock %}
 
-    <!--Modo de relacionar o html com o css para estilizar-->
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'styles/cadastro.css' %}">
+{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'styles/cadastro.css'%}" />
-  </head>
-
-  <body>
+{% block conteudo %}
     <div class="containerCad">
       <!-- Container principal do formulário de cadastro -->
       <!--criei divisioes para cada campo para ter mais liberdade de estilizar-->
@@ -77,8 +72,8 @@
         </p>
       </div>
     </div>
+{% endblock %}
 
-    <!--relacionando o HTML com o JavaScript-->
-    <script src="{% static 'js/cadastro.js' %}"></script>
-  </body>
-</html>
+{% block scripts %}
+<script src="{% static 'js/cadastro.js' %}"></script>
+{% endblock %}

@@ -1,21 +1,17 @@
 
-/* Configurações gerais da página. */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* CONTEÚDO DA PÁGINA */
 
-body {
-    min-height: 100vh;
+.conteudoBase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 40px 20px;
-    background-color: #080e17;
-    color: #e8f0f5;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Container principal. */
+/* CONTAINER PRINCIPAL */
+
 .containerCad {
+    width: 100%;
     max-width: 650px;
     margin: 0 auto;
     padding: 35px;
@@ -25,7 +21,8 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
-/* Título principal. */
+/* TÍTULO */
+
 .tituloCad h1 {
     max-width: 650px;
     margin: 0 auto 25px auto;
@@ -35,12 +32,12 @@ body {
     color: #abd8f4;
 }
 
-/* Formulário. */
+/* FORMULÁRIO */
+
 .formularioCad form {
     width: 100%;
 }
 
-/* Rótulos dos campos. */
 .formularioCad form > label {
     display: block;
     margin-bottom: 9px;
@@ -49,7 +46,6 @@ body {
     font-weight: 600;
 }
 
-/* Campos de texto. */
 .formularioCad form > input,
 .formularioCad form > select {
     display: block;
@@ -66,24 +62,26 @@ body {
     transition: border-color 0.2s ease;
 }
 
-/* Destaque ao selecionar um campo. */
+.formularioCad form > input:hover,
+.formularioCad form > select:hover {
+    border-color: #0ea5c8;
+    box-shadow: 0 0 10px rgba(14, 165, 200, 0.35),
+                0 0 20px rgba(14, 165, 200, 0.2);
+}
+
 .formularioCad form > input:focus,
 .formularioCad form > select:focus {
     border-color: #0ea5c8;
+    box-shadow: 0 0 12px rgba(14, 165, 200, 0.45),
+                0 0 25px rgba(14, 165, 200, 0.25);
 }
 
-/* Efeito ao passar o mouse nos campos. */
-.formularioCad form > input:hover,
-.formularioCad form > select:hover {
-    border-color: #31516a;
-}
-
-/* Opções de seleção. */
 .formularioCad form > select {
     cursor: pointer;
 }
 
-/* Botão de cadastro. */
+/* BOTÃO */
+
 .formularioCad form > .botao_cadastrar {
     display: block;
     width: 100%;
@@ -101,23 +99,6 @@ body {
                 transform 0.2s ease;
 }
 
-/* Efeito ao passar o mouse nos campos. */
-.formularioCad form > input:hover,
-.formularioCad form > select:hover {
-    border-color: #0ea5c8;
-    box-shadow: 0 0 10px rgba(14, 165, 200, 0.35),
-                0 0 20px rgba(14, 165, 200, 0.2);
-}
-
-/* Efeito ao selecionar um campo. */
-.formularioCad form > input:focus,
-.formularioCad form > select:focus {
-    border-color: #0ea5c8;
-    box-shadow: 0 0 12px rgba(14, 165, 200, 0.45),
-                0 0 25px rgba(14, 165, 200, 0.25);
-}
-
-/* Efeito ao passar o mouse. */
 .formularioCad form > .botao_cadastrar:hover {
     background-color: #0c91b0;
     transform: translateY(-2px);
@@ -126,14 +107,15 @@ body {
                 0 0 40px rgba(14, 165, 200, 0.2);
 }
 
+/* CAMPO COM ERRO */
 
-/* Campo com erro. */
 .formularioCad input.campoInvalido {
     border-color: #e05252;
     box-shadow: 0 0 8px rgba(224, 82, 82, 0.2);
 }
 
-/* Mensagem de erro. */
+/* MENSAGEM DE ERRO */
+
 .mensagemErro {
     display: block;
     margin-top: -17px;
@@ -143,6 +125,8 @@ body {
     font-weight: 500;
     animation: aparecerErro 0.2s ease;
 }
+
+/* LINK DE LOGIN */
 
 .link-login {
     text-align: center;
@@ -161,7 +145,8 @@ body {
     text-decoration: underline;
 }
 
-/* Animação da mensagem. */
+/* ANIMAÇÃO */
+
 @keyframes aparecerErro {
     from {
         opacity: 0;
@@ -174,11 +159,11 @@ body {
     }
 }
 
+/* RESPONSIVIDADE */
 
-/* Adaptação para dispositivos menores. */
 @media (max-width: 600px) {
-    body {
-        padding: 20px 14px;
+    .conteudoBase {
+        padding: 25px 14px;
     }
 
     .tituloCad h1 {
