@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,7 +24,7 @@ BASE_ARGUS = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u@3%0=telvj(sum&8-kn2uq6-capy1-6+p@jf47@j8x8p28@i+'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,6 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'home',
+
+    'sensores',
+    'alertas.apps.AlertasConfig',
+    'notificacoes',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +64,9 @@ ROOT_URLCONF = 'siteargus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_ARGUS / 'templates'],
+        'DIRS': [BASE_ARGUS / 'templates',
+                 BASE_ARGUS / 'dashboard',
+                ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,9 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -129,4 +134,8 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_ARGUS / 'static',
+    BASE_ARGUS / 'dashboard',
+    BASE_ARGUS / 'static',
+    BASE_ARGUS / 'static' / 'base',
+    BASE_ARGUS / 'static' / 'configuracao',
 ]

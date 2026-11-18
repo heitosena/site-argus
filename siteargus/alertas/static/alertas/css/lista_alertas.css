@@ -1,0 +1,210 @@
+
+/* ==============================
+   CONFIGURAÇÕES DA PÁGINA
+============================== */
+
+.pagina-alertas {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 45px 6%;
+}
+
+/* ==============================
+   CABEÇALHO
+============================== */
+
+.cabecalho {
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.cabecalho h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    color: var(--cor-texto);
+}
+
+.cabecalho p {
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* ==============================
+   LISTA DE ALERTAS
+============================== */
+
+.lista-alertas {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Cartão individual */
+
+.alerta-card {
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-left: 4px solid var(--cor-destaque);
+    border-radius: 10px;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.alerta-card:hover {
+    border-color: var(--cor-destaque);
+    transform: translateY(-2px);
+}
+
+.alerta-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 16px;
+}
+
+.alerta-cabecalho h2 {
+    font-size: 19px;
+    color: var(--cor-texto);
+}
+
+/* Status: Ativo e Resolvido */
+
+.alerta-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: var(--cor-fundo);
+    color: var(--cor-destaque);
+    border: 1px solid var(--cor-borda);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.alerta-descricao {
+    color: var(--cor-texto);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.alerta-informacoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 30px;
+    padding-top: 15px;
+    border-top: 1px solid var(--cor-borda);
+}
+
+.alerta-informacoes p {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+.alerta-informacoes strong {
+    color: var(--cor-texto);
+}
+
+/* ==============================
+   CORES DOS TIPOS DE ALERTA
+============================== */
+
+.alerta-atencao {
+    border-left-color: #e6b84c;
+}
+
+/* Perigo e Vazamento: mesma identificação visual */
+
+.alerta-perigo,
+.alerta-vazamento {
+    border-left-color: #e05252;
+}
+
+.alerta-inativo {
+    border-left-color: #718096;
+}
+
+/* ==============================
+   ESTADO SEM ALERTAS
+============================== */
+
+.sem-alertas {
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    min-height: 260px;
+    padding: 45px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.sem-alertas h2 {
+    font-size: 21px;
+    margin-bottom: 12px;
+    color: var(--cor-texto);
+}
+
+.sem-alertas p {
+    max-width: 450px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ==============================
+   RODAPÉ
+============================== */
+
+.rodape {
+    margin-top: 25px;
+    padding-top: 18px;
+    border-top: 1px solid var(--cor-borda);
+    text-align: center;
+}
+
+.rodape p {
+    color: var(--cor-texto-secundario);
+    font-size: 12px;
+}
+
+/* ==============================
+   RESPONSIVIDADE
+============================== */
+
+@media (max-width: 600px) {
+
+    .pagina-alertas {
+        padding: 30px 18px;
+    }
+
+    .cabecalho h1 {
+        font-size: 25px;
+    }
+
+    .alerta-card {
+        padding: 18px;
+    }
+
+    .alerta-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .alerta-informacoes {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .sem-alertas {
+        min-height: 220px;
+        padding: 30px 18px;
+    }
+}

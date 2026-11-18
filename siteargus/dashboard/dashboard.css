@@ -1,0 +1,406 @@
+
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+/* =========================================
+   2. CABEÇALHO DO A.R.G.U.S.
+   ========================================= */
+
+.cabecalho-dashboard {
+    background: var(--cor-superficie);
+    color: var(--cor-texto);
+    padding: 28px 40px;
+    border-bottom: 3px solid var(--cor-destaque);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.cabecalho-dashboard h1 {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.cabecalho-dashboard p {
+    margin: 8px 0 0;
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+}
+
+/* =========================================
+   3. CONTEÚDO PRINCIPAL
+   ========================================= */
+
+.conteudo-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.conteudo-dashboard h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: var(--cor-texto);
+}
+
+.conteudo-dashboard > p {
+    color: var(--cor-texto-secundario);
+    line-height: 1.6;
+}
+
+/* =========================================
+   4. ÁREA DOS MEDIDORES
+   ========================================= */
+
+.medidores-dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+    padding: 24px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================================
+   5. CARTÕES INDIVIDUAIS
+   ========================================= */
+
+.cartao-medidor {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 28px 16px 24px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+/* Faixa ciano no topo de cada cartão. */
+.cartao-medidor::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--cor-destaque);
+    z-index: 2;
+}
+
+/* Efeito ao passar o mouse. */
+.cartao-medidor:hover {
+    transform: translateY(-4px);
+    border-color: var(--cor-destaque);
+    box-shadow: 0 8px 22px rgba(14, 165, 200, 0.12);
+}
+
+/* Título de cada medidor. */
+.cartao-medidor h3 {
+    margin: 0 0 20px;
+    color: var(--cor-texto);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* =========================================
+   6. MEDIDORES CIRCULARES
+   ========================================= */
+
+.medidor-circular {
+    --progresso: 0deg;
+    --cor-medidor: var(--cor-destaque);
+
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+
+    /* Centro escuro e progresso animado pelo JavaScript. */
+    background:
+        radial-gradient(
+            closest-side,
+            var(--cor-superficie) 84%,
+            transparent 86%
+        ),
+        conic-gradient(
+            var(--cor-medidor) var(--progresso),
+            var(--cor-borda) 0deg
+        );
+
+    box-shadow: 0 0 18px rgba(14, 165, 200, 0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+/* Número central do medidor. */
+.valor-medidor {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--cor-destaque);
+}
+
+/* Unidade de medida abaixo do círculo. */
+.cartao-medidor p {
+    margin: 14px 0 0;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+/* =========================================
+   7. TÍTULOS DAS NOVAS SEÇÕES
+   ========================================= */
+
+.secao-resumo-dispositivos,
+.secao-historico-dashboard {
+    margin-top: 36px;
+}
+
+.titulo-secao-dashboard {
+    margin-bottom: 20px;
+}
+
+.titulo-secao-dashboard h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+    color: var(--cor-texto);
+}
+
+.titulo-secao-dashboard p {
+    margin: 0;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   8. RESUMO DOS DISPOSITIVOS
+   ========================================= */
+
+.resumo-dispositivos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.cartao-resumo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    padding: 22px 18px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.cartao-resumo:hover {
+    transform: translateY(-3px);
+    border-color: var(--cor-destaque);
+}
+
+/* Ícones dos cartões de resumo. */
+.icone-resumo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background-color: rgba(14, 165, 200, 0.12);
+    color: var(--cor-destaque);
+    font-size: 21px;
+}
+
+/* Dispositivos ativos. */
+.icone-resumo.resumo-ativo {
+    color: #35c98a;
+    background-color: rgba(53, 201, 138, 0.12);
+}
+
+/* Dispositivos inativos. */
+.icone-resumo.resumo-inativo {
+    color: #e05252;
+    background-color: rgba(224, 82, 82, 0.12);
+}
+
+/* Dispositivos em manutenção. */
+.icone-resumo.resumo-manutencao {
+    color: #e6b84f;
+    background-color: rgba(230, 184, 79, 0.12);
+}
+
+.cartao-resumo div {
+    min-width: 0;
+}
+
+.cartao-resumo p {
+    margin: 0 0 7px;
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.cartao-resumo strong {
+    display: block;
+    color: var(--cor-texto);
+    font-size: 27px;
+    font-weight: 700;
+}
+
+/* =========================================
+   9. HISTÓRICO DE MEDIÇÕES
+   ========================================= */
+
+.cartao-grafico {
+    padding: 24px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.cabecalho-grafico {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.cabecalho-grafico h3 {
+    margin: 0 0 7px;
+    color: var(--cor-texto);
+    font-size: 17px;
+}
+
+.cabecalho-grafico span {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+.cabecalho-grafico .unidade-grafico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background-color: rgba(14, 165, 200, 0.12);
+    color: var(--cor-destaque);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Área onde o gráfico será renderizado. */
+.area-grafico {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+/* Canvas utilizado pelo gráfico. */
+.area-grafico canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Mensagem exibida quando não existem medições. */
+.mensagem-sem-leituras {
+    margin: 16px 0 0;
+    padding: 14px;
+    border: 1px dashed var(--cor-borda);
+    border-radius: 8px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    text-align: center;
+}
+
+/* =========================================
+   10. ADAPTAÇÃO PARA TELAS MENORES
+   ========================================= */
+
+/* Tablets e telas médias. */
+@media (max-width: 900px) {
+    .medidores-dashboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .resumo-dispositivos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Celulares. */
+@media (max-width: 480px) {
+    .cabecalho-dashboard {
+        padding: 24px 20px;
+    }
+
+    .conteudo-dashboard {
+        padding: 24px 16px;
+    }
+
+    .medidores-dashboard {
+        grid-template-columns: 1fr;
+        padding: 12px;
+    }
+
+    .cartao-medidor {
+        padding: 28px 12px 24px;
+    }
+
+    .resumo-dispositivos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .cartao-resumo {
+        padding: 18px 16px;
+    }
+
+    .cartao-grafico {
+        padding: 18px 14px;
+    }
+
+    .area-grafico {
+        height: 240px;
+    }
+
+    .titulo-secao-dashboard h2 {
+        font-size: 20px;
+    }
+}

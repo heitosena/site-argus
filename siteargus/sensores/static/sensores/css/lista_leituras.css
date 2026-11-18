@@ -1,0 +1,365 @@
+
+/* ========================================
+   CONFIGURAÇÕES GERAIS
+======================================== */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    margin: 0;
+    padding: 30px;
+}
+
+/* Título principal */
+
+h1 {
+    text-align: center;
+    color: var(--cor-texto);
+    margin-bottom: 30px;
+}
+
+/* ========================================
+   TABELA DE LEITURAS
+======================================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background-color: var(--cor-borda);
+    color: var(--cor-texto);
+    padding: 14px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+}
+
+tbody tr:hover {
+    background-color: var(--cor-borda);
+}
+
+/* ========================================
+   MENSAGENS GERAIS
+======================================== */
+
+p {
+    text-align: center;
+    font-size: 18px;
+    color: var(--cor-texto-secundario);
+}
+
+/* ========================================
+   PAINEL PRINCIPAL
+======================================== */
+
+.painel-leituras {
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    padding: 25px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+}
+
+.painel-leituras h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--cor-texto);
+}
+
+.painel-leituras p {
+    margin: 0;
+    text-align: left;
+    font-size: 16px;
+    color: var(--cor-texto-secundario);
+}
+
+/* ========================================
+   CARTÕES DE MONITORAMENTO
+======================================== */
+
+.cartoes-leituras {
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.cartao-leitura {
+    background-color: var(--cor-superficie);
+    padding: 20px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.cartao-leitura h3 {
+    margin: 0 0 10px 0;
+    color: var(--cor-texto);
+}
+
+.cartao-leitura p {
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--cor-texto-secundario);
+}
+
+/* ========================================
+   ÁREA DOS BOTÕES
+======================================== */
+
+.acoes-leituras {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 24px 0;
+    padding: 16px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+}
+
+.grupo-acoes-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Estilo geral */
+
+.acoes-leituras button {
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 10px 16px;
+    background-color: transparent;
+    color: var(--cor-texto);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.acoes-leituras button:hover {
+    background-color: var(--cor-borda);
+    border-color: var(--cor-destaque);
+    transform: translateY(-2px);
+}
+
+/* Salvar */
+
+#salvar-leituras {
+    background-color: var(--cor-destaque);
+    border-color: var(--cor-destaque);
+    color: #ffffff;
+}
+
+#salvar-leituras:hover {
+    background-color: #0b8eac;
+}
+
+/* Excluir */
+
+#excluir-leituras {
+    background-color: #dc2626;
+    border-color: #dc2626;
+    color: #ffffff;
+}
+
+/* Ver salvas */
+
+#ver-salvas {
+    background-color: #eab308;
+    border-color: #eab308;
+    color: #080e17;
+}
+
+/* Atualizar */
+
+#atualizar-leituras {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 13px 28px;
+    font-size: 16px;
+    transform: none;
+    position: static;
+}
+
+/* Voltar */
+
+#voltar-leituras {
+    background-color: transparent;
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#voltar-leituras:hover {
+    background-color: var(--cor-borda);
+    border-color: var(--cor-destaque);
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   MODAIS
+======================================== */
+
+.modal-exclusao {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-exclusao.ativo {
+    display: flex;
+}
+
+.conteudo-modal {
+    width: 90%;
+    max-width: 420px;
+    padding: 28px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    text-align: center;
+    color: var(--cor-texto);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.conteudo-modal h2 {
+    margin-bottom: 15px;
+    color: var(--cor-texto);
+}
+
+.conteudo-modal p {
+    color: var(--cor-texto-secundario);
+    line-height: 1.6;
+}
+
+/* Botões dos modais */
+
+.botoes-modal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.botoes-modal button {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.botoes-modal button:hover {
+    opacity: 0.85;
+}
+
+/* Cancelar */
+
+#cancelar-exclusao {
+    background-color: var(--cor-borda);
+    color: var(--cor-texto);
+}
+
+/* Confirmar exclusão */
+
+#confirmar-exclusao {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+/* Aviso */
+
+#fechar-aviso {
+    background-color: var(--cor-destaque);
+    color: #ffffff;
+    padding: 11px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#fechar-aviso:hover {
+    background-color: #087f9c;
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 600px) {
+    .acoes-leituras {
+        flex-wrap: wrap;
+    }
+
+    .grupo-acoes-esquerda {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .cartoes-leituras {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th,
+    td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .conteudo-modal {
+        width: 95%;
+        padding: 22px;
+    }
+
+    .botoes-modal button {
+        flex: 1;
+    }
+}

@@ -1,0 +1,90 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Cadastro de Dispositivos | A.R.G.U.S.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=26">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-cadastro">
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'cadastro' in message.extra_tags %}
+                <div class="mensagem-sucesso">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <h1>Cadastro de Dispositivo</h1>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <label for="nome">Nome</label>
+        <input
+            type="text"
+            id="nome"
+            name="nome"
+            required
+        >
+
+        <br><br>
+
+        <label for="modelo">Modelo</label>
+        <input
+            type="text"
+            id="modelo"
+            name="modelo"
+            value="ESP32 - Sensor de Gás"
+            readonly
+        >
+
+        <br><br>
+
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+            <option value="Manutenção">Manutenção</option>
+        </select>
+
+        <br><br>
+
+        <label for="rede_conectada">
+            <input
+                type="checkbox"
+                id="rede_conectada"
+                name="rede_conectada"
+            >
+            Rede conectada
+        </label>
+
+        <br><br>
+
+        <div class="botoes-acoes">
+
+            <button type="submit">Cadastrar dispositivo</button>
+
+            <a href="{% url 'lista_sensores' %}" class="botao-lista">
+                Voltar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'sensores/js/cadastrar_sensor.js' %}?v=11"></script>
+{% endblock %}

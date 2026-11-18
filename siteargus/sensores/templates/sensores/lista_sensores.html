@@ -1,0 +1,174 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Dispositivos | A.R.G.U.S.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'sensores/css/lista_sensores.css' %}?v=10">
+{% endblock %}
+
+{% block content %}
+
+<main class="container">
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'success' in message.tags and 'dispositivo' in message.extra_tags %}
+                <div class="mensagem-sucesso" id="mensagem-sucesso">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <header class="cabecalho">
+        <div>
+            <span class="subtitulo">SISTEMA A.R.G.U.S.</span>
+            <h1>Dispositivos</h1>
+            <p>Gerencie e acompanhe seus dispositivos cadastrados.</p>
+        </div>
+
+        <a href="{% url 'cadastrar_sensor' %}" class="botao-cadastrar">
+            + Cadastrar dispositivo
+        </a>
+    </header>
+
+    <section class="resumo">
+        <div class="resumo-card">
+            <span>Total de dispositivos</span>
+            <strong id="total-dispositivos">{{ dispositivos|length }}</strong>
+        </div>
+    </section>
+
+    <section class="secao-dispositivos">
+
+        <div class="titulo-secao">
+            <h2>Seus dispositivos</h2>
+            <span class="atualizacao">Atualização automática</span>
+        </div>
+
+        <div class="lista-dispositivos" id="lista-dispositivos">
+
+            {% if dispositivos %}
+
+                {% for dispositivo in dispositivos %}
+
+                    <article class="dispositivo-card">
+
+                        <div class="card-topo">
+                            <div class="icone-dispositivo">
+                                <span>ESP</span>
+                            </div>
+
+                            <span class="status
+                                {% if dispositivo.status == 'Ativo' %}status-ativo
+                                {% elif dispositivo.status == 'Manutenção' %}status-manutencao
+                                {% else %}status-inativo{% endif %}">
+                                {{ dispositivo.status }}
+                            </span>
+                        </div>
+
+                        <div class="informacoes">
+                            <h3>{{ dispositivo.nome }}</h3>
+                            <p>{{ dispositivo.modelo }}</p>
+                        </div>
+
+                        <div class="detalhes">
+
+                            <div class="detalhe-item">
+                                <span>Bateria</span>
+                                <strong>
+                                    {{ dispositivo.bateria|default:"Não informada" }}{% if dispositivo.bateria != None %}%{% endif %}
+                                </strong>
+                            </div>
+
+                            <div class="detalhe-item">
+                                <span>Conexão de rede</span>
+
+                                <strong class="{% if dispositivo.rede_conectada %}conectado{% else %}desconectado{% endif %}">
+                                    {% if dispositivo.rede_conectada %}
+                                        Conectado
+                                    {% else %}
+                                        Desconectado
+                                    {% endif %}
+                                </strong>
+                            </div>
+
+                        </div>
+
+                        <div class="card-rodape">
+                            <span>Dispositivo cadastrado no A.R.G.U.S.</span>
+
+                            <form method="POST"
+                                  action="{% url 'excluir_sensor' dispositivo.id %}"
+                                  class="form-excluir">
+
+                                {% csrf_token %}
+
+                                <button type="button"
+                                        class="botao-excluir"
+                                        data-nome="{{ dispositivo.nome }}">
+                                    <span aria-hidden="true">🗑</span>
+                                    Excluir
+                                </button>
+
+                            </form>
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="mensagem-vazia">
+                    <h3>Nenhum dispositivo cadastrado</h3>
+                    <p>Cadastre seu primeiro dispositivo para começar.</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- Modal de confirmação -->
+<div class="modal-overlay" id="modal-excluir" aria-hidden="true">
+
+    <div class="modal-confirmacao" role="dialog"
+         aria-modal="true" aria-labelledby="modal-titulo">
+
+        <div class="modal-icone">🗑</div>
+
+        <h2 id="modal-titulo">Excluir dispositivo?</h2>
+
+        <p>
+            Tem certeza de que deseja excluir
+            <strong id="nome-dispositivo-excluir"></strong>?
+            Essa ação não poderá ser desfeita.
+        </p>
+
+        <div class="modal-botoes">
+
+            <button type="button" class="botao-cancelar" id="cancelar-exclusao">
+                Cancelar
+            </button>
+
+            <button type="button" class="botao-confirmar-exclusao" id="confirmar-exclusao">
+                Sim, excluir
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'sensores/js/lista_sensores.js' %}?v=4" defer></script>
+{% endblock %}

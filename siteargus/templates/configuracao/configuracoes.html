@@ -1,0 +1,88 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Configurações | A.R.G.U.S.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'configuracao/configuracoes.css' %}?v=2">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-configuracoes">
+
+    <div class="cabecalho-configuracoes">
+        <div>
+            <h1>Configurações</h1>
+            <p>Personalize e gerencie as preferências do A.R.G.U.S.</p>
+        </div>
+    </div>
+
+    <section class="secao-configuracoes">
+        <div class="titulo-secao">
+            <h2>Aparência</h2>
+            <p>Personalize a aparência do sistema.</p>
+        </div>
+
+        <div class="opcao-configuracao">
+            <div class="opcao-info">
+                <h3>Tema da interface</h3>
+                <p>Escolha entre o tema escuro e o tema claro.</p>
+            </div>
+
+            <select id="seletor-tema">
+                <option value="escuro">Escuro</option>
+                <option value="claro">Claro</option>
+            </select>
+        </div>
+    </section>
+
+    <section class="secao-configuracoes">
+        <div class="titulo-secao">
+            <h2>Notificações</h2>
+            <p>Gerencie como deseja receber os avisos do sistema.</p>
+        </div>
+
+        <div class="opcao-configuracao">
+            <div class="opcao-info">
+                <h3>Notificações do sistema</h3>
+                <p>Preferências de recebimento de alertas e avisos.</p>
+            </div>
+
+            <span class="status-em-breve">Em desenvolvimento</span>
+        </div>
+    </section>
+
+    <section class="secao-configuracoes">
+        <div class="titulo-secao">
+            <h2>Conta</h2>
+            <p>Informações e opções relacionadas à sua conta.</p>
+        </div>
+
+        <div class="opcao-configuracao">
+            <div class="opcao-info">
+                <h3>Dados da conta</h3>
+                <p>Informações do usuário conectado.</p>
+            </div>
+
+            <span class="status-em-breve">Aguardando integração</span>
+        </div>
+
+        <div class="opcao-configuracao">
+            <div class="opcao-info">
+                <h3>Sair da conta</h3>
+                <p>Encerre sua sessão no A.R.G.U.S.</p>
+            </div>
+
+            <span class="status-em-breve">Aguardando integração</span>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'configuracao/configuracoes.js' %}?v=1"></script>
+{% endblock %}

@@ -1,0 +1,307 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Leituras | A.R.G.U.S.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'sensores/css/lista_leituras.css' %}?v=22">
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        {% if 'leitura' in message.extra_tags %}
+            <div class="mensagem-leitura {% if 'success' in message.tags %}mensagem-sucesso{% else %}mensagem-aviso{% endif %}"
+                 id="mensagem-leitura">
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<!-- Título principal da página -->
+<h1>Leituras dos dispositivos</h1>
+
+<!-- Painel principal das leituras -->
+<section class="painel-leituras">
+
+    <h2>Monitoramento dos dispositivos</h2>
+
+    <p>Acompanhe as últimas leituras registradas pelo sistema A.R.G.U.S.</p>
+
+</section>
+
+<!-- Cartões com resumo das últimas informações -->
+<section class="cartoes-leituras">
+
+    <!-- Temperatura -->
+    <div class="cartao-leitura">
+        <h3>Temperatura</h3>
+
+        {% if ultima_leitura %}
+            <p>{{ ultima_leitura.temperatura }} °C</p>
+        {% else %}
+            <p>Nenhuma leitura disponível.</p>
+        {% endif %}
+    </div>
+
+    <!-- Umidade -->
+    <div class="cartao-leitura">
+        <h3>Umidade</h3>
+
+        {% if ultima_leitura %}
+            <p>{{ ultima_leitura.umidade }}%</p>
+        {% else %}
+            <p>Nenhuma leitura disponível.</p>
+        {% endif %}
+    </div>
+
+    <!-- Gás -->
+    <div class="cartao-leitura">
+        <h3>Gás</h3>
+
+        {% if ultima_leitura %}
+            <p>{{ ultima_leitura.nivel_gas }}</p>
+        {% else %}
+            <p>Nenhuma leitura disponível.</p>
+        {% endif %}
+    </div>
+
+    <!-- Vazamento -->
+    <div class="cartao-leitura">
+        <h3>Vazamento</h3>
+
+        {% if ultima_leitura %}
+            {% if ultima_leitura.vazamento %}
+                <p>Vazamento detectado</p>
+            {% else %}
+                <p>Nenhum vazamento detectado</p>
+            {% endif %}
+        {% else %}
+            <p>Nenhuma leitura disponível.</p>
+        {% endif %}
+    </div>
+
+</section>
+
+<!-- Formulário das ações das leituras -->
+<form method="POST" action="/sensores/salvar-leituras/">
+    {% csrf_token %}
+
+    {% if mostrando_salvas %}
+        <input type="hidden" name="origem_salvas" value="1">
+    {% endif %}
+
+    <!-- Botões de ação -->
+    <section class="acoes-leituras">
+
+        <div class="grupo-acoes-esquerda">
+
+            {% if not mostrando_salvas %}
+                <button type="submit" id="salvar-leituras">
+                    💾 Salvar
+                </button>
+            {% endif %}
+
+            <button
+                type="submit"
+                id="excluir-leituras"
+                formaction="/sensores/excluir-leituras/"
+            >
+                🗑 Excluir
+            </button>
+
+            {% if not mostrando_salvas %}
+                <button
+                    type="button"
+                    id="ver-salvas"
+                    onclick="window.location.href='/sensores/leituras-salvas/'"
+                >
+                    📋 Ver salvas
+                </button>
+            {% endif %}
+
+        </div>
+
+        <button type="button" id="atualizar-leituras">
+            🔄 Atualizar
+        </button>
+
+    </section>
+
+    {% if mostrando_salvas %}
+
+        <!-- Voltar à lista completa -->
+        <div class="acoes-voltar">
+            <button
+                type="button"
+                id="voltar-leituras"
+                onclick="window.location.href='/sensores/leituras/'"
+            >
+                ← Voltar
+            </button>
+        </div>
+
+    {% endif %}
+
+    {% if registros %}
+
+        <!-- Tabela de leituras -->
+        <table border="1">
+
+            <thead>
+                <tr>
+                    <th>Selecionar</th>
+                    <th>Dispositivo</th>
+                    <th>Data e hora</th>
+                    <th>Temperatura</th>
+                    <th>Umidade</th>
+                    <th>Gás</th>
+                    <th>Nível de gás</th>
+                    <th>Vazamento</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for registro in registros %}
+
+                    <tr>
+
+                        <td>
+                            <input
+                                type="checkbox"
+                                class="selecionar-leitura"
+                                name="registros"
+                                value="{{ registro.id }}"
+                            >
+                        </td>
+
+                        <td>
+                            {% if mostrando_salvas %}
+                                {{ registro.dispositivo_nome }}
+                            {% else %}
+                                {{ registro.dispositivo.nome }}
+                            {% endif %}
+                        </td>
+
+                        <td>{{ registro.data_hora }}</td>
+                        <td>{{ registro.temperatura }} °C</td>
+                        <td>{{ registro.umidade }}%</td>
+                        <td>{{ registro.gas_percentual }}%</td>
+                        <td>{{ registro.nivel_gas }}</td>
+
+                        <td>
+                            {% if registro.vazamento %}
+                                Sim
+                            {% else %}
+                                Não
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <p>Nenhuma leitura cadastrada.</p>
+
+    {% endif %}
+
+</form>
+
+<!-- Modal de confirmação de exclusão -->
+<div id="modal-exclusao" class="modal-exclusao" aria-hidden="true">
+
+    <div
+        class="conteudo-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titulo-modal"
+    >
+
+        <h2 id="titulo-modal">Confirmar exclusão</h2>
+
+        <p>
+            Tem certeza de que deseja excluir as leituras selecionadas?
+            Essa ação não poderá ser desfeita.
+        </p>
+
+        <div class="botoes-modal">
+
+            <button type="button" id="cancelar-exclusao">
+                Cancelar
+            </button>
+
+            <button type="button" id="confirmar-exclusao">
+                Excluir
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal de aviso quando nenhuma leitura está selecionada -->
+<div id="modal-aviso" class="modal-exclusao" aria-hidden="true">
+
+    <div
+        class="conteudo-modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="titulo-aviso"
+    >
+
+        <h2 id="titulo-aviso">Atenção!</h2>
+
+        <p>
+            Você precisa selecionar pelo menos uma leitura
+            antes de continuar.
+        </p>
+
+        <div class="botoes-modal">
+            <button type="button" id="fechar-aviso">
+                Entendi
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'sensores/js/lista_leituras.js' %}?v=8"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const mensagens = document.querySelectorAll(".mensagem-leitura");
+
+    mensagens.forEach(function (mensagem) {
+
+        setTimeout(function () {
+
+            mensagem.style.transition = "opacity 0.5s";
+            mensagem.style.opacity = "0";
+
+            setTimeout(function () {
+                mensagem.remove();
+            }, 500);
+
+        }, 4000);
+
+    });
+
+});
+</script>
+{% endblock %}

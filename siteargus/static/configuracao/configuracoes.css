@@ -1,0 +1,151 @@
+
+/* =========================================
+   1. ESTRUTURA GERAL
+   ========================================= */
+
+.pagina-configuracoes {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 35px;
+}
+
+.cabecalho-configuracoes {
+    margin-bottom: 30px;
+}
+
+.cabecalho-configuracoes h1 {
+    color: var(--cor-texto);
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.cabecalho-configuracoes p {
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    margin: 0;
+}
+
+/* =========================================
+   2. SEÇÕES
+   ========================================= */
+
+.secao-configuracoes {
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.titulo-secao {
+    margin-bottom: 20px;
+}
+
+.titulo-secao h2 {
+    color: var(--cor-texto);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+.titulo-secao p {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+    margin: 0;
+}
+
+/* =========================================
+   3. OPÇÕES DE CONFIGURAÇÃO
+   ========================================= */
+
+.opcao-configuracao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 0;
+    border-top: 1px solid var(--cor-borda);
+}
+
+.opcao-info {
+    flex: 1;
+}
+
+.opcao-info h3 {
+    color: var(--cor-texto);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+.opcao-info p {
+    color: var(--cor-texto-secundario);
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* =========================================
+   4. SELETOR DE TEMA
+   ========================================= */
+
+#seletor-tema {
+    min-width: 140px;
+    padding: 10px 12px;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+
+#seletor-tema:focus {
+    border-color: var(--cor-destaque);
+}
+
+/* =========================================
+   5. STATUS DE FUNCIONALIDADES
+   ========================================= */
+
+.status-em-breve {
+    color: var(--cor-texto-secundario);
+    background: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+/* =========================================
+   6. RESPONSIVIDADE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .pagina-configuracoes {
+        padding-bottom: 20px;
+    }
+
+    .cabecalho-configuracoes h1 {
+        font-size: 23px;
+    }
+
+    .secao-configuracoes {
+        padding: 18px;
+    }
+
+    .opcao-configuracao {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #seletor-tema {
+        width: 100%;
+    }
+}
