@@ -8,13 +8,14 @@
 
     <title>{% block title %}A.R.G.U.S.{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'base.css' %}?v=4">
-
+    <link rel="stylesheet" href="{% static 'base.css' %}?v=7">
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
 
     <aside class="barra-lateral">
+
         <div class="logo-argus">
             <h1>A.R.G.U.S.</h1>
             <p>Sistema de monitoramento</p>
@@ -24,43 +25,122 @@
 
             <a href="{% url 'dashboard' %}"
                class="{% if request.resolver_match.url_name == 'dashboard' %}ativo{% endif %}">
-                <span>▦</span> Dashboard
+                Dashboard
             </a>
 
             <a href="{% url 'lista_leituras' %}"
                class="{% if request.resolver_match.url_name == 'lista_leituras' %}ativo{% endif %}">
-                <span>▤</span> Leituras
+                Leituras
             </a>
 
             <a href="{% url 'lista_sensores' %}"
                class="{% if request.resolver_match.url_name == 'lista_sensores' %}ativo{% endif %}">
-                <span>▣</span> Sensores cadastrados
+                Sensores cadastrados
             </a>
 
             <a href="{% url 'cadastrar_sensor' %}"
                class="{% if request.resolver_match.url_name == 'cadastrar_sensor' %}ativo{% endif %}">
-                <span>＋</span> Cadastrar novo sensor
+                Cadastrar novo sensor
             </a>
 
             <a href="{% url 'lista_alertas' %}"
                class="{% if request.resolver_match.url_name == 'lista_alertas' %}ativo{% endif %}">
-                <span>♧</span> Alertas
+                Alertas
             </a>
 
             <a href="{% url 'configuracoes' %}"
                class="{% if request.resolver_match.url_name == 'configuracoes' %}ativo{% endif %}">
-                <span>⚙</span> Configurações
+                Configurações
             </a>
 
         </nav>
+
+        <!-- PERFIL DO USUÁRIO -->
+        <div class="perfil-usuario">
+
+            <div class="perfil-info">
+                <div class="perfil-avatar">
+                    {{ request.session.usuario_nome|first|upper }}
+                </div>
+
+                <span class="perfil-nome">
+                    {{ request.session.usuario_nome }}
+                </span>
+            </div>
+
+            <div class="perfil-menu-container">
+
+                <button
+                    type="button"
+                    class="perfil-menu-botao"
+                    id="perfil-menu-botao"
+                    aria-label="Opções da conta"
+                    aria-expanded="false">
+                    ⋮
+                </button>
+
+                <div class="perfil-menu" id="perfil-menu">
+
+                    <a href="{% url 'logout' %}"
+                       data-confirmacao="trocar">
+                        <span>⇄</span>
+                        Trocar de conta
+                    </a>
+
+                    <a href="{% url 'logout' %}"
+                       data-confirmacao="sair">
+                        <span>↪</span>
+                        Sair da conta
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
     </aside>
 
     <main class="conteudo-principal">
         {% block content %}{% endblock %}
     </main>
 
-    <script src="{% static 'base.js' %}?v=3"></script>
+    <!-- MODAL DE CONFIRMAÇÃO -->
+    <div
+        class="modal-confirmacao"
+        id="modal-confirmacao"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-titulo">
 
+        <div class="modal-confirmacao-conteudo">
+
+            <div class="modal-confirmacao-icone">
+                <span>↪</span>
+            </div>
+
+            <h2 id="modal-titulo">
+                Deseja sair da sua conta?
+            </h2>
+
+            <p id="modal-mensagem">
+                Sua sessão será encerrada e você retornará à tela de login.
+            </p>
+
+            <div class="modal-confirmacao-acoes">
+
+                <button type="button" id="modal-cancelar">
+                    Não
+                </button>
+
+                <button type="button" id="modal-confirmar">
+                    Sim, continuar
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static 'base.js' %}?v=6"></script>
     {% block extra_js %}{% endblock %}
 
 </body>
