@@ -1,62 +1,109 @@
 
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block titulo %}ARGUS{% endblock %}</title>
+    <title>{% block title %}{% block titulo %}ARGUS{% endblock %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'styles/global.css' %}">
-    {% block estilos %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'styles/global.css' %}?v=2">
+
+    {% block extra_css %}
+        {% block estilos %}{% endblock %}
+    {% endblock %}
 </head>
 
 <body>
-    <!-- CABEÇALHO COMPARTILHADO -->
-    <header class="cabecalhoBase" id="inicio">
-        <div class="containerBase">
 
-            <a href="{% url 'home' %}" class="logoBase">
-                <img src="{% static 'images/logo-argus.png' %}"
-                     alt="Logo do ARGUS">
-            </a>
+    {% if request.session.usuario_id %}
 
-            <nav class="menuBase" aria-label="Menu principal">
-                <a href="{% url 'home' %}" class="linkMenuBase">
-                    Início
+        <!-- USUÁRIO LOGADO -->
+        <header class="cabecalhoBase" id="inicio">
+
+            <div class="containerBase">
+
+                <a href="{% url 'home' %}" class="logoBase">
+                    <img src="{% static 'images/logo-argus.png' %}" alt="Logo do ARGUS">
                 </a>
 
-                <a href="{% url 'contato' %}" class="linkMenuBase">
-                    Contato
+                <nav class="menuBase" aria-label="Menu principal">
+
+                    <a href="{% url 'home' %}" class="linkMenuBase">
+                        Início
+                    </a>
+
+                    <a href="{% url 'contato' %}" class="linkMenuBase">
+                        Contato
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+    {% else %}
+
+        <!-- USUÁRIO NÃO LOGADO -->
+        <header class="cabecalhoBase" id="inicio">
+
+            <div class="containerBase">
+
+                <a href="{% url 'home' %}" class="logoBase">
+                    <img src="{% static 'images/logo-argus.png' %}" alt="Logo do ARGUS">
                 </a>
 
-                <a href="{% url 'login' %}" class="botaoEntrarBase">
-                    Entrar
-                </a>
-            </nav>
+                <nav class="menuBase" aria-label="Menu principal">
 
-        </div>
-    </header>
+                    <a href="{% url 'home' %}" class="linkMenuBase">
+                        Início
+                    </a>
 
-    <!-- CONTEÚDO ESPECÍFICO DE CADA PÁGINA -->
+                    <a href="{% url 'contato' %}" class="linkMenuBase">
+                        Contato
+                    </a>
+
+                    <a href="{% url 'login' %}" class="botaoEntrarBase">
+                        Entrar
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+    {% endif %}
+
+    <!-- CONTEÚDO DAS PÁGINAS -->
     <main class="conteudoBase">
-        {% block conteudo %}
+        {% block content %}
+            {% block conteudo %}{% endblock %}
         {% endblock %}
     </main>
 
-    <!-- RODAPÉ COMPARTILHADO -->
+    <!-- RODAPÉ ORIGINAL -->
     <footer class="rodapeBase">
+
         <div class="containerBase">
-            <p>
-                A.R.G.U.S. · Tecnologia com propósito.
-            </p>
-            <p>
-                Projeto acadêmico · Trabalho de Conclusão de Curso
-            </p>
+
+            <p>A.R.G.U.S. · Tecnologia com propósito.</p>
+
+            <p>Projeto acadêmico · Trabalho de Conclusão de Curso</p>
+
         </div>
+
     </footer>
 
-    {% block scripts %}{% endblock %}
+    {% block extra_js %}
+        {% block scripts %}{% endblock %}
+    {% endblock %}
+
+<script src="{% static 'base.js' %}?v=6"></script>
+
 </body>
 </html>

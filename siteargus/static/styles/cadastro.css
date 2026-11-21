@@ -1,4 +1,28 @@
 
+/* CORES DOS TEMAS */
+
+:root {
+    --cad-fundo: #0d1520;
+    --cad-campo: #080e17;
+    --cad-borda: #1a2d40;
+    --cad-texto: #abd8f4;
+    --cad-texto-campo: #e8f0f5;
+    --cad-destaque: #0ea5c8;
+    --cad-botao-texto: #080e17;
+    --cad-link: #007bff;
+}
+
+:root[data-tema="claro"] {
+    --cad-fundo: #ffffff;
+    --cad-campo: #f1f5f9;
+    --cad-borda: #d6e0e9;
+    --cad-texto: #172b3a;
+    --cad-texto-campo: #172b3a;
+    --cad-destaque: #0786a8;
+    --cad-botao-texto: #ffffff;
+    --cad-link: #087db5;
+}
+
 /* CONTEÚDO DA PÁGINA */
 
 .conteudoBase {
@@ -15,10 +39,10 @@
     max-width: 650px;
     margin: 0 auto;
     padding: 35px;
-    background-color: #0d1520;
-    border: 1px solid #1a2d40;
+    background-color: var(--cad-fundo);
+    border: 1px solid var(--cad-borda);
     border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* TÍTULO */
@@ -29,7 +53,7 @@
     font-size: 28px;
     font-weight: 700;
     text-align: left;
-    color: #abd8f4;
+    color: var(--cad-texto);
 }
 
 /* FORMULÁRIO */
@@ -41,7 +65,7 @@
 .formularioCad form > label {
     display: block;
     margin-bottom: 9px;
-    color: #abd8f4;
+    color: var(--cad-texto);
     font-size: 14px;
     font-weight: 600;
 }
@@ -53,10 +77,10 @@
     height: 44px;
     margin-bottom: 24px;
     padding: 0 13px;
-    background-color: #080e17;
-    border: 1px solid #1a2d40;
+    background-color: var(--cad-campo);
+    border: 1px solid var(--cad-borda);
     border-radius: 8px;
-    color: #e8f0f5;
+    color: var(--cad-texto-campo);
     font-size: 14px;
     outline: none;
     transition: border-color 0.2s ease;
@@ -64,16 +88,16 @@
 
 .formularioCad form > input:hover,
 .formularioCad form > select:hover {
-    border-color: #0ea5c8;
-    box-shadow: 0 0 10px rgba(14, 165, 200, 0.35),
-                0 0 20px rgba(14, 165, 200, 0.2);
+    border-color: var(--cad-destaque);
+    box-shadow: 0 0 10px rgba(14, 165, 200, 0.25),
+                0 0 20px rgba(14, 165, 200, 0.12);
 }
 
 .formularioCad form > input:focus,
 .formularioCad form > select:focus {
-    border-color: #0ea5c8;
-    box-shadow: 0 0 12px rgba(14, 165, 200, 0.45),
-                0 0 25px rgba(14, 165, 200, 0.25);
+    border-color: var(--cad-destaque);
+    box-shadow: 0 0 12px rgba(14, 165, 200, 0.3),
+                0 0 25px rgba(14, 165, 200, 0.15);
 }
 
 .formularioCad form > select {
@@ -87,10 +111,10 @@
     width: 100%;
     min-height: 46px;
     padding: 12px 20px;
-    background-color: #0ea5c8;
-    border: 1px solid #0ea5c8;
+    background-color: var(--cad-destaque);
+    border: 1px solid var(--cad-destaque);
     border-radius: 8px;
-    color: #080e17;
+    color: var(--cad-botao-texto);
     font-size: 15px;
     font-weight: 700;
     font-family: Arial, Helvetica, sans-serif;
@@ -102,9 +126,9 @@
 .formularioCad form > .botao_cadastrar:hover {
     background-color: #0c91b0;
     transform: translateY(-2px);
-    box-shadow: 0 0 12px rgba(14, 165, 200, 0.5),
-                0 0 25px rgba(14, 165, 200, 0.4),
-                0 0 40px rgba(14, 165, 200, 0.2);
+    box-shadow: 0 0 12px rgba(14, 165, 200, 0.35),
+                0 0 25px rgba(14, 165, 200, 0.25),
+                0 0 40px rgba(14, 165, 200, 0.12);
 }
 
 /* CAMPO COM ERRO */
@@ -132,11 +156,11 @@
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
-    color: #abd8f4;
+    color: var(--cad-texto);
 }
 
 .link-login a {
-    color: #007bff;
+    color: var(--cad-link);
     text-decoration: none;
     font-weight: bold;
 }

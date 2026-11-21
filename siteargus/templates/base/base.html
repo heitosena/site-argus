@@ -8,7 +8,7 @@
 
     <title>{% block title %}A.R.G.U.S.{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'base.css' %}?v=7">
+    <link rel="stylesheet" href="{% static 'base.css' %}?v=11">
     {% block extra_css %}{% endblock %}
 </head>
 
@@ -17,22 +17,38 @@
     <aside class="barra-lateral">
 
         <div class="logo-argus">
+
+            <img
+                src="{% static 'images/logo-argus.png' %}"
+                alt="Logo do A.R.G.U.S."
+                class="logo-imagem">
+
             <h1>A.R.G.U.S.</h1>
             <p>Sistema de monitoramento</p>
+
         </div>
 
         <nav class="menu-lateral">
 
+            <!-- PÁGINAS PÚBLICAS -->
+            <a href="{% url 'home' %}"
+               class="{% if request.resolver_match.url_name == 'home' %}ativo{% endif %}">
+                Início
+            </a>
+
+            <!-- DASHBOARD -->
             <a href="{% url 'dashboard' %}"
                class="{% if request.resolver_match.url_name == 'dashboard' %}ativo{% endif %}">
                 Dashboard
             </a>
 
+            <!-- LEITURAS -->
             <a href="{% url 'lista_leituras' %}"
                class="{% if request.resolver_match.url_name == 'lista_leituras' %}ativo{% endif %}">
                 Leituras
             </a>
 
+            <!-- SENSORES -->
             <a href="{% url 'lista_sensores' %}"
                class="{% if request.resolver_match.url_name == 'lista_sensores' %}ativo{% endif %}">
                 Sensores cadastrados
@@ -43,11 +59,19 @@
                 Cadastrar novo sensor
             </a>
 
+            <!-- ALERTAS -->
             <a href="{% url 'lista_alertas' %}"
                class="{% if request.resolver_match.url_name == 'lista_alertas' %}ativo{% endif %}">
                 Alertas
             </a>
 
+            <!-- CONTATO -->
+            <a href="{% url 'contato' %}"
+               class="{% if request.resolver_match.url_name == 'contato' %}ativo{% endif %}">
+                Contato
+            </a>
+
+            <!-- CONFIGURAÇÕES -->
             <a href="{% url 'configuracoes' %}"
                class="{% if request.resolver_match.url_name == 'configuracoes' %}ativo{% endif %}">
                 Configurações
@@ -59,6 +83,7 @@
         <div class="perfil-usuario">
 
             <div class="perfil-info">
+
                 <div class="perfil-avatar">
                     {{ request.session.usuario_nome|first|upper }}
                 </div>
@@ -66,6 +91,7 @@
                 <span class="perfil-nome">
                     {{ request.session.usuario_nome }}
                 </span>
+
             </div>
 
             <div class="perfil-menu-container">
@@ -94,7 +120,9 @@
                     </a>
 
                 </div>
+
             </div>
+
         </div>
 
     </aside>
@@ -138,6 +166,7 @@
             </div>
 
         </div>
+
     </div>
 
     <script src="{% static 'base.js' %}?v=6"></script>

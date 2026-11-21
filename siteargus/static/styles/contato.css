@@ -3,6 +3,34 @@
    ARGUS - PÁGINA DE CONTATO
 ========================================== */
 
+/* CORES DOS TEMAS */
+
+:root {
+    --contato-fundo: #080e17;
+    --contato-superficie: #101e2d;
+    --contato-superficie-secundaria: #0c1520;
+    --contato-borda: #1a3045;
+    --contato-texto: #e8f0f5;
+    --contato-texto-secundario: #91a4b5;
+    --contato-texto-suave: #718496;
+    --contato-destaque: #38bdf8;
+    --contato-destaque-fundo: #07598535;
+    --contato-destaque-borda: #0ea5e955;
+}
+
+:root[data-tema="claro"] {
+    --contato-fundo: #f1f5f9;
+    --contato-superficie: #ffffff;
+    --contato-superficie-secundaria: #f8fafc;
+    --contato-borda: #d6e0e9;
+    --contato-texto: #172b3a;
+    --contato-texto-secundario: #647b8c;
+    --contato-texto-suave: #718496;
+    --contato-destaque: #0786a8;
+    --contato-destaque-fundo: #0786a815;
+    --contato-destaque-borda: #0786a840;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,9 +38,10 @@
 }
 
 body {
-    background: #080e17;
-    color: #e8f0f5;
+    background: var(--contato-fundo);
+    color: var(--contato-texto);
     font-family: 'Segoe UI', Arial, sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* ==========================================
@@ -32,7 +61,9 @@ body {
             rgba(0, 145, 210, 0.10),
             transparent 55%
         ),
-        #080e17;
+        var(--contato-fundo);
+
+    transition: background-color 0.25s ease;
 }
 
 .containerContato {
@@ -53,7 +84,7 @@ body {
 
 .subtituloContato {
     display: inline-block;
-    color: #38bdf8;
+    color: var(--contato-destaque);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 3px;
@@ -61,14 +92,14 @@ body {
 }
 
 .cabecalhoContato h1 {
-    color: #f1f7fc;
+    color: var(--contato-texto);
     font-size: clamp(35px, 5vw, 48px);
     font-weight: 750;
     margin-bottom: 20px;
 }
 
 .cabecalhoContato p {
-    color: #91a4b5;
+    color: var(--contato-texto-secundario);
     font-size: 16px;
     line-height: 1.8;
 }
@@ -88,11 +119,11 @@ body {
 .cardContato {
     background: linear-gradient(
         145deg,
-        #101e2d,
-        #0c1520
+        var(--contato-superficie),
+        var(--contato-superficie-secundaria)
     );
 
-    border: 1px solid #1a3045;
+    border: 1px solid var(--contato-borda);
     border-radius: 16px;
 
     padding: 45px 35px;
@@ -107,10 +138,10 @@ body {
 
 .cardContato:hover {
     transform: translateY(-8px);
-    border-color: #0ea5e9;
+    border-color: var(--contato-destaque);
 
     box-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.3),
+        0 15px 35px rgba(0, 0, 0, 0.15),
         0 0 25px rgba(14, 165, 233, 0.10);
 }
 
@@ -126,11 +157,11 @@ body {
     align-items: center;
     justify-content: center;
 
-    background: #07598535;
-    border: 1px solid #0ea5e955;
+    background: var(--contato-destaque-fundo);
+    border: 1px solid var(--contato-destaque-borda);
     border-radius: 18px;
 
-    color: #38bdf8;
+    color: var(--contato-destaque);
     font-size: 35px;
     font-weight: 600;
 
@@ -150,14 +181,14 @@ body {
 ========================================== */
 
 .cardContato h2 {
-    color: #e8f0f5;
+    color: var(--contato-texto);
     font-size: 23px;
     font-weight: 650;
     margin-bottom: 15px;
 }
 
 .cardContato p {
-    color: #91a4b5;
+    color: var(--contato-texto-secundario);
     font-size: 14px;
     line-height: 1.8;
     max-width: 300px;
@@ -174,14 +205,14 @@ body {
     justify-content: center;
     gap: 10px;
 
-    color: #38bdf8;
+    color: var(--contato-destaque);
     font-size: 15px;
     font-weight: 600;
 
     padding: 12px 18px;
 
-    background: #07598520;
-    border: 1px solid #0ea5e933;
+    background: var(--contato-destaque-fundo);
+    border: 1px solid var(--contato-destaque-borda);
     border-radius: 8px;
 
     text-decoration: none;
@@ -218,7 +249,7 @@ body {
 
     margin-top: 65px;
 
-    color: #718496;
+    color: var(--contato-texto-suave);
     font-size: 13px;
     letter-spacing: 0.5px;
 }
@@ -227,10 +258,10 @@ body {
     width: 8px;
     height: 8px;
 
-    background: #0ea5e9;
+    background: var(--contato-destaque);
     border-radius: 50%;
 
-    box-shadow: 0 0 10px #0ea5e9;
+    box-shadow: 0 0 10px var(--contato-destaque);
 }
 
 /* ==========================================

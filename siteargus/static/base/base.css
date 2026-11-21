@@ -117,6 +117,7 @@ body {
     margin-left: 260px;
     min-height: 100vh;
     width: calc(100% - 260px);
+    overflow-x: hidden;
 }
 
 
@@ -362,4 +363,38 @@ body {
     .modal-confirmacao-acoes {
         flex-direction: column-reverse;
     }
+}
+
+/* LOGO DA SIDEBAR */
+.logo-argus {
+    padding: 0 12px 26px;
+    border-bottom: 1px solid var(--cor-borda);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-argus .logo-imagem {
+    display: block;
+    width: 100px;
+    height: 100px;
+    max-width: 100%;
+    object-fit: contain;
+    margin: 0 auto 12px;
+}
+
+.logo-argus h1 {
+    margin: 0;
+    color: var(--cor-destaque);
+    font-size: 27px;
+    letter-spacing: 1px;
+    transform: translateX(6px);
+}
+
+.logo-argus p {
+    margin: 7px 0 0;
+    color: var(--cor-texto-secundario);
+    font-size: 12px;
 }
