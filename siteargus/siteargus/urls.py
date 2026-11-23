@@ -22,10 +22,6 @@ urlpatterns = [
     path('', include('home.urls')),
     path('', include('usuarios.urls')),
 
-
-    # Área administrativa do Django
-    path('admin/', admin.site.urls),
-
     # URLs do app de sensores
     path('sensores/', include('sensores.urls')),
 
