@@ -23,12 +23,13 @@ urlpatterns = [
     path('', include('usuarios.urls')),
 
 
-    # Área administrativa do Django
-    path('admin/', admin.site.urls),
 
     # URLs do app de sensores
     path('sensores/', include('sensores.urls')),
 
     # URLs do app de alertas
     path('alertas/', include('alertas.urls')),
+
+    # URLs do app de notificações
+    path('notificacoes/', include('notificacoes.urls')),
 ]

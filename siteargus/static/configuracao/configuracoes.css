@@ -28,7 +28,7 @@
 }
 
 /* =========================================
-   2. SEÇÕES
+   2. SEÇÕES PRINCIPAIS
    ========================================= */
 
 .secao-configuracoes {
@@ -108,7 +108,227 @@
 }
 
 /* =========================================
-   5. STATUS DE FUNCIONALIDADES
+   5. MENSAGENS DO SISTEMA
+   ========================================= */
+
+.mensagens-configuracoes {
+    margin-bottom: 18px;
+}
+
+.mensagem-configuracao {
+    padding: 12px 15px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.mensagem-configuracao.success {
+    background: rgba(46, 204, 113, 0.12);
+    border: 1px solid rgba(46, 204, 113, 0.35);
+    color: #2ecc71;
+}
+
+.mensagem-configuracao.error {
+    background: rgba(231, 76, 60, 0.12);
+    border: 1px solid rgba(231, 76, 60, 0.35);
+    color: #e74c3c;
+}
+
+/* =========================================
+   6. BLOCOS DE CONTATOS
+   ========================================= */
+
+.bloco-contatos {
+    padding: 20px 0;
+    border-top: 1px solid var(--cor-borda);
+}
+
+.bloco-contatos + .bloco-contatos {
+    margin-top: 10px;
+}
+
+.titulo-bloco-contatos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.titulo-bloco-contatos h3 {
+    color: var(--cor-texto);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+.titulo-bloco-contatos p {
+    color: var(--cor-texto-secundario);
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.limite-contatos {
+    background: var(--cor-fundo);
+    color: var(--cor-texto-secundario);
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+    padding: 7px 11px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* =========================================
+   7. FORMULÁRIOS DE CONTATO
+   ========================================= */
+
+.formulario-contato {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.formulario-contato input,
+.formulario-editar-contato input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 13px;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+    font-size: 13px;
+    outline: none;
+}
+
+.formulario-contato input:focus,
+.formulario-editar-contato input:focus {
+    border-color: var(--cor-destaque);
+}
+
+.formulario-contato input::placeholder {
+    color: var(--cor-texto-secundario);
+    opacity: 0.8;
+}
+
+/* =========================================
+   8. BOTÕES
+   ========================================= */
+
+.botao-configuracao {
+    padding: 11px 16px;
+    border: none;
+    border-radius: 7px;
+    background: var(--cor-destaque);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+
+.botao-configuracao:hover {
+    opacity: 0.85;
+}
+
+.botao-configuracao:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.botao-excluir-contato {
+    padding: 10px 14px;
+    border: 1px solid #e74c3c;
+    border-radius: 7px;
+    background: transparent;
+    color: #e74c3c;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.botao-excluir-contato:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* =========================================
+   9. LISTA DE CONTATOS
+   ========================================= */
+
+.lista-contatos {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-contato {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-top: 1px solid var(--cor-borda);
+}
+
+.formulario-editar-contato {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
+    min-width: 0;
+}
+
+.mensagem-lista-vazia {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+    padding: 12px 0;
+    margin: 0;
+    border-top: 1px solid var(--cor-borda);
+}
+
+/* =========================================
+   10. DADOS DA CONTA
+   ========================================= */
+
+.dados-conta {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.campo-configuracao {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo-configuracao label {
+    color: var(--cor-texto-secundario);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.campo-configuracao input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+    font-size: 13px;
+    outline: none;
+}
+
+.campo-configuracao input[readonly] {
+    opacity: 0.8;
+    cursor: default;
+}
+
+/* =========================================
+   11. STATUS DE FUNCIONALIDADES
    ========================================= */
 
 .status-em-breve {
@@ -122,10 +342,10 @@
 }
 
 /* =========================================
-   6. RESPONSIVIDADE
+   12. RESPONSIVIDADE
    ========================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
     .pagina-configuracoes {
         padding-bottom: 20px;
@@ -148,4 +368,343 @@
     #seletor-tema {
         width: 100%;
     }
+
+    .formulario-contato {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .formulario-contato button {
+        width: 100%;
+    }
+
+    .item-contato {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .formulario-editar-contato {
+        flex-wrap: wrap;
+    }
+
+    .formulario-editar-contato input {
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    .formulario-editar-contato button {
+        flex: 1;
+    }
+
+    .item-contato > form:last-child button {
+        width: 100%;
+    }
+
+    .titulo-bloco-contatos {
+        align-items: flex-start;
+    }
+
+}
+
+/* =========================================
+   13. MODAL DE CONFIRMAÇÃO DE EXCLUSÃO
+   ========================================= */
+
+.modal-exclusao {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+}
+
+.modal-exclusao.ativo {
+    display: flex;
+}
+
+.modal-exclusao-conteudo {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+    animation: aparecer-modal 0.2s ease;
+}
+
+.icone-modal-exclusao {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: rgba(231, 76, 60, 0.13);
+    color: #e74c3c;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.modal-exclusao-conteudo h2 {
+    color: var(--cor-texto);
+    font-size: 20px;
+    margin: 0 0 10px;
+}
+
+.modal-exclusao-conteudo p {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 16px;
+}
+
+.informacao-contato-modal {
+    padding: 12px;
+    margin-bottom: 22px;
+    background: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    color: var(--cor-texto);
+    font-size: 13px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.acoes-modal-exclusao {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.botao-cancelar-exclusao,
+.botao-confirmar-exclusao {
+    flex: 1;
+    padding: 11px 15px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.botao-cancelar-exclusao {
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+}
+
+.botao-confirmar-exclusao {
+    background: #e74c3c;
+    color: #fff;
+    border: 1px solid #e74c3c;
+}
+
+.botao-cancelar-exclusao:hover,
+.botao-confirmar-exclusao:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+@keyframes aparecer-modal {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 450px) {
+    .modal-exclusao-conteudo {
+        padding: 23px 18px;
+    }
+
+    .acoes-modal-exclusao {
+        flex-direction: column-reverse;
+    }
+}
+
+/* =========================================
+   14. BOTÕES DE AÇÕES DA CONTA
+   ========================================= */
+
+.botao-sair-conta,
+.botao-trocar-usuario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 17px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.botao-sair-conta {
+    background: rgba(231, 76, 60, 0.12);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.4);
+}
+
+.botao-sair-conta:hover {
+    background: #e74c3c;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.botao-trocar-usuario {
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+}
+
+.botao-trocar-usuario:hover {
+    border-color: var(--cor-destaque);
+    color: var(--cor-destaque);
+    transform: translateY(-2px);
+}
+
+.icone-botao-conta {
+    font-size: 17px;
+    line-height: 1;
+}
+
+
+/* =========================================
+   15. MODAL DE CONFIRMAÇÃO DE SAÍDA
+   ========================================= */
+
+.modal-saida {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+}
+
+.modal-saida.ativo {
+    display: flex;
+}
+
+.modal-saida-conteudo {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+    animation: aparecer-modal-saida 0.2s ease;
+}
+
+.icone-modal-saida {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: rgba(231, 76, 60, 0.13);
+    color: #e74c3c;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.modal-saida-conteudo h2 {
+    color: var(--cor-texto);
+    font-size: 20px;
+    margin: 0 0 10px;
+}
+
+.modal-saida-conteudo p {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 23px;
+}
+
+.acoes-modal-saida {
+    display: flex;
+    gap: 10px;
+}
+
+.botao-cancelar-saida,
+.botao-confirmar-saida {
+    flex: 1;
+    padding: 11px 15px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.botao-cancelar-saida {
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+}
+
+.botao-confirmar-saida {
+    background: #e74c3c;
+    color: #fff;
+    border: 1px solid #e74c3c;
+}
+
+.botao-cancelar-saida:hover,
+.botao-confirmar-saida:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+@keyframes aparecer-modal-saida {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 450px) {
+
+    .modal-saida-conteudo {
+        padding: 23px 18px;
+    }
+
+    .acoes-modal-saida {
+        flex-direction: column-reverse;
+    }
+
+    .opcao-configuracao form {
+        width: 100%;
+    }
+
+    .botao-sair-conta,
+    .botao-trocar-usuario {
+        width: 100%;
+    }
+
 }

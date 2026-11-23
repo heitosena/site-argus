@@ -8,11 +8,15 @@ from django.http import HttpResponse
 # Importa os modelos do aplicativo sensores
 from .models import Dispositivo, Registro, LeituraSalva
 
+from usuarios.models import Usuario
+
 # Importa mensagens do Django
 from django.contrib import messages
 
 # Garante que determinadas views aceitem somente POST
 from django.views.decorators.http import require_POST
+
+from notificacoes.models import ContatoNotificacao
 
 
 # Exibe a lista de dispositivos cadastrados
@@ -333,7 +337,35 @@ def configuracoes(request):
     if usuario_id is None:
         return redirect('login')
 
+    # Busca os dados do usuário conectado.
+    usuario = Usuario.objects.filter(id=usuario_id).first()
+
+    if usuario is None:
+        return redirect('login')
+
+    # Busca os contatos adicionais do usuário.
+    contatos = ContatoNotificacao.objects.filter(
+        usuario_id=usuario_id
+    )
+
+    # Separa os e-mails e telefones.
+    contatos_email = contatos.filter(tipo='email')
+
+    contatos_telefone = contatos.filter(tipo='telefone')
+
+    # Conta os contatos cadastrados.
+    total_emails = contatos_email.count()
+
+    total_telefones = contatos_telefone.count()
+
     return render(
         request,
-        'configuracao/configuracoes.html'
+        'configuracao/configuracoes.html',
+        {
+            'usuario': usuario,
+            'contatos_email': contatos_email,
+            'contatos_telefone': contatos_telefone,
+            'total_emails': total_emails,
+            'total_telefones': total_telefones
+        }
     )
