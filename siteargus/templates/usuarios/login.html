@@ -17,7 +17,15 @@
 
     <div class="formularioLogin">
         <form method="post" id="formLogin">
+            
             {% csrf_token %}
+
+            {% if erro %}
+                <div class="mensagem-erro">
+                    <span class="icone-erro">!</span>
+                    <span>{{ erro }}</span>
+                </div>
+            {% endif %}
 
             <label for="email">E-mail</label>
             <input
