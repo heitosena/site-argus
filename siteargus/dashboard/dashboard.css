@@ -65,7 +65,7 @@ body {
 
 .medidores-dashboard {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
     margin-top: 24px;
     padding: 24px;
@@ -142,7 +142,6 @@ body {
     flex-shrink: 0;
     border-radius: 50%;
 
-    /* Centro escuro e progresso animado pelo JavaScript. */
     background:
         radial-gradient(
             closest-side,
@@ -359,6 +358,13 @@ body {
         padding: 16px;
     }
 
+    /* Centraliza o terceiro medidor. */
+    .cartao-medidor:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        width: calc(50% - 8px);
+        justify-self: center;
+    }
+
     .resumo-dispositivos {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -377,6 +383,11 @@ body {
     .medidores-dashboard {
         grid-template-columns: 1fr;
         padding: 12px;
+    }
+
+    .cartao-medidor:last-child:nth-child(odd) {
+        grid-column: auto;
+        width: 100%;
     }
 
     .cartao-medidor {

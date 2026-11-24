@@ -117,6 +117,7 @@ body {
     margin-left: 260px;
     min-height: 100vh;
     width: calc(100% - 260px);
+    overflow-x: hidden;
 }
 
 
@@ -145,4 +146,255 @@ body {
     transition:
         background-color 0.25s ease,
         border-color 0.25s ease;
+}
+
+/* =========================================
+   8. PERFIL DO USUÁRIO
+   ========================================= */
+
+.perfil-usuario {
+    margin-top: auto;
+    padding: 18px 8px 0;
+    border-top: 1px solid var(--cor-borda);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.perfil-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.perfil-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background-color: rgba(14, 165, 200, 0.15);
+    color: var(--cor-destaque);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.perfil-nome {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--cor-texto);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.perfil-menu-container {
+    position: relative;
+}
+
+.perfil-menu-botao {
+    background: transparent;
+    border: none;
+    color: var(--cor-texto-secundario);
+    font-size: 23px;
+    cursor: pointer;
+    padding: 5px 9px;
+    border-radius: 6px;
+}
+
+.perfil-menu-botao:hover {
+    background-color: rgba(14, 165, 200, 0.10);
+    color: var(--cor-texto);
+}
+
+.perfil-menu {
+    display: none;
+    position: absolute;
+    bottom: 45px;
+    right: 0;
+    width: 180px;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    z-index: 1100;
+}
+
+.perfil-menu.aberto {
+    display: block;
+}
+
+.perfil-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-size: 13px;
+}
+
+.perfil-menu a:hover {
+    background-color: rgba(14, 165, 200, 0.10);
+}
+
+.perfil-menu a:last-child {
+    color: #e05b5b;
+}
+
+/* =========================================
+   9. MODAL DE CONFIRMAÇÃO
+   ========================================= */
+
+.modal-confirmacao {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 3000;
+}
+
+.modal-confirmacao.aberto {
+    display: flex;
+}
+
+.modal-confirmacao-conteudo {
+    width: 100%;
+    max-width: 410px;
+    padding: 30px;
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    animation: modalEntrada 0.2s ease;
+}
+
+.modal-confirmacao-icone {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: rgba(14, 165, 200, 0.13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cor-destaque);
+    font-size: 30px;
+}
+
+.modal-confirmacao-conteudo h2 {
+    margin: 0 0 10px;
+    color: var(--cor-texto);
+    font-size: 20px;
+}
+
+.modal-confirmacao-conteudo p {
+    margin: 0;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.modal-confirmacao-acoes {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.modal-confirmacao-acoes button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#modal-cancelar {
+    background: transparent;
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+}
+
+#modal-cancelar:hover {
+    background: rgba(128, 128, 128, 0.12);
+}
+
+#modal-confirmar {
+    background: var(--cor-destaque);
+    border: 1px solid var(--cor-destaque);
+    color: #ffffff;
+}
+
+#modal-confirmar:hover {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
+}
+
+@keyframes modalEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-confirmacao-conteudo {
+        padding: 24px 20px;
+    }
+
+    .modal-confirmacao-acoes {
+        flex-direction: column-reverse;
+    }
+}
+
+/* LOGO DA SIDEBAR */
+.logo-argus {
+    padding: 0 12px 26px;
+    border-bottom: 1px solid var(--cor-borda);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-argus .logo-imagem {
+    display: block;
+    width: 100px;
+    height: 100px;
+    max-width: 100%;
+    object-fit: contain;
+    margin: 0 auto 12px;
+}
+
+.logo-argus h1 {
+    margin: 0;
+    color: var(--cor-destaque);
+    font-size: 27px;
+    letter-spacing: 1px;
+    transform: translateX(6px);
+}
+
+.logo-argus p {
+    margin: 7px 0 0;
+    color: var(--cor-texto-secundario);
+    font-size: 12px;
 }

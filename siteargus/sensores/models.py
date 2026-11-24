@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -46,7 +47,7 @@ class Dispositivo(models.Model):
     rede_conectada = models.BooleanField(default=False)
 
     # Identificador do usuário responsável pelo dispositivo
-    usuario_id = models.IntegerField(default=1)
+    usuario_id = models.IntegerField()
 
     class Meta:
         db_table = 'dispositivos'
@@ -56,6 +57,7 @@ class Dispositivo(models.Model):
 
 
 class Localizacao(models.Model):
+
     # Tipo do local onde o dispositivo está instalado
     instituicao = models.CharField(
         max_length=20,
@@ -88,8 +90,8 @@ class Localizacao(models.Model):
         return self.descricao
 
 
-
 class Registro(models.Model):
+
     # Data e hora em que o registro foi recebido
     data_hora = models.DateTimeField(auto_now_add=True)
 
@@ -163,6 +165,9 @@ class Registro(models.Model):
 
 
 class LeituraSalva(models.Model):
+
+    # Identificador do usuário responsável pela leitura salva
+    usuario_id = models.IntegerField()
     # Data e hora da leitura original
     data_hora = models.DateTimeField()
 

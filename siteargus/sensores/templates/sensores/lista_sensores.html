@@ -77,13 +77,6 @@
                         <div class="detalhes">
 
                             <div class="detalhe-item">
-                                <span>Bateria</span>
-                                <strong>
-                                    {{ dispositivo.bateria|default:"Não informada" }}{% if dispositivo.bateria != None %}%{% endif %}
-                                </strong>
-                            </div>
-
-                            <div class="detalhe-item">
                                 <span>Conexão de rede</span>
 
                                 <strong class="{% if dispositivo.rede_conectada %}conectado{% else %}desconectado{% endif %}">

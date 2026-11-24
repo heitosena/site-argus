@@ -22,9 +22,14 @@ urlpatterns = [
     path('', include('home.urls')),
     path('', include('usuarios.urls')),
 
+
+
     # URLs do app de sensores
     path('sensores/', include('sensores.urls')),
 
     # URLs do app de alertas
     path('alertas/', include('alertas.urls')),
+
+    # URLs do app de notificações
+    path('notificacoes/', include('notificacoes.urls')),
 ]

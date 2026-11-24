@@ -8,18 +8,27 @@ from django.http import HttpResponse
 # Importa os modelos do aplicativo sensores
 from .models import Dispositivo, Registro, LeituraSalva
 
+from usuarios.models import Usuario
+
 # Importa mensagens do Django
 from django.contrib import messages
 
 # Garante que determinadas views aceitem somente POST
 from django.views.decorators.http import require_POST
 
+from notificacoes.models import ContatoNotificacao
+
 
 # Exibe a lista de dispositivos cadastrados
 def lista_sensores(request):
 
-    # Busca somente os dispositivos do usuário de teste
-    dispositivos = Dispositivo.objects.filter(usuario_id=1)
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
+    # Busca somente os dispositivos do usuário conectado.
+    dispositivos = Dispositivo.objects.filter(usuario_id=usuario_id)
 
     return render(
         request,
@@ -31,6 +40,11 @@ def lista_sensores(request):
 # Exibe e processa o cadastro de um novo dispositivo
 def cadastrar_sensor(request):
 
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
     if request.method == 'POST':
 
         nome = request.POST.get('nome')
@@ -40,14 +54,14 @@ def cadastrar_sensor(request):
         # Verifica se a caixa de rede conectada foi marcada
         rede_conectada = request.POST.get('rede_conectada') == 'on'
 
-        # Cria o dispositivo com bateria inicial de 100%
-        # O valor poderá ser atualizado futuramente pelo ESP32.
+        # Cria o dispositivo vinculado ao usuário conectado.
+        # O valor da bateria poderá ser atualizado futuramente pelo ESP32.
         Dispositivo.objects.create(
             nome=nome,
             modelo=modelo,
             status=status,
             rede_conectada=rede_conectada,
-            usuario_id=1
+            usuario_id=usuario_id
         )
 
         messages.success(
@@ -68,11 +82,16 @@ def cadastrar_sensor(request):
 @require_POST
 def excluir_sensor(request, dispositivo_id):
 
-    # Busca somente o dispositivo pertencente ao usuário de teste
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
+    # Busca somente o dispositivo pertencente ao usuário conectado.
     dispositivo = get_object_or_404(
         Dispositivo,
         id=dispositivo_id,
-        usuario_id=1
+        usuario_id=usuario_id
     )
 
     nome = dispositivo.nome
@@ -93,7 +112,14 @@ def excluir_sensor(request, dispositivo_id):
 # Exibe as leituras dos dispositivos
 def lista_leituras(request):
 
-    registros = Registro.objects.select_related(
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
+    registros = Registro.objects.filter(
+        dispositivo__usuario_id=usuario_id
+    ).select_related(
         'dispositivo'
     ).order_by('-data_hora')
 
@@ -112,18 +138,26 @@ def lista_leituras(request):
 # Salva cópias independentes das leituras selecionadas
 @require_POST
 def salvar_leituras(request):
+
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
     ids = request.POST.getlist('registros')
 
-    # Busca somente leituras que ainda não foram salvas.
+    # Busca somente leituras do usuário que ainda não foram salvas.
     registros = Registro.objects.filter(
         id__in=ids,
+        dispositivo__usuario_id=usuario_id,
         salvo=False
     ).select_related('dispositivo')
 
     for registro in registros:
 
-        # Cria uma cópia independente da leitura.
+        # Cria uma cópia independente da leitura vinculada ao usuário.
         LeituraSalva.objects.create(
+            usuario_id=usuario_id,
             data_hora=registro.data_hora,
             dispositivo_nome=registro.dispositivo.nome,
             temperatura=registro.temperatura,
@@ -144,6 +178,11 @@ def salvar_leituras(request):
 @require_POST
 def excluir_leituras(request):
 
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
     ids = request.POST.getlist('registros')
 
     # Identifica se a exclusão veio da tela de leituras salvas.
@@ -162,7 +201,8 @@ def excluir_leituras(request):
         if origem_salvas:
 
             quantidade, _ = LeituraSalva.objects.filter(
-                id__in=ids
+                id__in=ids,
+                usuario_id=usuario_id
             ).delete()
 
             if quantidade:
@@ -172,11 +212,12 @@ def excluir_leituras(request):
                     extra_tags='leitura'
                 )
 
-        # Exclui somente as leituras originais.
+        # Exclui somente as leituras originais do usuário.
         else:
 
             quantidade, _ = Registro.objects.filter(
-                id__in=ids
+                id__in=ids,
+                dispositivo__usuario_id=usuario_id
             ).delete()
 
             if quantidade:
@@ -196,7 +237,14 @@ def excluir_leituras(request):
 # Exibe as cópias independentes das leituras salvas
 def ver_leituras_salvas(request):
 
-    registros = LeituraSalva.objects.all()
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
+    registros = LeituraSalva.objects.filter(
+        usuario_id=usuario_id
+    )
 
     ultima_leitura = registros.first()
 
@@ -214,8 +262,13 @@ def ver_leituras_salvas(request):
 # Exibe a página principal da Dashboard do A.R.G.U.S.
 def dashboard(request):
 
-    # Busca os dispositivos do usuário de teste.
-    dispositivos = Dispositivo.objects.filter(usuario_id=1)
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
+    # Busca os dispositivos do usuário conectado.
+    dispositivos = Dispositivo.objects.filter(usuario_id=usuario_id)
 
     # Calcula a quantidade de dispositivos cadastrados.
     total_dispositivos = dispositivos.count()
@@ -237,7 +290,7 @@ def dashboard(request):
 
     # Busca a última leitura dos dispositivos do usuário.
     ultima_leitura = Registro.objects.filter(
-        dispositivo__usuario_id=1
+        dispositivo__usuario_id=usuario_id
     ).select_related(
         'dispositivo'
     ).order_by('-data_hora').first()
@@ -245,7 +298,7 @@ def dashboard(request):
     # Busca as últimas 20 leituras de gás.
     historico_gas = list(
         Registro.objects.filter(
-            dispositivo__usuario_id=1
+            dispositivo__usuario_id=usuario_id
         ).order_by(
             '-data_hora'
         ).values(
@@ -279,7 +332,40 @@ def dashboard(request):
 # Exibe a página de configurações do A.R.G.U.S.
 def configuracoes(request):
 
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
+    # Busca os dados do usuário conectado.
+    usuario = Usuario.objects.filter(id=usuario_id).first()
+
+    if usuario is None:
+        return redirect('login')
+
+    # Busca os contatos adicionais do usuário.
+    contatos = ContatoNotificacao.objects.filter(
+        usuario_id=usuario_id
+    )
+
+    # Separa os e-mails e telefones.
+    contatos_email = contatos.filter(tipo='email')
+
+    contatos_telefone = contatos.filter(tipo='telefone')
+
+    # Conta os contatos cadastrados.
+    total_emails = contatos_email.count()
+
+    total_telefones = contatos_telefone.count()
+
     return render(
         request,
-        'configuracao/configuracoes.html'
+        'configuracao/configuracoes.html',
+        {
+            'usuario': usuario,
+            'contatos_email': contatos_email,
+            'contatos_telefone': contatos_telefone,
+            'total_emails': total_emails,
+            'total_telefones': total_telefones
+        }
     )

@@ -1,14 +1,14 @@
 
-{% extends "base-inicio.html" %}
+{% extends base_template %}
 {% load static %}
 
-{% block titulo %}ARGUS | Entre em contato{% endblock %}
+{% block title %}ARGUS | Entre em contato{% endblock %}
 
-{% block estilos %}
-<link rel="stylesheet" href="{% static 'styles/contato.css' %}">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/contato.css' %}?v=2">
 {% endblock %}
 
-{% block conteudo %}
+{% block content %}
 
 <section class="contatoPagina">
 

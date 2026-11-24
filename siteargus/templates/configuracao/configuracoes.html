@@ -5,7 +5,7 @@
 {% block title %}Configurações | A.R.G.U.S.{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'configuracao/configuracoes.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'configuracao/configuracoes.css' %}?v=8">
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,19 @@
         </div>
     </div>
 
+    {% if messages %}
+        <div class="mensagens-configuracoes">
+            {% for message in messages %}
+                <div class="mensagem-configuracao {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- APARÊNCIA -->
     <section class="secao-configuracoes">
+
         <div class="titulo-secao">
             <h2>Aparência</h2>
             <p>Personalize a aparência do sistema.</p>
@@ -36,53 +48,383 @@
                 <option value="claro">Claro</option>
             </select>
         </div>
+
     </section>
 
+    <!-- NOTIFICAÇÕES -->
     <section class="secao-configuracoes">
+
         <div class="titulo-secao">
             <h2>Notificações</h2>
-            <p>Gerencie como deseja receber os avisos do sistema.</p>
+            <p>Gerencie os contatos adicionais que poderão receber avisos do sistema.</p>
         </div>
 
-        <div class="opcao-configuracao">
-            <div class="opcao-info">
-                <h3>Notificações do sistema</h3>
-                <p>Preferências de recebimento de alertas e avisos.</p>
+        <!-- E-MAILS -->
+        <div class="bloco-contatos bloco-emails">
+
+            <div class="titulo-bloco-contatos">
+                <div>
+                    <h3>E-mails para notificações</h3>
+                    <p>Cadastre endereços de e-mail para receber avisos.</p>
+                </div>
+
+                <span class="limite-contatos">
+                    {{ total_emails|default:0 }}/5
+                </span>
             </div>
 
-            <span class="status-em-breve">Em desenvolvimento</span>
+            <form method="POST"
+                  action="{% url 'adicionar_contato' %}"
+                  class="formulario-contato">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="tipo" value="email">
+
+                <input
+                    type="email"
+                    name="valor"
+                    placeholder="Digite o endereço de e-mail"
+                    maxlength="150"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="botao-configuracao"
+                    {% if total_emails >= 5 %}disabled{% endif %}
+                >
+                    Adicionar e-mail
+                </button>
+
+            </form>
+
+            <div class="lista-contatos">
+
+                {% for contato in contatos_email %}
+
+                    <div class="item-contato">
+
+                        <form
+                            method="POST"
+                            action="{% url 'editar_contato' contato.id %}"
+                            class="formulario-editar-contato"
+                        >
+
+                            {% csrf_token %}
+
+                            <input type="hidden" name="tipo" value="email">
+
+                            <input
+                                type="email"
+                                name="valor"
+                                value="{{ contato.valor }}"
+                                maxlength="150"
+                                required
+                            >
+
+                            <button type="submit" class="botao-configuracao">
+                                Salvar
+                            </button>
+
+                        </form>
+
+                        <form
+                            method="POST"
+                            action="{% url 'excluir_contato' contato.id %}"
+                            class="formulario-excluir-contato"
+                            data-contato="{{ contato.valor }}"
+                            data-tipo="e-mail"
+                        >
+
+                            {% csrf_token %}
+
+                            <button type="submit" class="botao-excluir-contato">
+                                Excluir
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                {% empty %}
+
+                    <p class="mensagem-lista-vazia">
+                        Nenhum e-mail adicional cadastrado.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
         </div>
+
+        <!-- TELEFONES -->
+        <div class="bloco-contatos bloco-telefones">
+
+            <div class="titulo-bloco-contatos">
+                <div>
+                    <h3>Telefones para notificações</h3>
+                    <p>Cadastre números com DDD para receber avisos.</p>
+                </div>
+
+                <span class="limite-contatos">
+                    {{ total_telefones|default:0 }}/3
+                </span>
+            </div>
+
+            <form method="POST"
+                  action="{% url 'adicionar_contato' %}"
+                  class="formulario-contato">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="tipo" value="telefone">
+
+                <input
+                    type="tel"
+                    name="valor"
+                    placeholder="(00) 00000-0000"
+                    maxlength="15"
+                    pattern="[0-9() -]{10,15}"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="botao-configuracao"
+                    {% if total_telefones >= 3 %}disabled{% endif %}
+                >
+                    Adicionar telefone
+                </button>
+
+            </form>
+
+            <div class="lista-contatos">
+
+                {% for contato in contatos_telefone %}
+
+                    <div class="item-contato">
+
+                        <form
+                            method="POST"
+                            action="{% url 'editar_contato' contato.id %}"
+                            class="formulario-editar-contato"
+                        >
+
+                            {% csrf_token %}
+
+                            <input type="hidden" name="tipo" value="telefone">
+
+                            <input
+                                type="tel"
+                                name="valor"
+                                value="{{ contato.valor }}"
+                                maxlength="15"
+                                required
+                            >
+
+                            <button type="submit" class="botao-configuracao">
+                                Salvar
+                            </button>
+
+                        </form>
+
+                        <form
+                            method="POST"
+                            action="{% url 'excluir_contato' contato.id %}"
+                            class="formulario-excluir-contato"
+                            data-contato="{{ contato.valor }}"
+                            data-tipo="telefone"
+                        >
+
+                            {% csrf_token %}
+
+                            <button type="submit" class="botao-excluir-contato">
+                                Excluir
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                {% empty %}
+
+                    <p class="mensagem-lista-vazia">
+                        Nenhum telefone adicional cadastrado.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
     </section>
 
+    <!-- CONTA -->
     <section class="secao-configuracoes">
+
         <div class="titulo-secao">
             <h2>Conta</h2>
-            <p>Informações e opções relacionadas à sua conta.</p>
+            <p>Informações do usuário conectado ao A.R.G.U.S.</p>
         </div>
 
-        <div class="opcao-configuracao">
-            <div class="opcao-info">
-                <h3>Dados da conta</h3>
-                <p>Informações do usuário conectado.</p>
+        <div class="dados-conta">
+
+            <div class="campo-configuracao">
+                <label>Nome</label>
+                <input type="text" value="{{ usuario.nome }}" readonly>
             </div>
 
-            <span class="status-em-breve">Aguardando integração</span>
+            <div class="campo-configuracao">
+                <label>E-mail principal</label>
+                <input type="email" value="{{ usuario.email }}" readonly>
+            </div>
+
+            <div class="campo-configuracao">
+                <label>Telefone principal</label>
+                <input type="text" value="{{ usuario.telefone }}" readonly>
+            </div>
+
         </div>
 
+        <!-- SAIR DA CONTA -->
         <div class="opcao-configuracao">
+
             <div class="opcao-info">
                 <h3>Sair da conta</h3>
-                <p>Encerre sua sessão no A.R.G.U.S.</p>
+                <p>Encerre sua sessão e retorne à tela de login.</p>
             </div>
 
-            <span class="status-em-breve">Aguardando integração</span>
+            <form
+                method="POST"
+                action="{% url 'logout' %}"
+                class="formulario-sair-conta"
+                data-acao="sair"
+            >
+                {% csrf_token %}
+
+                <button type="submit" class="botao-sair-conta">
+                    <span class="icone-botao-conta">↪</span>
+                    Sair da conta
+                </button>
+            </form>
+
         </div>
+
+        <!-- TROCAR DE USUÁRIO -->
+        <div class="opcao-configuracao">
+
+            <div class="opcao-info">
+                <h3>Trocar de usuário</h3>
+                <p>Encerre sua sessão atual para entrar com outra conta.</p>
+            </div>
+
+            <form
+                method="POST"
+                action="{% url 'logout' %}"
+                class="formulario-sair-conta"
+                data-acao="trocar"
+            >
+                {% csrf_token %}
+
+                <button type="submit" class="botao-trocar-usuario">
+                    <span class="icone-botao-conta">⇄</span>
+                    Trocar de usuário
+                </button>
+            </form>
+
+        </div>
+
     </section>
+
+</div>
+
+<!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
+<div class="modal-exclusao" id="modal-exclusao" aria-hidden="true">
+
+    <div class="modal-exclusao-conteudo"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="titulo-modal-exclusao">
+
+        <div class="icone-modal-exclusao">
+            <span>!</span>
+        </div>
+
+        <h2 id="titulo-modal-exclusao">Confirmar exclusão</h2>
+
+        <p id="mensagem-modal-exclusao">
+            Tem certeza de que deseja excluir este contato?
+        </p>
+
+        <div class="informacao-contato-modal" id="contato-modal-exclusao"></div>
+
+        <div class="acoes-modal-exclusao">
+
+            <button type="button"
+                    class="botao-cancelar-exclusao"
+                    id="cancelar-exclusao">
+                Cancelar
+            </button>
+
+            <button type="button"
+                    class="botao-confirmar-exclusao"
+                    id="confirmar-exclusao">
+                Excluir contato
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MODAL DE CONFIRMAÇÃO DE SAÍDA -->
+<div class="modal-saida" id="modal-saida" aria-hidden="true">
+
+    <div class="modal-saida-conteudo"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="titulo-modal-saida">
+
+        <div class="icone-modal-saida">
+            <span>!</span>
+        </div>
+
+        <h2 id="titulo-modal-saida">Deseja sair da sua conta?</h2>
+
+        <p id="mensagem-modal-saida">
+            Sua sessão será encerrada e você retornará à tela de login.
+        </p>
+
+        <div class="acoes-modal-saida">
+
+            <button
+                type="button"
+                class="botao-cancelar-saida"
+                id="cancelar-saida"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="button"
+                class="botao-confirmar-saida"
+                id="confirmar-saida"
+            >
+                Sim, continuar
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'configuracao/configuracoes.js' %}?v=1"></script>
+<script src="{% static 'configuracao/configuracoes.js' %}?v=7"></script>
 {% endblock %}

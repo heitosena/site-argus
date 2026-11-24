@@ -1,11 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Alerta
 
 
-# Exibe os cinco alertas mais recentes
+# Exibe os cinco alertas mais recentes do usuário conectado
 def lista_alertas(request):
 
-    alertas = Alerta.objects.select_related(
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
+    alertas = Alerta.objects.filter(
+        dispositivo__usuario_id=usuario_id
+    ).select_related(
         'dispositivo'
     ).order_by('-data_criacao')[:5]
 
