@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'home',
-
+    'api',
+    'rest_framework',
     'sensores',
     'alertas.apps.AlertasConfig',
     'notificacoes',
