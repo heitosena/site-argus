@@ -5,7 +5,7 @@
 {% block title %}Dispositivos | A.R.G.U.S.{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'sensores/css/lista_sensores.css' %}?v=10">
+<link rel="stylesheet" href="{% static 'sensores/css/lista_sensores.css' %}?v=13">
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
 
     {% if messages %}
         {% for message in messages %}
-            {% if 'success' in message.tags and 'dispositivo' in message.extra_tags %}
+            {% if 'dispositivo' in message.extra_tags %}
                 <div class="mensagem-sucesso" id="mensagem-sucesso">
                     {{ message }}
                 </div>
@@ -93,20 +93,33 @@
                         <div class="card-rodape">
                             <span>Dispositivo cadastrado no A.R.G.U.S.</span>
 
-                            <form method="POST"
-                                  action="{% url 'excluir_sensor' dispositivo.id %}"
-                                  class="form-excluir">
+                            <div class="acoes-dispositivo">
 
-                                {% csrf_token %}
-
-                                <button type="button"
-                                        class="botao-excluir"
-                                        data-nome="{{ dispositivo.nome }}">
-                                    <span aria-hidden="true">🗑</span>
-                                    Excluir
+                                <button
+                                    type="button"
+                                    class="botao-editar"
+                                    data-url="{% url 'editar_sensor' dispositivo.id %}"
+                                    data-nome="{{ dispositivo.nome }}"
+                                    data-rede="{{ dispositivo.rede_conectada|yesno:'true,false' }}">
+                                    Editar
                                 </button>
 
-                            </form>
+                                <form method="POST"
+                                      action="{% url 'excluir_sensor' dispositivo.id %}"
+                                      class="form-excluir">
+
+                                    {% csrf_token %}
+
+                                    <button type="button"
+                                            class="botao-excluir"
+                                            data-nome="{{ dispositivo.nome }}">
+                                        <span aria-hidden="true">🗑</span>
+                                        Excluir
+                                    </button>
+
+                                </form>
+
+                            </div>
                         </div>
 
                     </article>
@@ -128,7 +141,7 @@
 
 </main>
 
-<!-- Modal de confirmação -->
+<!-- Modal de confirmação de exclusão -->
 <div class="modal-overlay" id="modal-excluir" aria-hidden="true">
 
     <div class="modal-confirmacao" role="dialog"
@@ -160,8 +173,100 @@
 
 </div>
 
+<!-- Modal de confirmação de edição -->
+<div class="modal-overlay" id="modal-confirmar-edicao" aria-hidden="true">
+
+    <div class="modal-confirmacao modal-confirmar-edicao"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="titulo-confirmar-edicao">
+
+        <div class="modal-icone modal-icone-editar">✎</div>
+
+        <h2 id="titulo-confirmar-edicao">Editar dispositivo?</h2>
+
+        <p>
+            Você está prestes a editar as informações do dispositivo
+            <strong id="nome-dispositivo-editar"></strong>.
+            Deseja continuar?
+        </p>
+
+        <div class="modal-botoes">
+
+            <button type="button"
+                    class="botao-cancelar"
+                    id="cancelar-confirmacao-edicao">
+                Cancelar
+            </button>
+
+            <button type="button"
+                    class="botao-confirmar-edicao"
+                    id="confirmar-edicao">
+                Sim, continuar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal de edição -->
+<div class="modal-overlay" id="modal-editar" aria-hidden="true">
+
+    <div class="modal-confirmacao modal-edicao"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="titulo-editar">
+
+        <h2 id="titulo-editar">Editar dispositivo</h2>
+
+        <form method="POST" id="form-editar">
+
+            {% csrf_token %}
+
+            <div class="campo-edicao">
+                <label for="nome-editar">Nome do dispositivo</label>
+                <input
+                    type="text"
+                    id="nome-editar"
+                    name="nome"
+                    maxlength="100"
+                    required>
+            </div>
+
+            <div class="campo-edicao">
+                <label for="rede-editar">
+                    <input
+                        type="checkbox"
+                        id="rede-editar"
+                        name="rede_conectada">
+                    Rede conectada
+                </label>
+            </div>
+
+            <div class="modal-botoes">
+
+                <button type="button"
+                        class="botao-cancelar"
+                        id="cancelar-edicao">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="botao-salvar-edicao">
+                    Salvar alterações
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'sensores/js/lista_sensores.js' %}?v=4" defer></script>
+<script src="{% static 'sensores/js/lista_sensores.js' %}?v=7" defer></script>
 {% endblock %}

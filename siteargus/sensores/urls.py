@@ -7,6 +7,15 @@ urlpatterns = [
 
     # Tela para cadastrar um sensor.
     path('cadastrar/', views.cadastrar_sensor, name='cadastrar_sensor'),
+    
+    
+    # Edita um dispositivo específico.
+    path(
+        'editar-dispositivo/<int:dispositivo_id>/',
+        views.editar_sensor,
+        name='editar_sensor'
+    ),
+
 
     # Exclui um dispositivo específico.
     path(

@@ -76,6 +76,44 @@ def cadastrar_sensor(request):
         request,
         'sensores/cadastrar_sensor.html'
     )
+    
+
+def editar_sensor(request, dispositivo_id):
+    usuario_id = request.session.get("usuario_id")
+
+    if usuario_id is None:
+        return redirect('login')
+
+    dispositivo = get_object_or_404(
+        Dispositivo,
+        id=dispositivo_id,
+        usuario_id=usuario_id
+    )
+
+    if request.method == 'POST':
+        nome = request.POST.get('nome', '').strip()
+        rede_conectada = request.POST.get('rede_conectada') == 'on'
+
+        if not nome:
+            messages.error(
+                request,
+                'Informe um nome para o dispositivo.',
+                extra_tags='dispositivo'
+            )
+            return redirect('lista_sensores')
+
+        dispositivo.nome = nome
+        dispositivo.rede_conectada = rede_conectada
+
+        dispositivo.save(update_fields=['nome', 'rede_conectada'])
+
+        messages.success(
+            request,
+            f'O dispositivo "{nome}" foi atualizado com sucesso!',
+            extra_tags='dispositivo'
+        )
+
+    return redirect('lista_sensores')
 
 
 # Exclui um dispositivo específico

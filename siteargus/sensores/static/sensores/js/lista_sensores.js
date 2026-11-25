@@ -5,18 +5,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const listaDispositivos = document.getElementById("lista-dispositivos");
     const totalDispositivos = document.getElementById("total-dispositivos");
 
-    // Elementos do modal.
+    // Elementos do modal de exclusão.
     const modalExcluir = document.getElementById("modal-excluir");
     const nomeDispositivo = document.getElementById("nome-dispositivo-excluir");
     const botaoCancelar = document.getElementById("cancelar-exclusao");
     const botaoConfirmar = document.getElementById("confirmar-exclusao");
 
+    // Elementos do modal de confirmação de edição.
+    const modalConfirmarEdicao = document.getElementById("modal-confirmar-edicao");
+    const nomeDispositivoEditar = document.getElementById("nome-dispositivo-editar");
+    const botaoCancelarConfirmacao = document.getElementById("cancelar-confirmacao-edicao");
+    const botaoConfirmarEdicao = document.getElementById("confirmar-edicao");
+
+    // Elementos do modal de edição.
+    const modalEditar = document.getElementById("modal-editar");
+    const formularioEditar = document.getElementById("form-editar");
+    const nomeEditar = document.getElementById("nome-editar");
+    const redeEditar = document.getElementById("rede-editar");
+    const botaoCancelarEdicao = document.getElementById("cancelar-edicao");
+
     let formularioSelecionado = null;
+    let dispositivoSelecionado = null;
 
     // Mensagem de sucesso.
     const mensagemSucesso = document.getElementById("mensagem-sucesso");
 
-    // Faz a mensagem desaparecer após 4 segundos.
+    // Faz a mensagem desaparecer após 10 segundos.
     if (mensagemSucesso) {
 
         setTimeout(function () {
@@ -28,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 mensagemSucesso.remove();
             }, 500);
 
-        }, 4000);
+        }, 10000);
 
     }
 
@@ -36,9 +50,25 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Abre o modal ao clicar em Excluir.
+    // Abre os modais de confirmação de edição ou exclusão.
     listaDispositivos.addEventListener("click", function (evento) {
 
+        // Verifica se o botão clicado foi Editar.
+        const botaoEditar = evento.target.closest(".botao-editar");
+
+        if (botaoEditar) {
+
+            dispositivoSelecionado = botaoEditar;
+
+            nomeDispositivoEditar.textContent = botaoEditar.dataset.nome;
+
+            modalConfirmarEdicao.classList.add("ativo");
+            modalConfirmarEdicao.setAttribute("aria-hidden", "false");
+
+            return;
+        }
+
+        // Verifica se o botão clicado foi Excluir.
         const botaoExcluir = evento.target.closest(".botao-excluir");
 
         if (!botaoExcluir) {
@@ -57,23 +87,78 @@ document.addEventListener("DOMContentLoaded", function () {
         modalExcluir.setAttribute("aria-hidden", "false");
     });
 
-    // Fecha o modal.
-    function fecharModal() {
+    // Fecha o modal de exclusão.
+    function fecharModalExcluir() {
         modalExcluir.classList.remove("ativo");
         modalExcluir.setAttribute("aria-hidden", "true");
         formularioSelecionado = null;
     }
 
-    botaoCancelar.addEventListener("click", fecharModal);
+    botaoCancelar.addEventListener("click", fecharModalExcluir);
 
-    // Fecha ao clicar fora da caixa de confirmação.
-    modalExcluir.addEventListener("click", function (evento) {
-        if (evento.target === modalExcluir) {
-            fecharModal();
+    // Fecha o modal de confirmação de edição.
+    function fecharModalConfirmarEdicao() {
+        modalConfirmarEdicao.classList.remove("ativo");
+        modalConfirmarEdicao.setAttribute("aria-hidden", "true");
+        dispositivoSelecionado = null;
+    }
+
+    botaoCancelarConfirmacao.addEventListener("click", fecharModalConfirmarEdicao);
+
+    // Confirma a edição e abre o formulário.
+    botaoConfirmarEdicao.addEventListener("click", function () {
+
+        if (!dispositivoSelecionado) {
+            return;
         }
+
+        formularioEditar.action = dispositivoSelecionado.dataset.url;
+        nomeEditar.value = dispositivoSelecionado.dataset.nome;
+        redeEditar.checked = dispositivoSelecionado.dataset.rede === "true";
+
+        fecharModalConfirmarEdicao();
+
+        modalEditar.classList.add("ativo");
+        modalEditar.setAttribute("aria-hidden", "false");
+
+        nomeEditar.focus();
+
     });
 
-    // Confirma e envia o formulário.
+    // Fecha o modal de edição.
+    function fecharModalEditar() {
+        modalEditar.classList.remove("ativo");
+        modalEditar.setAttribute("aria-hidden", "true");
+    }
+
+    botaoCancelarEdicao.addEventListener("click", fecharModalEditar);
+
+    // Fecha os modais ao clicar fora da caixa.
+    modalExcluir.addEventListener("click", function (evento) {
+
+        if (evento.target === modalExcluir) {
+            fecharModalExcluir();
+        }
+
+    });
+
+    modalConfirmarEdicao.addEventListener("click", function (evento) {
+
+        if (evento.target === modalConfirmarEdicao) {
+            fecharModalConfirmarEdicao();
+        }
+
+    });
+
+    modalEditar.addEventListener("click", function (evento) {
+
+        if (evento.target === modalEditar) {
+            fecharModalEditar();
+        }
+
+    });
+
+    // Confirma e envia o formulário de exclusão.
     botaoConfirmar.addEventListener("click", function () {
 
         if (formularioSelecionado) {
@@ -82,20 +167,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    // Fecha o modal com a tecla ESC.
+    // Fecha os modais com a tecla ESC.
     document.addEventListener("keydown", function (evento) {
-        if (evento.key === "Escape" && modalExcluir.classList.contains("ativo")) {
-            fecharModal();
+
+        if (evento.key === "Escape") {
+
+            if (modalExcluir.classList.contains("ativo")) {
+                fecharModalExcluir();
+            }
+
+            if (modalConfirmarEdicao.classList.contains("ativo")) {
+                fecharModalConfirmarEdicao();
+            }
+
+            if (modalEditar.classList.contains("ativo")) {
+                fecharModalEditar();
+            }
+
         }
+
     });
 
     // Atualização automática da lista.
     async function atualizarDispositivos() {
 
-        // Não atualiza em segundo plano nem enquanto o modal está aberto.
+        // Não atualiza em segundo plano nem enquanto algum modal está aberto.
         if (
             document.hidden ||
-            modalExcluir.classList.contains("ativo")
+            modalExcluir.classList.contains("ativo") ||
+            modalConfirmarEdicao.classList.contains("ativo") ||
+            modalEditar.classList.contains("ativo")
         ) {
             return;
         }
@@ -131,6 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Atualiza a cada 10 segundos.
-    setInterval(atualizarDispositivos, 10000);
+    setInterval(atualizarDispositivos, 4000);
 
 });
