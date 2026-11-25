@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (seletorTema) {
 
-        const temaSalvo = localStorage.getItem("tema") || "escuro";
+        const temaSalvo = localStorage.getItem("argus-tema") || "escuro";
 
         document.documentElement.setAttribute("data-tema", temaSalvo);
         seletorTema.value = temaSalvo;
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const novoTema = seletorTema.value;
 
             document.documentElement.setAttribute("data-tema", novoTema);
-            localStorage.setItem("tema", novoTema);
+            localStorage.setItem("argus-tema", novoTema);
 
         });
     }
