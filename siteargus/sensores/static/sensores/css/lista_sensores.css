@@ -520,3 +520,200 @@
         transform: translateY(0);
     }
 }
+
+
+/* ========================================
+   BOTÕES DE AÇÃO DOS DISPOSITIVOS
+======================================== */
+
+.acoes-dispositivo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.botao-editar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 13px;
+    background: #fbbf24;
+    color: #1f2937;
+    border: 1px solid #fbbf24;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.botao-editar:hover {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    transform: translateY(-1px);
+}
+
+.botao-editar:active {
+    transform: scale(0.96);
+}
+
+/* ========================================
+   MODAL DE EDIÇÃO
+======================================== */
+
+.modal-edicao {
+    text-align: left;
+}
+
+.modal-edicao h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.campo-edicao {
+    margin-bottom: 20px;
+}
+
+.campo-edicao label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--cor-texto);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.campo-edicao input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.campo-edicao input[type="text"]:focus {
+    border-color: var(--cor-destaque);
+}
+
+.campo-edicao input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--cor-destaque);
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.campo-edicao label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+}
+
+/* Botão salvar */
+
+.botao-salvar-edicao {
+    flex: 1;
+    padding: 11px;
+    background: #fbbf24;
+    color: #1f2937;
+    border: 1px solid #fbbf24;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.botao-salvar-edicao:hover {
+    background: #f59e0b;
+    border-color: #f59e0b;
+}
+
+/* ========================================
+   RESPONSIVIDADE DOS BOTÕES
+======================================== */
+
+@media (max-width: 450px) {
+
+    .card-rodape {
+        flex-wrap: wrap;
+    }
+
+    .acoes-dispositivo {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+}
+
+
+/* ========================================
+   MODAL DE CONFIRMAÇÃO DE EDIÇÃO
+======================================== */
+
+.modal-confirmar-edicao {
+    border-color: rgba(251, 191, 36, 0.35);
+}
+
+/* Ícone de edição */
+
+.modal-icone-editar {
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    color: #fbbf24;
+    font-size: 27px;
+}
+
+/* Nome do dispositivo */
+
+#nome-dispositivo-editar {
+    color: #fbbf24;
+    font-weight: bold;
+}
+
+/* Botão de confirmação */
+
+.botao-confirmar-edicao {
+    flex: 1;
+    padding: 11px;
+    background: #fbbf24;
+    color: #1f2937;
+    border: 1px solid #fbbf24;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.botao-confirmar-edicao:hover {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    transform: translateY(-1px);
+}
+
+.botao-confirmar-edicao:active {
+    transform: scale(0.97);
+}
+
+/* Tema claro */
+
+:root[data-tema="claro"] .modal-confirmar-edicao {
+    border-color: #f2d58a;
+}
+
+:root[data-tema="claro"] .modal-icone-editar {
+    background: #fff5d6;
+    border-color: #f2d58a;
+    color: #a66b00;
+}
+
+:root[data-tema="claro"] #nome-dispositivo-editar {
+    color: #a66b00;
+}
