@@ -249,10 +249,10 @@ body {
 }
 
 /* =========================================
-   9. MODAL DE CONFIRMAÇÃO
+   9. MODAL DE CONFIRMAÇÃO GLOBAL
    ========================================= */
 
-.modal-confirmacao {
+.modal-global-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.65);
@@ -264,11 +264,11 @@ body {
     z-index: 3000;
 }
 
-.modal-confirmacao.aberto {
+.modal-global-overlay.aberto {
     display: flex;
 }
 
-.modal-confirmacao-conteudo {
+.modal-global-conteudo {
     width: 100%;
     max-width: 410px;
     padding: 30px;
@@ -280,7 +280,7 @@ body {
     animation: modalEntrada 0.2s ease;
 }
 
-.modal-confirmacao-icone {
+.modal-global-icone {
     width: 62px;
     height: 62px;
     margin: 0 auto 18px;
@@ -293,26 +293,26 @@ body {
     font-size: 30px;
 }
 
-.modal-confirmacao-conteudo h2 {
+.modal-global-conteudo h2 {
     margin: 0 0 10px;
     color: var(--cor-texto);
     font-size: 20px;
 }
 
-.modal-confirmacao-conteudo p {
+.modal-global-conteudo p {
     margin: 0;
     color: var(--cor-texto-secundario);
     font-size: 14px;
     line-height: 1.6;
 }
 
-.modal-confirmacao-acoes {
+.modal-global-acoes {
     display: flex;
     gap: 12px;
     margin-top: 28px;
 }
 
-.modal-confirmacao-acoes button {
+.modal-global-acoes button {
     flex: 1;
     padding: 12px;
     border-radius: 8px;
@@ -356,11 +356,11 @@ body {
 }
 
 @media (max-width: 480px) {
-    .modal-confirmacao-conteudo {
+    .modal-global-conteudo {
         padding: 24px 20px;
     }
 
-    .modal-confirmacao-acoes {
+    .modal-global-acoes {
         flex-direction: column-reverse;
     }
 }
