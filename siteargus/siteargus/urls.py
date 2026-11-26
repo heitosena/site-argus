@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('', include('usuarios.urls')),
-
+    path('api/', include('api.urls')),
 
 
     # URLs do app de sensores

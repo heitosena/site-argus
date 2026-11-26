@@ -20,23 +20,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const seletorTema = document.getElementById("seletor-tema");
 
-    const temaSalvo = localStorage.getItem("argus-tema");
+    let temaAtual = localStorage.getItem("argus-tema") || "escuro";
 
-    if (temaSalvo === "claro") {
-        document.documentElement.setAttribute("data-tema", "claro");
-    } else {
-        document.documentElement.setAttribute("data-tema", "escuro");
-    }
+    document.documentElement.setAttribute("data-tema", temaAtual);
 
     if (seletorTema) {
-        seletorTema.value = temaSalvo || "escuro";
 
-        seletorTema.addEventListener("change", () => {
-            const tema = seletorTema.value;
+        // BOTÃO DA NAVBAR (VISITANTES)
+        if (seletorTema.tagName === "BUTTON") {
 
-            document.documentElement.setAttribute("data-tema", tema);
-            localStorage.setItem("argus-tema", tema);
-        });
+            const atualizarIcone = () => {
+                seletorTema.textContent = temaAtual === "escuro" ? "☀" : "☾";
+            };
+
+            atualizarIcone();
+
+            seletorTema.addEventListener("click", () => {
+
+                temaAtual = temaAtual === "escuro" ? "claro" : "escuro";
+
+                document.documentElement.setAttribute("data-tema", temaAtual);
+
+                localStorage.setItem("argus-tema", temaAtual);
+
+                atualizarIcone();
+
+            });
+
+        }
+
+        // SELETOR DAS CONFIGURAÇÕES (USUÁRIOS LOGADOS)
+        else if (seletorTema.tagName === "SELECT") {
+
+            seletorTema.value = temaAtual;
+
+            seletorTema.addEventListener("change", () => {
+
+                temaAtual = seletorTema.value;
+
+                document.documentElement.setAttribute("data-tema", temaAtual);
+
+                localStorage.setItem("argus-tema", temaAtual);
+
+            });
+
+        }
     }
 
 
@@ -94,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     let destinoSaida = null;
-
 
     if (
         modalConfirmacao &&

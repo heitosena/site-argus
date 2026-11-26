@@ -10,7 +10,7 @@
 
     <title>{% block title %}{% block titulo %}ARGUS{% endblock %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'styles/global.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'styles/global.css' %}?v=5">
 
     {% block extra_css %}
         {% block estilos %}{% endblock %}
@@ -59,6 +59,10 @@
 
                 <nav class="menuBase" aria-label="Menu principal">
 
+                    <button type="button" id="seletor-tema" class="botaoTemaBase" aria-label="Alternar tema">
+                        ☀
+                    </button>
+
                     <a href="{% url 'home' %}" class="linkMenuBase">
                         Início
                     </a>
@@ -103,7 +107,7 @@
         {% block scripts %}{% endblock %}
     {% endblock %}
 
-<script src="{% static 'base.js' %}?v=6"></script>
+<script src="{% static 'base.js' %}?v=9"></script>
 
 </body>
 </html>

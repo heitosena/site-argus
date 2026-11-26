@@ -29,7 +29,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '172.20.10.2',
+]
 
 
 # Application definition
@@ -43,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'home',
-
+    'api',
+    'rest_framework',
     'sensores',
     'alertas.apps.AlertasConfig',
     'notificacoes',
