@@ -8,7 +8,7 @@
 
     <title>{% block title %}A.R.G.U.S.{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'base.css' %}?v=11">
+    <link rel="stylesheet" href="{% static 'base.css' %}?v=14">
     {% block extra_css %}{% endblock %}
 </head>
 
@@ -133,15 +133,15 @@
 
     <!-- MODAL DE CONFIRMAÇÃO -->
     <div
-        class="modal-confirmacao"
+        class="modal-global-overlay"
         id="modal-confirmacao"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-titulo">
 
-        <div class="modal-confirmacao-conteudo">
+        <div class="modal-global-conteudo">
 
-            <div class="modal-confirmacao-icone">
+            <div class="modal-global-icone">
                 <span>↪</span>
             </div>
 
@@ -153,7 +153,7 @@
                 Sua sessão será encerrada e você retornará à tela de login.
             </p>
 
-            <div class="modal-confirmacao-acoes">
+            <div class="modal-global-acoes">
 
                 <button type="button" id="modal-cancelar">
                     Não
@@ -169,7 +169,7 @@
 
     </div>
 
-    <script src="{% static 'base.js' %}?v=6"></script>
+    <script src="{% static 'base.js' %}?v=7"></script>
     {% block extra_js %}{% endblock %}
 
 </body>
