@@ -8,6 +8,14 @@ class Dispositivo(models.Model):
     # Identificador do dispositivo (compatível com o banco MySQL)
     id = models.AutoField(primary_key=True)
 
+    # Endereço MAC único do ESP32
+    mac_address = models.CharField(
+    max_length=17,
+    unique=True,
+    null=True,
+    blank=True
+)
+
     # Nome dado ao dispositivo
     nome = models.CharField(max_length=100)
 
