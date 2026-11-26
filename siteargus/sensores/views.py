@@ -78,6 +78,7 @@ def cadastrar_sensor(request):
     )
     
 
+"exibe a tela de editar o dispositivo selecionado"
 def editar_sensor(request, dispositivo_id):
     usuario_id = request.session.get("usuario_id")
 
@@ -92,8 +93,10 @@ def editar_sensor(request, dispositivo_id):
 
     if request.method == 'POST':
         nome = request.POST.get('nome', '').strip()
+        status = request.POST.get('status', '')
         rede_conectada = request.POST.get('rede_conectada') == 'on'
 
+        # Verifica se o nome foi preenchido.
         if not nome:
             messages.error(
                 request,
@@ -102,10 +105,24 @@ def editar_sensor(request, dispositivo_id):
             )
             return redirect('lista_sensores')
 
+        # Verifica se o status enviado é válido.
+        status_validos = ['Ativo', 'Inativo', 'Manutenção']
+
+        if status not in status_validos:
+            messages.error(
+                request,
+                'Selecione um status válido para o dispositivo.',
+                extra_tags='dispositivo'
+            )
+            return redirect('lista_sensores')
+
         dispositivo.nome = nome
+        dispositivo.status = status
         dispositivo.rede_conectada = rede_conectada
 
-        dispositivo.save(update_fields=['nome', 'rede_conectada'])
+        dispositivo.save(
+            update_fields=['nome', 'status', 'rede_conectada']
+        )
 
         messages.success(
             request,
@@ -114,6 +131,7 @@ def editar_sensor(request, dispositivo_id):
         )
 
     return redirect('lista_sensores')
+
 
 
 # Exclui um dispositivo específico

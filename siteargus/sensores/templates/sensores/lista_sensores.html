@@ -5,7 +5,7 @@
 {% block title %}Dispositivos | A.R.G.U.S.{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'sensores/css/lista_sensores.css' %}?v=14">
+<link rel="stylesheet" href="{% static 'sensores/css/lista_sensores.css' %}?v=15">
 {% endblock %}
 
 {% block content %}
@@ -100,6 +100,7 @@
                                     class="botao-editar"
                                     data-url="{% url 'editar_sensor' dispositivo.id %}"
                                     data-nome="{{ dispositivo.nome }}"
+                                    data-status="{{ dispositivo.status }}"
                                     data-rede="{{ dispositivo.rede_conectada|yesno:'true,false' }}">
                                     Editar
                                 </button>
@@ -227,12 +228,23 @@
 
             <div class="campo-edicao">
                 <label for="nome-editar">Nome do dispositivo</label>
+
                 <input
                     type="text"
                     id="nome-editar"
                     name="nome"
                     maxlength="100"
                     required>
+            </div>
+
+            <div class="campo-edicao">
+                <label for="status-editar">Status do dispositivo</label>
+
+                <select id="status-editar" name="status" required>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                    <option value="Manutenção">Manutenção</option>
+                </select>
             </div>
 
             <div class="campo-edicao">
@@ -268,5 +280,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'sensores/js/lista_sensores.js' %}?v=8" defer></script>
+<script src="{% static 'sensores/js/lista_sensores.js' %}?v=10" defer></script>
 {% endblock %}

@@ -717,3 +717,32 @@
 :root[data-tema="claro"] #nome-dispositivo-editar {
     color: #a66b00;
 }
+
+
+
+/* ========================================
+   CAMPO DE SELEÇÃO DE STATUS
+======================================== */
+
+.campo-edicao select {
+    width: 100%;
+    padding: 12px;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.campo-edicao select:focus {
+    border-color: var(--cor-destaque);
+}
+
+.campo-edicao select option {
+    background: var(--cor-superficie);
+    color: var(--cor-texto);
+}
