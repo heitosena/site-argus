@@ -37,6 +37,7 @@ def lista_sensores(request):
     )
 
 
+
 # Exibe e processa o cadastro de um novo dispositivo
 
 def cadastrar_sensor(request):
@@ -90,7 +91,8 @@ def cadastrar_sensor(request):
             extra_tags='cadastro'
         )
 
-        return redirect('cadastrar_sensor')
+        # Retorna para a lista após cadastrar com sucesso.
+        return redirect('lista_sensores')
 
     dispositivos_disponiveis = Dispositivo.objects.filter(
         usuario_id__isnull=True
@@ -104,9 +106,10 @@ def cadastrar_sensor(request):
         }
     )
 
+
     
 
-"exibe a tela de editar o dispositivo selecionado"
+#exibe a tela de editar o dispositivo selecionado
 def editar_sensor(request, dispositivo_id):
     usuario_id = request.session.get("usuario_id")
 

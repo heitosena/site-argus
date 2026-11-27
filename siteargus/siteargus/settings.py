@@ -148,3 +148,5 @@ STATICFILES_DIRS = [
     BASE_ARGUS / 'static' / 'base',
     BASE_ARGUS / 'static' / 'configuracao',
 ]
+
+N8N_WEBHOOK_URL = 'http://100.66.247.90:5678/webhook/argus-alertas'

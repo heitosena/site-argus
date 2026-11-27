@@ -5,7 +5,7 @@
 {% block title %}Cadastro de Dispositivos | A.R.G.U.S.{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=26">
+<link rel="stylesheet" href="{% static 'sensores/css/cadastrar_sensor.css' %}?v=27">
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
     {% if messages %}
         {% for message in messages %}
             {% if 'cadastro' in message.extra_tags %}
-                <div class="{% if message.tags == 'error' %}mensagem-erro{% else %}mensagem-sucesso{% endif %}">
+                <div class="{% if 'error' in message.tags %}mensagem-erro{% else %}mensagem-sucesso{% endif %}">
                     {{ message }}
                 </div>
             {% endif %}
@@ -45,12 +45,7 @@
             <br><br>
 
             <label for="nome">Nome</label>
-            <input
-                type="text"
-                id="nome"
-                name="nome"
-                required
-            >
+            <input type="text" id="nome" name="nome" required>
 
             <br><br>
 
@@ -106,9 +101,11 @@
             Conecte o ESP32 e aguarde o envio do MAC Address para a API.
         </p>
 
-        <a href="{% url 'lista_sensores' %}" class="botao-lista">
-            Voltar
-        </a>
+        <div class="botoes-acoes">
+            <a href="{% url 'lista_sensores' %}" class="botao-lista">
+                Voltar para dispositivos
+            </a>
+        </div>
 
     {% endif %}
 

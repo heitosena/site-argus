@@ -4,9 +4,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.utils import timezone
 
-from sensores.models import Dispositivo, Registro   
+from sensores.models import Dispositivo, Registro
 from .serializers import RegistroSerializer
-
+from alertas.services import processar_nova_leitura
 
 
 @api_view(['POST'])
@@ -73,6 +73,9 @@ def receber_dados(request):
 
         registro = serializer.save(dispositivo=dispositivo)
 
+        # Processa imediatamente a nova leitura e verifica alertas
+        processar_nova_leitura(registro)
+
         return Response(
             {
                 'mensagem': 'Leitura registrada com sucesso!',
@@ -90,6 +93,7 @@ def receber_dados(request):
         },
         status=status.HTTP_400_BAD_REQUEST
     )
+
 
 @api_view(['GET'])
 def consultar_dashboard(request):

@@ -1,9 +1,16 @@
 
+import logging
+
 from django.db import transaction
 from django.utils import timezone
 
 from sensores.models import Dispositivo, Registro
+from usuarios.models import Usuario
+from notificacoes.services import enviar_alerta_n8n
 from .models import Alerta, ProcessamentoAlerta
+
+
+logger = logging.getLogger(__name__)
 
 
 def resolver_queryset(alertas):
@@ -37,17 +44,19 @@ def atualizar_alerta(dispositivo, tipo, descricao):
         resolver_queryset(
             alertas_ativos.exclude(id=alerta_existente.id)
         )
-        return
+        return alerta_existente, False
 
     # Resolve o alerta anterior.
     resolver_queryset(alertas_ativos)
 
     # Cria o novo alerta.
-    Alerta.objects.create(
+    alerta = Alerta.objects.create(
         dispositivo=dispositivo,
         tipo=tipo,
         descricao=descricao
     )
+
+    return alerta, True
 
 
 def resolver_alertas(dispositivo, tipo=None):
@@ -65,6 +74,120 @@ def resolver_alertas(dispositivo, tipo=None):
         alertas = alertas.filter(tipo=tipo)
 
     resolver_queryset(alertas)
+
+
+def enviar_alerta_pendente(alerta_id, dados):
+    """
+    Envia um alerta ao n8n e marca como enviado
+    somente quando a comunicação for bem-sucedida.
+    """
+
+    alerta = Alerta.objects.filter(
+        id=alerta_id,
+        status='ativo',
+        n8n_enviado=False
+    ).first()
+
+    if not alerta:
+        return
+
+    try:
+        enviado = enviar_alerta_n8n(dados)
+
+        if enviado:
+            Alerta.objects.filter(
+                id=alerta.id,
+                n8n_enviado=False
+            ).update(n8n_enviado=True)
+
+            logger.info(
+                'Notificação do alerta %s enviada ao n8n.',
+                alerta.id
+            )
+
+    except Exception:
+        logger.exception(
+            'Erro ao enviar o alerta %s ao n8n.',
+            alerta.id
+        )
+
+
+@transaction.atomic
+def processar_nova_leitura(registro):
+    """
+    Processa imediatamente uma nova leitura recebida pela API.
+    Cria alertas quando a condição muda e envia notificações ao n8n.
+    """
+
+    dispositivo = registro.dispositivo
+
+    # Verifica se o dispositivo está inativo.
+    if dispositivo.status == 'Inativo':
+        alerta, criado = atualizar_alerta(
+            dispositivo,
+            'inativo',
+            'O dispositivo está inativo.'
+        )
+
+    else:
+        # Resolve o alerta de inatividade quando necessário.
+        resolver_alertas(dispositivo, tipo='inativo')
+
+        # Identifica a condição atual do gás.
+        if registro.vazamento:
+            alerta, criado = atualizar_alerta(
+                dispositivo,
+                'vazamento',
+                'Perigo de vazamento de gás detectado!'
+            )
+
+        elif registro.gas_percentual > 45:
+            alerta, criado = atualizar_alerta(
+                dispositivo,
+                'perigo',
+                'Perigo de vazamento! Nível de gás acima de 45%.'
+            )
+
+        elif registro.gas_percentual > 20:
+            alerta, criado = atualizar_alerta(
+                dispositivo,
+                'atencao',
+                'Nível de gás elevado. Atenção necessária.'
+            )
+
+        else:
+            resolver_alertas(dispositivo)
+            return
+
+    # Busca o usuário responsável pelo dispositivo.
+    if alerta and not alerta.n8n_enviado:
+
+        usuario = Usuario.objects.filter(
+            id=dispositivo.usuario_id
+        ).first()
+
+        if not usuario or not usuario.email:
+            logger.warning(
+                'Dispositivo %s não possui usuário ou e-mail cadastrado.',
+                dispositivo.id
+            )
+            return
+
+        # Prepara os dados para o n8n.
+        dados = {
+            'dispositivo': dispositivo.nome,
+            'gas_percentual': registro.gas_percentual,
+            'nivel_gas': registro.nivel_gas,
+            'vazamento': registro.vazamento,
+            'mensagem': alerta.descricao,
+            'email': usuario.email
+        }
+
+        # Aguarda a confirmação da transação antes de enviar.
+        transaction.on_commit(
+            lambda alerta_id=alerta.id, payload=dados:
+                enviar_alerta_pendente(alerta_id, payload)
+        )
 
 
 @transaction.atomic

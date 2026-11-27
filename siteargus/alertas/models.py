@@ -1,3 +1,4 @@
+
 from django.db import models
 from sensores.models import Dispositivo
 
@@ -35,6 +36,11 @@ class Alerta(models.Model):
         max_length=10,
         choices=STATUS_ALERTA,
         default='ativo'
+    )
+
+    # Indica se a notificação foi enviada ao n8n
+    n8n_enviado = models.BooleanField(
+        default=False
     )
 
     data_criacao = models.DateTimeField(
