@@ -8,55 +8,70 @@ from sensores.models import Dispositivo, Registro
 from .serializers import RegistroSerializer
 
 
+
 @api_view(['POST'])
 def receber_dados(request):
 
     mac_address = request.data.get('mac_address')
 
     # Verifica se o MAC Address foi informado
-    if not mac_address:
+    if not mac_address or not isinstance(mac_address, str):
         return Response(
-            {'erro': 'MAC Address não informado.'},
+            {'erro': 'MAC Address não informado ou inválido.'},
             status=status.HTTP_400_BAD_REQUEST
         )
 
     # Padroniza o MAC Address
     mac_address = mac_address.strip().upper()
 
-    # Procura o dispositivo pelo MAC Address
-    try:
-        dispositivo = Dispositivo.objects.get(
-            mac_address=mac_address
-        )
+    # Procura o dispositivo ou cria um provisório
+    dispositivo, criado = Dispositivo.objects.get_or_create(
+        mac_address=mac_address,
+        defaults={
+            'nome': 'ESP32 - Aguardando cadastro',
+            'usuario_id': None,
+            'status': 'Ativo',
+            'rede_conectada': True,
+            'ultima_comunicacao': timezone.now()
+        }
+    )
 
-    except Dispositivo.DoesNotExist:
+    # Atualiza a comunicação
+    dispositivo.ultima_comunicacao = timezone.now()
+    dispositivo.rede_conectada = True
+    dispositivo.save(
+        update_fields=[
+            'ultima_comunicacao',
+            'rede_conectada'
+        ]
+    )
+
+    # Se o POST contém somente o MAC, registra a detecção
+    campos_leitura = [
+        'temperatura',
+        'umidade',
+        'gas_percentual',
+        'nivel_gas',
+        'vazamento'
+    ]
+
+    if not any(campo in request.data for campo in campos_leitura):
         return Response(
             {
-                'mensagem': 'Dispositivo ainda não cadastrado.',
-                'mac_address': mac_address,
-                'cadastrado': False
+                'mensagem': 'Dispositivo detectado com sucesso!',
+                'dispositivo_id': dispositivo.id,
+                'mac_address': dispositivo.mac_address,
+                'cadastrado': dispositivo.usuario_id is not None
             },
-            status=status.HTTP_404_NOT_FOUND
+            status=status.HTTP_201_CREATED
         )
 
-    # Valida os dados recebidos
+    # Valida os dados da leitura
     serializer = RegistroSerializer(data=request.data)
 
     if serializer.is_valid():
 
-        # Salva a leitura vinculada ao dispositivo
         registro = serializer.save(dispositivo=dispositivo)
-
-        # Atualiza a comunicação do dispositivo
-        dispositivo.ultima_comunicacao = timezone.now()
-        dispositivo.rede_conectada = True
-
-        dispositivo.save(
-            update_fields=[
-                'ultima_comunicacao',
-                'rede_conectada'
-            ]
-        )
 
         return Response(
             {
@@ -75,7 +90,6 @@ def receber_dados(request):
         },
         status=status.HTTP_400_BAD_REQUEST
     )
-
 
 @api_view(['GET'])
 def consultar_dashboard(request):

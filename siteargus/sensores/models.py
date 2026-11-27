@@ -55,7 +55,10 @@ class Dispositivo(models.Model):
     rede_conectada = models.BooleanField(default=False)
 
     # Identificador do usuário responsável pelo dispositivo
-    usuario_id = models.IntegerField()
+    usuario_id = models.IntegerField(
+    null=True,
+    blank=True
+)
 
     class Meta:
         db_table = 'dispositivos'

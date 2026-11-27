@@ -38,31 +38,51 @@ def lista_sensores(request):
 
 
 # Exibe e processa o cadastro de um novo dispositivo
-def cadastrar_sensor(request):
 
+def cadastrar_sensor(request):
     usuario_id = request.session.get("usuario_id")
 
     if usuario_id is None:
         return redirect('login')
 
     if request.method == 'POST':
-
-        nome = request.POST.get('nome')
-        modelo = request.POST.get('modelo')
+        dispositivo_id = request.POST.get('dispositivo_id')
+        nome = request.POST.get('nome', '').strip()
+        modelo = request.POST.get(
+            'modelo',
+            'ESP32 - Sensor de Gás'
+        )
         status = request.POST.get('status')
-
-        # Verifica se a caixa de rede conectada foi marcada
         rede_conectada = request.POST.get('rede_conectada') == 'on'
 
-        # Cria o dispositivo vinculado ao usuário conectado.
-        # O valor da bateria poderá ser atualizado futuramente pelo ESP32.
-        Dispositivo.objects.create(
+        status_validos = ['Ativo', 'Inativo', 'Manutenção']
+
+        if not dispositivo_id or not nome or status not in status_validos:
+            messages.error(
+                request,
+                'Preencha os campos corretamente e selecione um dispositivo.',
+                extra_tags='cadastro'
+            )
+            return redirect('cadastrar_sensor')
+
+        quantidade = Dispositivo.objects.filter(
+            id=dispositivo_id,
+            usuario_id__isnull=True
+        ).update(
             nome=nome,
             modelo=modelo,
             status=status,
             rede_conectada=rede_conectada,
             usuario_id=usuario_id
         )
+
+        if quantidade == 0:
+            messages.error(
+                request,
+                'Este dispositivo não está mais disponível. Atualize a página.',
+                extra_tags='cadastro'
+            )
+            return redirect('cadastrar_sensor')
 
         messages.success(
             request,
@@ -72,10 +92,18 @@ def cadastrar_sensor(request):
 
         return redirect('cadastrar_sensor')
 
+    dispositivos_disponiveis = Dispositivo.objects.filter(
+        usuario_id__isnull=True
+    ).order_by('-ultima_comunicacao')
+
     return render(
         request,
-        'sensores/cadastrar_sensor.html'
+        'sensores/cadastrar_sensor.html',
+        {
+            'dispositivos_disponiveis': dispositivos_disponiveis
+        }
     )
+
     
 
 "exibe a tela de editar o dispositivo selecionado"
